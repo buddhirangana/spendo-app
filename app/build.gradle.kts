@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    // Add the Google services Gradle plugin
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -9,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.spendo"
-        minSdk = 21
+        minSdk = 23
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -36,7 +38,12 @@ android {
 }
 
 dependencies {
-
+    // Import the Firebase BoM
+    implementation(platform("com.google.firebase:firebase-bom:34.4.0"))
+    // Add the dependencies for any other desired Firebase products
+    implementation("com.google.firebase:firebase-auth-ktx:23.2.1")
+    implementation ("com.google.firebase:firebase-firestore-ktx:25.1.4")
+    implementation("com.google.firebase:firebase-analytics")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

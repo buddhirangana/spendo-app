@@ -18,6 +18,21 @@
             android:name=".AuthActivity"
             android:exported="false" />
         <activity
+            android:name=".AddTransactionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FinancialReportActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TransactionsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OnboardingActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.App.SplashScreen">

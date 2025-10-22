@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".TransactionsActivity">
+
+    <!-- Header -->
+    <LinearLayout
+        android:id="@+id/layout_header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Month"
+            android:textColor="@color/black"
+            app:backgroundTint="@color/light_green"
+            app:cornerRadius="20dp"
+            app:icon="@drawable/ic_arrow_down"
+            app:iconGravity="end"
+            app:iconPadding="8dp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/iv_filter"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_filter"
+            android:background="?attr/selectableItemBackground"
+            android:padding="4dp"
+            android:contentDescription="Filter" />
+
+    </LinearLayout>
+
+    <!-- Financial Report Banner -->
+    <LinearLayout
+        android:id="@+id/layout_report_banner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:background="@color/light_green"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_header">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="See your financial report"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/iv_report_arrow"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_arrow_right"
+            android:contentDescription="View Report" />
+
+    </LinearLayout>
+
+    <!-- Transactions List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_transactions"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_report_banner" />
+
+    <!-- Bottom Navigation -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/light_green"
+        app:menu="@menu/bottom_navigation_menu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Floating Add Button -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="@color/primary_green"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

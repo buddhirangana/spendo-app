@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_green"
+    tools:context=".AddTransactionActivity">
+
+    <!-- Header -->
+    <LinearLayout
+        android:id="@+id/layout_header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_arrow_back"
+            android:background="?attr/selectableItemBackground"
+            android:padding="4dp"
+            android:contentDescription="Back" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Add Transaction"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+        <View
+            android:layout_width="24dp"
+            android:layout_height="24dp" />
+
+    </LinearLayout>
+
+    <!-- Amount Section -->
+    <LinearLayout
+        android:id="@+id/layout_amount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_header">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="How much?"
+            android:textColor="@color/gray"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/tv_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LKR 0"
+            android:textColor="@color/primary_green"
+            android:textSize="48sp"
+            android:textStyle="bold"
+            android:background="?attr/selectableItemBackground"
+            android:padding="8dp" />
+
+    </LinearLayout>
+
+    <!-- Transaction Details Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_details"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_amount">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <!-- Category Input -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Category"
+                android:layout_marginBottom="16dp"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/ic_arrow_down">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:focusable="false"
+                    android:clickable="true" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Description Input -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Description"
+                android:layout_marginBottom="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Date Input -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Pick your date"
+                android:layout_marginBottom="24dp"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/ic_calendar">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:focusable="false"
+                    android:clickable="true" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Transaction Type Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="32dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_income"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:text="Income"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:backgroundTint="@color/primary_green"
+                    app:cornerRadius="12dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_expense"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:text="Expense"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:backgroundTint="@color/red"
+                    app:cornerRadius="12dp" />
+
+            </LinearLayout>
+
+            <!-- Continue Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_continue"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Continue"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/primary_green"
+                app:cornerRadius="12dp" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

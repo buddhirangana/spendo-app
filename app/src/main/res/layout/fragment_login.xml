@@ -17,27 +17,27 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
             android:text="Login"
             android:textColor="@color/black"
             android:textSize="28sp"
             android:textStyle="bold"
-            android:layout_marginTop="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/et_email" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Email Input -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="32dp"
             android:hint="Email"
+            app:boxStrokeColor="@color/primary_green"
+            app:hintTextColor="@color/primary_green"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title"
-            app:layout_constraintBottom_toTopOf="@+id/til_password">
+            app:layout_constraintTop_toBottomOf="@+id/tv_title">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_email"
@@ -52,13 +52,14 @@
             android:id="@+id/til_password"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="16dp"
             android:hint="Password"
+            app:boxStrokeColor="@color/primary_green"
             app:endIconMode="password_toggle"
+            app:hintTextColor="@color/primary_green"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/til_email"
-            app:layout_constraintBottom_toTopOf="@+id/btn_login">
+            app:layout_constraintTop_toBottomOf="@+id/til_email">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_password"
@@ -82,8 +83,7 @@
             app:cornerRadius="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/til_password"
-            app:layout_constraintBottom_toTopOf="@+id/tv_forgot_password" />
+            app:layout_constraintTop_toBottomOf="@+id/til_password" />
 
         <!-- Forgot Password -->
         <TextView
@@ -96,8 +96,7 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_login"
-            app:layout_constraintBottom_toTopOf="@+id/tv_signup_prompt" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_login" />
 
         <!-- Sign Up Prompt -->
         <TextView
@@ -110,8 +109,7 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_forgot_password"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_forgot_password" />
 
         <!-- Loading Progress -->
         <ProgressBar

@@ -22,13 +22,10 @@ class OnboardingActivity : AppCompatActivity() {
                 finish()
             }
             
-            // Login link - find the correct view
-            val loginPrompt = findViewById<View>(R.id.tv_login_prompt)
-            if (loginPrompt != null) {
-                loginPrompt.setOnClickListener {
-                    startActivity(Intent(this, AuthActivity::class.java))
-                    finish()
-                }
+            // Login link
+            findViewById<View>(R.id.tv_login_link).setOnClickListener {
+                startActivity(Intent(this, AuthActivity::class.java))
+                finish()
             }
         } catch (e: Exception) {
             Toast.makeText(this, "Error setting up views: ${e.message}", Toast.LENGTH_LONG).show()

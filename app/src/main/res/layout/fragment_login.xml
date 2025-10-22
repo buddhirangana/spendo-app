@@ -29,11 +29,19 @@
         <!-- Email Input -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_email"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:hint="Email"
+            app:boxCornerRadiusBottomEnd="40dp"
+            app:boxCornerRadiusBottomStart="40dp"
+            app:boxCornerRadiusTopEnd="40dp"
+            app:boxCornerRadiusTopStart="40dp"
             app:boxStrokeColor="@color/primary_green"
+            app:counterTextColor="@color/green"
+            app:cursorColor="@color/green"
+            app:cursorErrorColor="@color/green"
             app:hintTextColor="@color/primary_green"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,17 +51,26 @@
                 android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:textColor="@color/common_google_signin_btn_text_light_focused"
+                android:textColorHighlight="@color/green"
+                android:textColorHint="@color/green"
+                android:textColorLink="@color/green" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Password Input -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_password"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="Password"
+            app:boxCornerRadiusBottomEnd="40dp"
+            app:boxCornerRadiusBottomStart="40dp"
+            app:boxCornerRadiusTopEnd="40dp"
+            app:boxCornerRadiusTopStart="40dp"
             app:boxStrokeColor="@color/primary_green"
             app:endIconMode="password_toggle"
             app:hintTextColor="@color/primary_green"

@@ -52,7 +52,7 @@
             android:fontFamily="@font/raleway_bold"
             android:text="Spend Smarter"
             android:textColor="@color/primary_green"
-            android:textSize="36sp"
+            android:textSize="34sp"
             android:textStyle="bold" />
 
         <TextView
@@ -62,7 +62,7 @@
             android:fontFamily="@font/raleway_bold"
             android:text="Save More"
             android:textColor="@color/primary_green"
-            android:textSize="36sp"
+            android:textSize="34sp"
             android:textStyle="bold" />
 
         <!-- Description -->

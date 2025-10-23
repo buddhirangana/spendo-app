@@ -12,7 +12,7 @@ class Repository(
 ) {
     // Mock data for testing
     private val mockTransactions = mutableListOf<Transaction>()
-    
+
     suspend fun signUp(name: String, email: String, password: String): Result<Unit> = runCatching {
         try {
             val firebaseAuth = auth ?: FirebaseAuth.getInstance()
@@ -83,6 +83,20 @@ class Repository(
             println("Mock transactions for user: $userId")
             mockTransactions.toList()
         }
+    }
+
+    private val firebaseAuth = FirebaseAuth.getInstance()
+
+    // Other functions in your repository...
+
+    /**
+     * Sends a password reset email to the given email address.
+     * This is a suspending function and should be called from a coroutine.
+     * @param email The user's email address.
+     * @throws Exception if the email sending fails.
+     */
+    suspend fun sendPasswordResetEmail(email: String) {
+        firebaseAuth.sendPasswordResetEmail(email).await()
     }
 }
 

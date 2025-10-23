@@ -87,14 +87,15 @@
         <!-- Get Started Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_get_started"
-            android:layout_width="280dp"
-            android:layout_height="59dp"
+            android:layout_width="300dp"
+            android:layout_height="55dp"
             android:layout_marginBottom="24dp"
             android:fontFamily="@font/raleway_bold"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
             android:text="Get Started"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:textStyle="bold"
             app:backgroundTint="@color/primary_green"
             app:cornerRadius="40dp" />
 

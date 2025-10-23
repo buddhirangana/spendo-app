@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.spendo.fragments.ForgotPasswordFragment
 import com.example.spendo.fragments.LoginFragment
 import com.example.spendo.fragments.SignUpFragment
 
@@ -38,12 +39,16 @@ class AuthActivity : AppCompatActivity() {
             .addToBackStack(null)
             .commit()
     }
+
+    fun showForgotPassword() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, ForgotPasswordFragment())
+            .addToBackStack(null)
+            .commit()
+    }
     
     fun navigateToHome() {
         startActivity(Intent(this, HomeActivity::class.java))
         finish()
     }
 }
-
-
-

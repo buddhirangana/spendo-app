@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.spendo.R
 import com.example.spendo.data.Repository
 import kotlinx.coroutines.launch
+import android.widget.ImageView
 
 class LoginFragment : Fragment() {
     private lateinit var repository: Repository
@@ -24,6 +25,13 @@ class LoginFragment : Fragment() {
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val ivBackArrow = view.findViewById<ImageView>(R.id.iv_back_arrow)
+
+        ivBackArrow.setOnClickListener {
+            // This will simulate a press of the system's back button
+            activity?.onBackPressedDispatcher?.onBackPressed()
+        }
         
         try {
             repository = Repository()
@@ -39,9 +47,13 @@ class LoginFragment : Fragment() {
                 
                 login(email, password)
             }
+
+            view.findViewById<View>(R.id.tv_forgot_password).setOnClickListener {
+                (activity as? com.example.spendo.AuthActivity)?.showForgotPassword()
+            }
             
             // Sign up link
-            val signupPrompt = view.findViewById<View>(R.id.tv_signup_prompt)
+            val signupPrompt = view.findViewById<View>(R.id.tv_signup_link)
             if (signupPrompt != null) {
                 signupPrompt.setOnClickListener {
                     (activity as? com.example.spendo.AuthActivity)?.showSignUp()

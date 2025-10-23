@@ -12,28 +12,49 @@
         android:layout_height="wrap_content"
         android:padding="24dp">
 
+        <!-- Back Icon -->
+        <ImageView
+            android:id="@+id/iv_back_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="?attr/homeAsUpIndicator"
+            app:tint="@color/black"
+            android:contentDescription="Back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_title"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_title" />
+
         <!-- Header -->
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/raleway_semibold"
             android:text="Sign Up"
             android:textColor="@color/black"
-            android:textSize="28sp"
+            android:textSize="24sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/til_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/til_name" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Name Input -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="42dp"
             android:hint="Name"
+            app:boxCornerRadiusBottomEnd="40dp"
+            app:boxCornerRadiusBottomStart="40dp"
+            app:boxCornerRadiusTopEnd="40dp"
+            app:boxCornerRadiusTopStart="40dp"
             app:boxStrokeColor="@color/primary_green"
+            app:counterTextColor="@color/green"
+            app:cursorColor="@color/green"
+            app:cursorErrorColor="@color/green"
             app:hintTextColor="@color/primary_green"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +65,13 @@
                 android:id="@+id/et_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:fontFamily="@font/raleway"
+                android:textColor="@color/common_google_signin_btn_text_light_focused"
+                android:textColorHighlight="@color/green"
+                android:textColorHint="@color/green"
+                android:textColorLink="@color/green"
+                android:textSize="16dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -55,7 +82,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="Email"
+            app:boxCornerRadiusBottomEnd="40dp"
+            app:boxCornerRadiusBottomStart="40dp"
+            app:boxCornerRadiusTopEnd="40dp"
+            app:boxCornerRadiusTopStart="40dp"
             app:boxStrokeColor="@color/primary_green"
+            app:counterTextColor="@color/green"
+            app:cursorColor="@color/green"
+            app:cursorErrorColor="@color/green"
             app:hintTextColor="@color/primary_green"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +100,13 @@
                 android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:fontFamily="@font/raleway"
+                android:textColor="@color/common_google_signin_btn_text_light_focused"
+                android:textColorHighlight="@color/green"
+                android:textColorHint="@color/green"
+                android:textColorLink="@color/green"
+                android:textSize="16dp"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,19 +117,33 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="Password"
+            app:boxCornerRadiusBottomEnd="40dp"
+            app:boxCornerRadiusBottomStart="40dp"
+            app:boxCornerRadiusTopEnd="40dp"
+            app:boxCornerRadiusTopStart="40dp"
+            app:errorIconTint="@color/green"
+            app:helperTextTextColor="@color/green"
             app:boxStrokeColor="@color/primary_green"
+            app:counterTextColor="@color/green"
+            app:cursorColor="@color/green"
+            app:cursorErrorColor="@color/green"
             app:hintTextColor="@color/primary_green"
             app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/til_email"
-            app:layout_constraintBottom_toTopOf="@+id/cb_terms">
+            app:layout_constraintTop_toBottomOf="@+id/til_email">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:fontFamily="@font/raleway"
+                android:textColor="@color/common_google_signin_btn_text_light_focused"
+                android:textColorHighlight="@color/green"
+                android:textColorHint="@color/green"
+                android:textColorLink="@color/green"
+                android:textSize="16dp"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -98,7 +152,7 @@
             android:id="@+id/layout_terms"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="14dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -114,11 +168,13 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginStart="8dp"
+                android:layout_marginBottom="14dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/raleway_medium"
                 android:text="By signing up, you agree to the Terms of Service and Privacy Policy"
                 android:textColor="@color/gray"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -126,14 +182,17 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_signup"
             android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_marginTop="24dp"
-            android:text="Sign Up"
+            android:layout_height="55dp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/raleway_bold"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:backgroundTint="@color/primary_green"
-            app:cornerRadius="12dp"
+            app:cornerRadius="40dp"
+            android:text="Sign Up"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layout_terms"
@@ -144,47 +203,68 @@
             android:id="@+id/tv_or"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Or with"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/raleway_thin"
+            android:text="----------------- Or with -----------------"
             android:textColor="@color/gray"
             android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_google_signup"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_signup"
-            app:layout_constraintBottom_toTopOf="@+id/btn_google_signup" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_signup" />
 
         <!-- Google Sign Up Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_google_signup"
             android:layout_width="0dp"
             android:layout_height="56dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/raleway_semibold"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
             android:text="Sign Up with Google"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textColorLink="@color/light_green"
+            android:textSize="18sp"
             app:backgroundTint="@color/white"
-            app:cornerRadius="12dp"
-            app:strokeColor="@color/light_gray"
-            app:strokeWidth="1dp"
+            app:cornerRadius="40dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_or"
-            app:layout_constraintBottom_toTopOf="@+id/tv_login_prompt" />
+            app:rippleColor="@color/light_green"
+            app:strokeColor="@color/light_green"
+            app:strokeWidth="1dp" />
 
         <!-- Login Prompt -->
-        <TextView
-            android:id="@+id/tv_login_prompt"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Already have an account? Login"
-            android:textColor="@color/gray"
-            android:textSize="14sp"
+            android:layout_marginTop="32dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_google_signup"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_google_signup">
 
+            <TextView
+                android:id="@+id/tv_login_prompt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/raleway_medium"
+                android:text="Already have an account? "
+                android:textColor="@color/gray"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_login_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/raleway_medium"
+                android:text="Login"
+                android:textColor="@color/primary_green"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
         <!-- Loading Progress -->
         <ProgressBar
             android:id="@+id/progress_bar"

@@ -41,7 +41,6 @@
         <!-- Email Input -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_email"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="42dp"
@@ -76,7 +75,6 @@
         <!-- Password Input -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_password"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -90,7 +88,6 @@
             app:cursorColor="@color/green"
             app:cursorErrorColor="@color/green"
             app:endIconMode="password_toggle"
-            app:endIconTint="@color/gray"
             app:errorIconTint="@color/green"
             app:helperTextTextColor="@color/green"
             app:hintTextColor="@color/primary_green"

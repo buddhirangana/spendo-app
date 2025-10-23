@@ -152,7 +152,8 @@
             android:id="@+id/layout_terms"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="18dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -163,13 +164,13 @@
                 android:id="@+id/cb_terms"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:buttonTint="@color/primary_green" />
+                app:buttonTint="@color/primary_green" />
 
             <TextView
+                android:id="@+id/tv_terms_and_conditions"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginBottom="14dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/raleway_medium"
                 android:text="By signing up, you agree to the Terms of Service and Privacy Policy"

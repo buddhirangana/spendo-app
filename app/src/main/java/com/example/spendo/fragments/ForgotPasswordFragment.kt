@@ -15,7 +15,6 @@ import androidx.lifecycle.lifecycleScope
 import com.example.spendo.R
 import com.example.spendo.data.Repository
 import kotlinx.coroutines.launch
-import com.google.firebase.auth.FirebaseAuthInvalidUserException
 
 class ForgotPasswordFragment : Fragment() {
 
@@ -49,29 +48,36 @@ class ForgotPasswordFragment : Fragment() {
             progressBar.visibility = View.VISIBLE
 
             lifecycleScope.launch {
-                // Call the updated repository function
-                val result = repository.sendPasswordResetEmail(email)
-
-                // Always hide the progress bar after the operation is complete
-                progressBar.visibility = View.GONE
-
-                // Handle the success and failure cases
-                 result.onSuccess {
+                try {
+                    // Send password reset email
+                    val result = repository.sendPasswordResetEmail(email)
+                    
+                    result.onSuccess {
+                        Toast.makeText(
+                            context,
+                            "Password reset link sent (if account exists).",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        // Navigate back to the login screen after success
+                        (activity as? com.example.spendo.AuthActivity)?.showLogin()
+                    }.onFailure { exception ->
+                        Toast.makeText(
+                            context,
+                            "Failed to send reset email. Please try again.",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                } catch (e: Exception) {
+                    println("Unexpected error in forgot password: ${e.message}")
                     Toast.makeText(
                         context,
-                        "Password reset link sent to your email.",
+                        "An unexpected error occurred. Please try again.",
                         Toast.LENGTH_LONG
                     ).show()
-                    // Navigate back to the login screen after success
-                    (activity as? com.example.spendo.AuthActivity)?.showLogin()
-                }.onFailure { exception ->
-                     // Check the exception type to give a more specific error message
-                    val errorMessage = when (exception) {
-                         is FirebaseAuthInvalidUserException -> "No account found with this email address."
-                         else -> "Failed to send reset email. Please try again."
-                    }
-                     Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
                 }
+                
+                // Always hide the progress bar after the operation is complete
+                progressBar.visibility = View.GONE
             }
         }
 

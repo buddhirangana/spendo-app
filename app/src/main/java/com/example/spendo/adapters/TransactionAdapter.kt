@@ -68,3 +68,4 @@ class TransactionAdapter(private val transactions: List<Transaction>) :
         }
     }
 }
+

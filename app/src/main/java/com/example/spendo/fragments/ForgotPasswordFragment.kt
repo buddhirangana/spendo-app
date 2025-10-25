@@ -56,7 +56,7 @@ class ForgotPasswordFragment : Fragment() {
                 progressBar.visibility = View.GONE
 
                 // Handle the success and failure cases
-                result.onSuccess {
+                 result.onSuccess {
                     Toast.makeText(
                         context,
                         "Password reset link sent to your email.",
@@ -65,12 +65,12 @@ class ForgotPasswordFragment : Fragment() {
                     // Navigate back to the login screen after success
                     (activity as? com.example.spendo.AuthActivity)?.showLogin()
                 }.onFailure { exception ->
-                    // Check the exception type to give a more specific error message
+                     // Check the exception type to give a more specific error message
                     val errorMessage = when (exception) {
-                        is FirebaseAuthInvalidUserException -> "No account found with this email address."
-                        else -> "Failed to send reset email. Please try again."
+                         is FirebaseAuthInvalidUserException -> "No account found with this email address."
+                         else -> "Failed to send reset email. Please try again."
                     }
-                    Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
+                     Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
                 }
             }
         }

@@ -14,6 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.example.spendo.AuthActivity
 import com.example.spendo.R
 import com.example.spendo.data.Repository
 import kotlinx.coroutines.launch
@@ -64,6 +65,11 @@ class SignUpFragment : Fragment() {
             
             signUp(name, email, password)
         }
+
+        // Google Sign Up
+        view.findViewById<View>(R.id.btn_google_signup).setOnClickListener {
+            (activity as? AuthActivity)?.startGoogleSignUp()
+        }
         
         // Login link
         view.findViewById<View>(R.id.tv_login_link).setOnClickListener {
@@ -87,3 +93,4 @@ class SignUpFragment : Fragment() {
         }
     }
 }
+

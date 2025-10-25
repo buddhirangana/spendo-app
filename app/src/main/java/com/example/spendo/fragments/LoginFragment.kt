@@ -52,6 +52,13 @@ class LoginFragment : Fragment() {
                 (activity as? com.example.spendo.AuthActivity)?.showForgotPassword()
             }
             
+            // Google Sign In
+            view.findViewById<View>(R.id.btn_google_signin).setOnClickListener {
+                // Show loading indicator
+                view.findViewById<View>(R.id.progress_bar)?.visibility = View.VISIBLE
+                (activity as? com.example.spendo.AuthActivity)?.startGoogleSignUp()
+            }
+            
             // Sign up link
             val signupPrompt = view.findViewById<View>(R.id.tv_signup_link)
             if (signupPrompt != null) {
@@ -80,7 +87,7 @@ class LoginFragment : Fragment() {
             // Handle the result from the repository
             loginResult.onSuccess {
                 // Login was successful
-                Toast.makeText(context, "Login Successful!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Sign In Successful!", Toast.LENGTH_SHORT).show()
                 // Navigate to the home screen
                 (activity as? com.example.spendo.AuthActivity)?.navigateToHome()
             }.onFailure { exception ->
@@ -88,7 +95,7 @@ class LoginFragment : Fragment() {
                 val errorMessage = when (exception) {
                     is com.google.firebase.auth.FirebaseAuthInvalidUserException -> "No account found with this email."
                     is com.google.firebase.auth.FirebaseAuthInvalidCredentialsException -> "Incorrect password. Please try again."
-                    else -> "Login failed. Please check your connection."
+                    else -> "Sign In failed. Please check your connection."
                 }
                 Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
             }

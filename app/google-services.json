@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "515490630923-a0vq534tpac939jub1tgfte5fgp21rjb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.spendo",
+            "certificate_hash": "64f45b39c0cd7d0b187e96529689bdcc22d54e57"
+          }
+        },
+        {
           "client_id": "515490630923-1nq15mboo47gsstpc8n8140msb5a0tmk.apps.googleusercontent.com",
           "client_type": 3
         }

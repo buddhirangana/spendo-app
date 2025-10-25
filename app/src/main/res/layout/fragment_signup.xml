@@ -206,7 +206,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:fontFamily="@font/raleway_thin"
-            android:text="----------------- Or with -----------------"
+            android:text="------------- Other Sign Up Options -------------"
             android:textColor="@color/gray"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@+id/btn_google_signup"
@@ -265,7 +265,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/raleway_medium"
-                android:text="Login"
+                android:text="Sign In"
                 android:textColor="@color/primary_green"
                 android:textSize="14sp"
                 android:textStyle="bold" />

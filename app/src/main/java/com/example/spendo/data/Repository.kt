@@ -24,21 +24,35 @@ class Repository(
     }
 
     suspend fun signInWithGoogle(idToken: String): Result<Unit> = runCatching {
-        val firebaseAuth = auth ?: FirebaseAuth.getInstance()
-        val credential = GoogleAuthProvider.getCredential(idToken, null)
-        val authResult = firebaseAuth.signInWithCredential(credential).await()
+        try {
+            val firebaseAuth = auth ?: FirebaseAuth.getInstance()
+            val credential = GoogleAuthProvider.getCredential(idToken, null)
+            val authResult = firebaseAuth.signInWithCredential(credential).await()
 
-        // Check if this is a new user
-        if (authResult.additionalUserInfo?.isNewUser == true) {
-            val user = authResult.user ?: error("Could not get user details after Google sign-in.")
-            val appUser = AppUser(
-                uid = user.uid,
-                name = user.displayName ?: "No Name",
-                email = user.email ?: ""
-            )
-            // Create a document for the new user in Firestore
-            val firestore = db ?: FirebaseFirestore.getInstance()
-            firestore.collection("users").document(user.uid).set(appUser).await()
+            println("Google Sign-In successful. New user: ${authResult.additionalUserInfo?.isNewUser}")
+
+            // Check if this is a new user
+            if (authResult.additionalUserInfo?.isNewUser == true) {
+                val user = authResult.user ?: error("Could not get user details after Google sign-in.")
+                val appUser = AppUser(
+                    uid = user.uid,
+                    name = user.displayName ?: "No Name",
+                    email = user.email ?: ""
+                )
+                // Create a document for the new user in Firestore
+                val firestore = db ?: FirebaseFirestore.getInstance()
+                firestore.collection("users").document(user.uid).set(appUser).await()
+                println("New user document created in Firestore")
+            } else {
+                println("Existing user signed in")
+            }
+            
+            // Explicitly return Unit to indicate success
+            Unit
+        } catch (e: Exception) {
+            println("Error in signInWithGoogle: ${e.message}")
+            e.printStackTrace()
+            throw e
         }
     }
 

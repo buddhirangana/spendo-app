@@ -3,6 +3,7 @@ package com.example.spendo
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -36,9 +37,16 @@ class AuthActivity : AppCompatActivity() {
         } catch (e: ApiException) {
             // Google Sign In failed, log the specific error code
             val errorCode = e.statusCode
-            val errorMessage = "Google Sign-In failed. Error Code: $errorCode"
-            Log.w("AuthActivity", errorMessage, e)
+            val errorMessage = when (errorCode) {
+                10 -> "Google Sign In configuration error. Please check SHA-1 fingerprint in Firebase Console."
+                7 -> "Network error. Please check your internet connection."
+                12501 -> "User cancelled the sign in process."
+                else -> "Google Sign In failed. Error Code: $errorCode"
+            }
+            Log.w("AuthActivity", "Google Sign In failed: $errorMessage", e)
             Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
+            // Hide loading indicator on error
+            hideLoadingIndicator()
         }
     }
 
@@ -84,20 +92,52 @@ class AuthActivity : AppCompatActivity() {
                 // Sign in to Firebase with the Google token
                 val result = repository.signInWithGoogle(idToken)
                 result.onSuccess {
-                    Toast.makeText(this@AuthActivity, "Sign-Up successful!", Toast.LENGTH_SHORT)
+                    // Hide loading indicator
+                    hideLoadingIndicator()
+                    Log.d("AuthActivity", "Google authentication successful!")
+                    Toast.makeText(this@AuthActivity, "Google authentication successful!", Toast.LENGTH_SHORT)
                         .show()
                     navigateToHome()
-                }.onFailure {
-                    Toast.makeText(this@AuthActivity, "Authentication failed.", Toast.LENGTH_SHORT)
-                        .show()
+                }.onFailure { exception ->
+                    // Hide loading indicator
+                    hideLoadingIndicator()
+                    Log.e("AuthActivity", "Google authentication failed: ${exception.message}", exception)
+                    val errorMessage = when {
+                        exception.message?.contains("network", ignoreCase = true) == true -> 
+                            "Network error. Please check your connection."
+                        exception.message?.contains("invalid", ignoreCase = true) == true -> 
+                            "Invalid Google account. Please try again."
+                        exception.message?.contains("firestore", ignoreCase = true) == true ->
+                            "User created but database error. Please try again."
+                        else -> "Google authentication failed: ${exception.message}"
+                    }
+                    Toast.makeText(this@AuthActivity, errorMessage, Toast.LENGTH_LONG).show()
                 }
             } catch (e: Exception) {
+                // Hide loading indicator
+                hideLoadingIndicator()
                 Toast.makeText(
                     this@AuthActivity,
                     "An error occurred: ${e.localizedMessage}",
                     Toast.LENGTH_SHORT
                 ).show()
             }
+        }
+    }
+
+    private fun hideLoadingIndicator() {
+        try {
+            val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+            when (currentFragment) {
+                is SignUpFragment -> {
+                    currentFragment.view?.findViewById<View>(R.id.progress_bar)?.visibility = View.GONE
+                }
+                is LoginFragment -> {
+                    currentFragment.view?.findViewById<View>(R.id.progress_bar)?.visibility = View.GONE
+                }
+            }
+        } catch (e: Exception) {
+            Log.w("AuthActivity", "Error hiding loading indicator: ${e.message}")
         }
     }
 

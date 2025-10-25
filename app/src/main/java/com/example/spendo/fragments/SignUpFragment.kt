@@ -68,6 +68,8 @@ class SignUpFragment : Fragment() {
 
         // Google Sign Up
         view.findViewById<View>(R.id.btn_google_signup).setOnClickListener {
+            // Show loading indicator
+            view.findViewById<View>(R.id.progress_bar)?.visibility = View.VISIBLE
             (activity as? AuthActivity)?.startGoogleSignUp()
         }
         

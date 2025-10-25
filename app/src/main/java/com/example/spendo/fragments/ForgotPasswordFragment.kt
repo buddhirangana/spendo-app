@@ -15,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.spendo.R
 import com.example.spendo.data.Repository
 import kotlinx.coroutines.launch
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 
 class ForgotPasswordFragment : Fragment() {
 
@@ -48,14 +49,28 @@ class ForgotPasswordFragment : Fragment() {
             progressBar.visibility = View.VISIBLE
 
             lifecycleScope.launch {
-                try {
-                    repository.sendPasswordResetEmail(email)
-                    Toast.makeText(context, "Password reset link sent to your email", Toast.LENGTH_LONG).show()
+                // Call the updated repository function
+                val result = repository.sendPasswordResetEmail(email)
+
+                // Always hide the progress bar after the operation is complete
+                progressBar.visibility = View.GONE
+
+                // Handle the success and failure cases
+                result.onSuccess {
+                    Toast.makeText(
+                        context,
+                        "Password reset link sent to your email.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    // Navigate back to the login screen after success
                     (activity as? com.example.spendo.AuthActivity)?.showLogin()
-                } catch (e: Exception) {
-                    Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
-                } finally {
-                    progressBar.visibility = View.GONE
+                }.onFailure { exception ->
+                    // Check the exception type to give a more specific error message
+                    val errorMessage = when (exception) {
+                        is FirebaseAuthInvalidUserException -> "No account found with this email address."
+                        else -> "Failed to send reset email. Please try again."
+                    }
+                    Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
                 }
             }
         }

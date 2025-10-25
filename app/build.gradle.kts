@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -38,21 +40,19 @@ android {
 }
 
 dependencies {
-    // Import the Firebase BoM
-    implementation(platform("com.google.firebase:firebase-bom:34.4.0"))
-    // Add the dependencies for any other desired Firebase products
-    implementation ("com.google.firebase:firebase-firestore-ktx:25.1.4")
-    implementation("com.google.firebase:firebase-analytics")
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.firestore.ktx)
+    implementation(libs.google.firebase.analytics)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    implementation("androidx.fragment:fragment-ktx:1.6.2")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
-    implementation("androidx.recyclerview:recyclerview:1.3.2")
-    implementation("androidx.cardview:cardview:1.0.0")
-    implementation("de.hdodenhof:circleimageview:3.1.0")
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.cardview)
+    implementation(libs.circleimageview)
     implementation(libs.firebase.database)
     implementation(libs.firebase.auth)
     implementation(libs.androidx.credentials)
@@ -61,5 +61,5 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation("androidx.core:core-splashscreen:1.0.0")
+    implementation(libs.androidx.core.splashscreen)
 }

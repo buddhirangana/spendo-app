@@ -4,7 +4,6 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
-import java.util.*
 
 class Repository(
     private val auth: FirebaseAuth? = null,
@@ -13,61 +12,47 @@ class Repository(
     // Mock data for testing
     private val mockTransactions = mutableListOf<Transaction>()
 
+    // Signs up a new user and creates a corresponding user document in Firestore.
     suspend fun signUp(name: String, email: String, password: String): Result<Unit> = runCatching {
-        try {
-            val firebaseAuth = auth ?: FirebaseAuth.getInstance()
-            firebaseAuth.createUserWithEmailAndPassword(email, password).await()
-            val uid = firebaseAuth.currentUser?.uid ?: error("No uid")
-            val user = AppUser(uid = uid, name = name, email = email)
-            val firestore = db ?: FirebaseFirestore.getInstance()
-            firestore.collection("users").document(uid).set(user).await()
-        } catch (e: Exception) {
-            // For testing, just simulate success
-            println("Mock signup for $email")
-        }
+        val firebaseAuth = auth ?: FirebaseAuth.getInstance()
+        firebaseAuth.createUserWithEmailAndPassword(email, password).await()
+        val uid = firebaseAuth.currentUser?.uid ?: error("Could not get user UID after signup.")
+        val user = AppUser(uid = uid, name = name, email = email)
+        val firestore = db ?: FirebaseFirestore.getInstance()
+        firestore.collection("users").document(uid).set(user).await()
     }
 
-    // ... other code in Repository.kt
-
+    // Logs in an existing user.
     suspend fun login(email: String, password: String): Result<Unit> = runCatching {
-        // This is the only part you need. The runCatching will automatically
-        // catch any exceptions from Firebase and wrap them in a Failure result.
         val firebaseAuth = auth ?: FirebaseAuth.getInstance()
         firebaseAuth.signInWithEmailAndPassword(email, password).await()
     }
 
+    // Logs out the current user.
     fun logout() {
-        try {
-            val firebaseAuth = auth ?: FirebaseAuth.getInstance()
-            firebaseAuth.signOut()
-        } catch (e: Exception) {
-            println("Mock logout")
-        }
+        val firebaseAuth = auth ?: FirebaseAuth.getInstance()
+        firebaseAuth.signOut()
     }
 
+    // Adds or updates a transaction document in Firestore.
     suspend fun addTransaction(tx: Transaction): Result<Unit> = runCatching {
-        try {
-            val firestore = db ?: FirebaseFirestore.getInstance()
-            val doc = if (tx.id.isEmpty()) firestore.collection("transactions").document() else firestore.collection("transactions").document(tx.id)
-            doc.set(tx.copy(id = doc.id)).await()
-        } catch (e: Exception) {
-            // For testing, add to mock data
-            mockTransactions.add(tx.copy(id = UUID.randomUUID().toString()))
-            println("Mock transaction added: ${tx.category} - ${tx.amount}")
+        val firestore = db ?: FirebaseFirestore.getInstance()
+        val doc = if (tx.id.isEmpty()) {
+            firestore.collection("transactions").document()
+        } else {
+            firestore.collection("transactions").document(tx.id)
         }
+        // Always set the final document ID before saving
+        doc.set(tx.copy(id = doc.id)).await()
     }
 
+    // Deletes a transaction document from Firestore.
     suspend fun deleteTransaction(id: String): Result<Unit> = runCatching {
-        try {
-            val firestore = db ?: FirebaseFirestore.getInstance()
-            firestore.collection("transactions").document(id).delete().await()
-        } catch (e: Exception) {
-            // For testing, remove from mock data
-            mockTransactions.removeAll { it.id == id }
-            println("Mock transaction deleted: $id")
-        }
+        val firestore = db ?: FirebaseFirestore.getInstance()
+        firestore.collection("transactions").document(id).delete().await()
     }
 
+    // Fetches all transactions for a specific user from Firestore.
     suspend fun userTransactions(userId: String): Result<List<Transaction>> = runCatching {
         try {
             val firestore = db ?: FirebaseFirestore.getInstance()
@@ -84,17 +69,9 @@ class Repository(
         }
     }
 
-    private val firebaseAuth = FirebaseAuth.getInstance()
-
-    // Other functions in your repository...
-
-    /**
-     * Sends a password reset email to the given email address.
-     * This is a suspending function and should be called from a coroutine.
-     * @param email The user's email address.
-     * @throws Exception if the email sending fails.
-     */
-    suspend fun sendPasswordResetEmail(email: String) {
+    // Sends a password reset email to the given email address using Firebase.
+    suspend fun sendPasswordResetEmail(email: String): Result<Unit> = runCatching {
+        val firebaseAuth = auth ?: FirebaseAuth.getInstance()
         firebaseAuth.sendPasswordResetEmail(email).await()
     }
 }

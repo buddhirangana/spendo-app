@@ -84,7 +84,7 @@
                 android:id="@+id/tv_balance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="LKR 9,400"
+                android:text="LKR 0"
                 android:textColor="@color/black"
                 android:textSize="32sp"
                 android:textStyle="bold"
@@ -125,7 +125,7 @@
                         android:id="@+id/tv_income"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="LKR 50,000"
+                        android:text="LKR 0"
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -160,7 +160,7 @@
                         android:id="@+id/tv_expenses"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="LKR 34,000"
+                        android:text="LKR 0"
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         android:textStyle="bold" />

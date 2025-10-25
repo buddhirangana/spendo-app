@@ -78,7 +78,7 @@ class SignUpFragment : Fragment() {
             try {
                 repository.signUp(name, email, password)
                 Toast.makeText(context, "Account created successfully!", Toast.LENGTH_SHORT).show()
-                (activity as? com.example.spendo.AuthActivity)?.navigateToHome()
+                (activity as? com.example.spendo.AuthActivity)?.showLogin()
             } catch (e: Exception) {
                 Toast.makeText(context, "Sign up failed: ${e.message}", Toast.LENGTH_SHORT).show()
             } finally {

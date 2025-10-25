@@ -27,14 +27,13 @@ class Repository(
         }
     }
 
+    // ... other code in Repository.kt
+
     suspend fun login(email: String, password: String): Result<Unit> = runCatching {
-        try {
-            val firebaseAuth = auth ?: FirebaseAuth.getInstance()
-            firebaseAuth.signInWithEmailAndPassword(email, password).await()
-        } catch (e: Exception) {
-            // For testing, just simulate success
-            println("Mock login for $email")
-        }
+        // This is the only part you need. The runCatching will automatically
+        // catch any exceptions from Firebase and wrap them in a Failure result.
+        val firebaseAuth = auth ?: FirebaseAuth.getInstance()
+        firebaseAuth.signInWithEmailAndPassword(email, password).await()
     }
 
     fun logout() {

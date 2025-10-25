@@ -63,18 +63,34 @@ class LoginFragment : Fragment() {
             Toast.makeText(context, "Error setting up login: ${e.message}", Toast.LENGTH_LONG).show()
         }
     }
-    
-    private fun login(email: String, password: String) {
-        view?.findViewById<View>(R.id.progress_bar)?.visibility = View.VISIBLE
-        
+
+    // ... other code in LoginFragment.kt
+
+    private fun login(email: String, password: String) {    // Show loading indicator
+        val progressBar = view?.findViewById<View>(R.id.progress_bar)
+        progressBar?.visibility = View.VISIBLE
+
         lifecycleScope.launch {
-            try {
-                repository.login(email, password)
+            // Call the updated repository function
+            val loginResult = repository.login(email, password)
+
+            // Hide loading indicator
+            progressBar?.visibility = View.GONE
+
+            // Handle the result from the repository
+            loginResult.onSuccess {
+                // Login was successful
+                Toast.makeText(context, "Login Successful!", Toast.LENGTH_SHORT).show()
+                // Navigate to the home screen
                 (activity as? com.example.spendo.AuthActivity)?.navigateToHome()
-            } catch (e: Exception) {
-                Toast.makeText(context, "Login failed: ${e.message}", Toast.LENGTH_SHORT).show()
-            } finally {
-                view?.findViewById<View>(R.id.progress_bar)?.visibility = View.GONE
+            }.onFailure { exception ->
+                // Login failed, show a user-friendly error message
+                val errorMessage = when (exception) {
+                    is com.google.firebase.auth.FirebaseAuthInvalidUserException -> "No account found with this email."
+                    is com.google.firebase.auth.FirebaseAuthInvalidCredentialsException -> "Incorrect password. Please try again."
+                    else -> "Login failed. Please check your connection."
+                }
+                Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
             }
         }
     }

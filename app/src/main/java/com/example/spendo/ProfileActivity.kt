@@ -42,10 +42,6 @@ class ProfileActivity : AppCompatActivity() {
                     // Already on profile
                     true
                 }
-                R.id.nav_placeholder -> {
-                    // Placeholder for FAB - do nothing
-                    false
-                }
                 else -> false
             }
         }

@@ -47,6 +47,10 @@ class HomeActivity : AppCompatActivity() {
                     startActivity(Intent(this, ProfileActivity::class.java))
                     true
                 }
+                R.id.nav_placeholder -> {
+                    // Placeholder for FAB - do nothing
+                    false
+                }
                 else -> false
             }
         }

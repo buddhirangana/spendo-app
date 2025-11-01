@@ -60,7 +60,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_nav_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_top_bar">
@@ -201,6 +201,7 @@
                     android:layout_weight="1"
                     android:layout_marginEnd="4dp"
                     android:text="Today"
+                    android:textColor="@color/white"
                     android:textSize="12sp"
                     app:backgroundTint="@color/primary_green"
                     app:cornerRadius="18dp" />
@@ -213,6 +214,7 @@
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
                     android:text="Week"
+                    android:textColor="@color/white"
                     android:textSize="12sp"
                     app:backgroundTint="@color/light_gray"
                     app:cornerRadius="18dp" />
@@ -225,6 +227,7 @@
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
                     android:text="Month"
+                    android:textColor="@color/white"
                     android:textSize="12sp"
                     app:backgroundTint="@color/light_gray"
                     app:cornerRadius="18dp" />
@@ -236,18 +239,10 @@
                     android:layout_weight="1"
                     android:layout_marginStart="4dp"
                     android:text="Year"
+                    android:textColor="@color/white"
                     android:textSize="12sp"
                     app:backgroundTint="@color/light_gray"
                     app:cornerRadius="18dp" />
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fab_add"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:src="@drawable/ic_add"
-                    app:backgroundTint="@color/primary_green"
-                    app:fabSize="normal" />
 
             </LinearLayout>
 
@@ -291,18 +286,43 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Bottom Navigation -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
+    <!-- Bottom Navigation with FAB -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottom_nav_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/light_green"
-        app:menu="@menu/bottom_navigation_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <!-- Floating Add Button -->
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:itemIconTint="@color/nav_item_color"
+            app:itemTextColor="@color/nav_item_color"
+            app:menu="@menu/bottom_navigation_menu"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Floating Add Button - Centered -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add"
+            app:backgroundTint="@color/primary_green"
+            app:fabSize="normal"
+            app:elevation="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
 

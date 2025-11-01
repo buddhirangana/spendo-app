@@ -55,11 +55,11 @@ class TransactionAdapter(private val transactions: List<Transaction>) :
             val colors = mapOf(
                 "Food" to R.color.red,
                 "Transportation" to R.color.blue,
-                "Shopping" to R.color.yellow,
-                "Entertainment" to R.color.orange,
-                "Bills" to R.color.gray,
-                "Healthcare" to R.color.primary_green,
-                "Education" to R.color.blue,
+                "Shopping" to R.color.orange,
+                "Entertainment" to R.color.yellow,
+                "Bills" to R.color.primary_green,
+                "Healthcare" to R.color.blue,
+                "Education" to R.color.orange,
                 "Other" to R.color.gray
             )
             
@@ -68,4 +68,5 @@ class TransactionAdapter(private val transactions: List<Transaction>) :
         }
     }
 }
+
 

@@ -21,6 +21,31 @@ class ProfileActivity : AppCompatActivity() {
     }
     
     private fun setupViews() {
+        // Bottom navigation
+        findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottom_navigation).setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    startActivity(Intent(this, HomeActivity::class.java))
+                    finish()
+                    true
+                }
+                R.id.nav_transactions -> {
+                    startActivity(Intent(this, TransactionsActivity::class.java))
+                    finish()
+                    true
+                }
+                R.id.nav_budget -> {
+                    startActivity(Intent(this, FinancialReportActivity::class.java))
+                    true
+                }
+                R.id.nav_profile -> {
+                    // Already on profile
+                    true
+                }
+                else -> false
+            }
+        }
+        
         // Menu options
         findViewById<View>(R.id.layout_account).setOnClickListener {
             Toast.makeText(this, "Account settings coming soon", Toast.LENGTH_SHORT).show()
@@ -63,4 +88,5 @@ class ProfileActivity : AppCompatActivity() {
         finish()
     }
 }
+
 

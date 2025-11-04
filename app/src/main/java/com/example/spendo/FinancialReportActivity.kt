@@ -121,11 +121,11 @@ class FinancialReportActivity : AppCompatActivity() {
         return when (category) {
             "Food" -> getColor(R.color.red)
             "Transportation" -> getColor(R.color.blue)
-            "Shopping" -> getColor(R.color.yellow)
-            "Entertainment" -> getColor(R.color.orange)
-            "Bills" -> getColor(R.color.gray)
-            "Healthcare" -> getColor(R.color.primary_green)
-            "Education" -> getColor(R.color.blue)
+            "Shopping" -> getColor(R.color.orange)
+            "Entertainment" -> getColor(R.color.yellow)
+            "Bills" -> getColor(R.color.primary_green)
+            "Healthcare" -> getColor(R.color.blue)
+            "Education" -> getColor(R.color.orange)
             else -> getColor(R.color.gray)
         }
     }
@@ -136,4 +136,5 @@ data class CategoryBreakdownData(
     val amount: Long,
     val color: Int
 )
+
 

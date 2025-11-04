@@ -35,6 +35,30 @@ class TransactionsActivity : AppCompatActivity() {
             startActivity(Intent(this, FinancialReportActivity::class.java))
         }
         
+        // Bottom navigation
+        findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottom_navigation).setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    startActivity(Intent(this, HomeActivity::class.java))
+                    finish()
+                    true
+                }
+                R.id.nav_transactions -> {
+                    // Already on transactions
+                    true
+                }
+                R.id.nav_budget -> {
+                    startActivity(Intent(this, FinancialReportActivity::class.java))
+                    true
+                }
+                R.id.nav_profile -> {
+                    startActivity(Intent(this, ProfileActivity::class.java))
+                    true
+                }
+                else -> false
+            }
+        }
+        
         // Add transaction FAB
         findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.fab_add).setOnClickListener {
             startActivity(Intent(this, AddTransactionActivity::class.java))

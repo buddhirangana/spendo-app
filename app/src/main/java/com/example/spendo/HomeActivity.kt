@@ -4,16 +4,25 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.spendo.adapters.TransactionAdapter
 import com.example.spendo.data.Repository
 import com.example.spendo.data.Transaction
+import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
+import java.text.DateFormatSymbols
+import java.util.Calendar
 
 class HomeActivity : AppCompatActivity() {
+
+    private lateinit var btnMonth: MaterialButton
+    private val months = DateFormatSymbols().months
+    private var selectedMonthIndex = 0
+
     private lateinit var repository: Repository
     private lateinit var transactionAdapter: TransactionAdapter
     private var transactions = mutableListOf<Transaction>()
@@ -21,6 +30,19 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        // Find the button
+        btnMonth = findViewById(R.id.btn_month)
+
+        // Set the current month as the default
+        val calendar = Calendar.getInstance()
+        selectedMonthIndex = calendar.get(Calendar.MONTH)
+        updateMonthButtonText()
+
+        // Set a click listener to show the dialog
+        btnMonth.setOnClickListener {
+            showMonthSelectorDialog()
+        }
         
         repository = Repository()
         setupViews()
@@ -99,6 +121,30 @@ class HomeActivity : AppCompatActivity() {
         findViewById<com.google.android.material.textview.MaterialTextView>(R.id.tv_balance).text = "LKR ${String.format("%,d", balance)}"
         findViewById<com.google.android.material.textview.MaterialTextView>(R.id.tv_income).text = "LKR ${String.format("%,d", totalIncome)}"
         findViewById<com.google.android.material.textview.MaterialTextView>(R.id.tv_expenses).text = "LKR ${String.format("%,d", totalExpenses)}"
+    }
+
+    private fun showMonthSelectorDialog() {
+        // Create an AlertDialog builder
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Select a Month")
+
+        // Set the list of months and the click listener
+        builder.setSingleChoiceItems(months, selectedMonthIndex) { dialog, which ->
+            // Update the selected month index
+            selectedMonthIndex = which
+            // Update the button text with the new month
+            updateMonthButtonText()
+            // Dismiss the dialog
+            dialog.dismiss()
+        }
+
+        // Create and show the dialog
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+    private fun updateMonthButtonText() {
+        btnMonth.text = months[selectedMonthIndex]
     }
     
     override fun onResume() {

@@ -61,7 +61,7 @@ class FinancialReportActivity : AppCompatActivity() {
         val incomeBtn = findViewById<com.google.android.material.button.MaterialButton>(R.id.btn_income_toggle)
         
         if (isShowingExpenses) {
-            expenseBtn.setBackgroundColor(getColor(R.color.primary_green))
+            expenseBtn.setBackgroundColor(getColor(R.color.red))
             expenseBtn.setTextColor(getColor(R.color.white))
             incomeBtn.setBackgroundColor(getColor(android.R.color.transparent))
             incomeBtn.setTextColor(getColor(R.color.gray))

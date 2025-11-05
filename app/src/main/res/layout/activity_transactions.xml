@@ -23,6 +23,7 @@
             android:id="@+id/btn_month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/raleway_medium"
             android:text="Month"
             android:textColor="@color/black"
             app:backgroundTint="@color/light_green"
@@ -38,11 +39,12 @@
 
         <ImageView
             android:id="@+id/iv_filter"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/ic_filter"
             android:background="?attr/selectableItemBackground"
             android:padding="4dp"
+            app:tint="@color/black"
             android:contentDescription="Filter" />
 
     </LinearLayout>
@@ -64,16 +66,17 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/raleway_medium"
             android:text="See your financial report"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
         <ImageView
             android:id="@+id/iv_report_arrow"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:src="@drawable/ic_arrow_right"
-            android:contentDescription="View Report" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="View Report"
+            android:src="@drawable/ic_arrow_right" />
 
     </LinearLayout>
 

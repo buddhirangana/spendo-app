@@ -21,27 +21,44 @@
 
         <ImageView
             android:id="@+id/iv_back"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_arrow_back"
-            android:background="?attr/selectableItemBackground"
-            android:padding="4dp"
-            android:contentDescription="Back" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="?attr/homeAsUpIndicator"
+            app:tint="@color/black"
+            android:contentDescription="Back"
+            android:padding="4dp" />
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/raleway_semibold"
+            android:gravity="center"
             android:text="Financial Report"
             android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:gravity="center" />
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_month"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_header"
+        android:gravity="center">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/raleway_medium"
             android:text="Month"
             android:textColor="@color/black"
             app:backgroundTint="@color/light_green"
@@ -60,7 +77,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_header">
+        app:layout_constraintTop_toBottomOf="@+id/layout_month">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -88,6 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:fontFamily="@font/inter_semibold"
                     android:text="LKR 0"
                     android:textColor="@color/black"
                     android:textSize="24sp"
@@ -109,10 +127,11 @@
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_weight="1"
+                    android:fontFamily="@font/raleway_bold"
                     android:text="Expense"
                     android:textColor="@color/white"
                     android:textSize="14sp"
-                    app:backgroundTint="@color/primary_green"
+                    app:backgroundTint="@color/red"
                     app:cornerRadius="18dp" />
 
                 <com.google.android.material.button.MaterialButton
@@ -120,6 +139,7 @@
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_weight="1"
+                    android:fontFamily="@font/raleway_bold"
                     android:text="Income"
                     android:textColor="@color/gray"
                     android:textSize="14sp"
@@ -139,6 +159,7 @@
                     android:id="@+id/btn_category_filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/raleway_medium"
                     android:text="Category"
                     android:textColor="@color/black"
                     app:backgroundTint="@color/light_gray"
@@ -155,11 +176,12 @@
                 <ImageView
                     android:id="@+id/iv_sort"
                     android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_sort"
+                    android:layout_height="match_parent"
                     android:background="?attr/selectableItemBackground"
+                    android:contentDescription="Sort"
                     android:padding="4dp"
-                    android:contentDescription="Sort" />
+                    android:src="@drawable/ic_sort"
+                    app:tint="@color/black"/>
 
             </LinearLayout>
 
@@ -175,5 +197,6 @@
     </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 

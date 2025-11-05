@@ -10,8 +10,6 @@ class Repository(
     private val auth: FirebaseAuth? = null,
     private val db: FirebaseFirestore? = null
 ) {
-    // Mock data for testing
-    private val mockTransactions = mutableListOf<Transaction>()
 
     // Signs up a new user and creates a corresponding user document in Firestore.
     suspend fun signUp(name: String, email: String, password: String): Result<Unit> = runCatching {
@@ -88,19 +86,13 @@ class Repository(
 
     // Fetches all transactions for a specific user from Firestore.
     suspend fun userTransactions(userId: String): Result<List<Transaction>> = runCatching {
-        try {
-            val firestore = db ?: FirebaseFirestore.getInstance()
-            val snapshot = firestore.collection("transactions")
-                .whereEqualTo("userId", userId)
-                .orderBy("date")
-                .get()
-                .await()
-            snapshot.toObjects(Transaction::class.java)
-        } catch (e: Exception) {
-            // For testing, return mock data
-            println("Mock transactions for user: $userId")
-            mockTransactions.toList()
-        }
+        val firestore = db ?: FirebaseFirestore.getInstance()
+        val snapshot = firestore.collection("transactions")
+            .whereEqualTo("userId", userId)
+            .orderBy("date")
+            .get()
+            .await()
+        snapshot.toObjects(Transaction::class.java)
     }
 
     // Sends a password reset email to the given email address using Firebase.

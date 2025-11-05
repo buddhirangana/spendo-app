@@ -1,5 +1,6 @@
 package com.example.spendo
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.View
@@ -91,6 +92,7 @@ class AddTransactionActivity : AppCompatActivity() {
             .show()
     }
     
+    @SuppressLint("WrongViewCast", "SetTextI18n")
     private fun updateAmountDisplay() {
         val currentAmount = findViewById<com.google.android.material.textview.MaterialTextView>(R.id.tv_amount)
         currentAmount.text = "LKR ${NumberFormat.getInstance().format(amount)}"

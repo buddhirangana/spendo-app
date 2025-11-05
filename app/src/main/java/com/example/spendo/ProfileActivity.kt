@@ -26,12 +26,10 @@ class ProfileActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.nav_home -> {
                     startActivity(Intent(this, HomeActivity::class.java))
-                    finish()
                     true
                 }
                 R.id.nav_transactions -> {
                     startActivity(Intent(this, TransactionsActivity::class.java))
-                    finish()
                     true
                 }
                 R.id.nav_budget -> {

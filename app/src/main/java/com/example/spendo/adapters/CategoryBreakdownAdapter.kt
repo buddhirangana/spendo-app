@@ -1,5 +1,6 @@
 package com.example.spendo.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,7 @@ class CategoryBreakdownAdapter(private var data: List<CategoryBreakdownData>) :
     
     override fun getItemCount(): Int = data.size
     
+    @SuppressLint("NotifyDataSetChanged")
     fun updateData(newData: List<CategoryBreakdownData>) {
         data = newData
         notifyDataSetChanged()

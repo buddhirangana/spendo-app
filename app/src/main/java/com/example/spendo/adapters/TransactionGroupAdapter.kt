@@ -1,5 +1,6 @@
 package com.example.spendo.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,7 @@ class TransactionGroupAdapter(private var data: Map<String, List<Transaction>>) 
     
     override fun getItemCount(): Int = data.size
     
+    @SuppressLint("NotifyDataSetChanged")
     fun updateData(newData: Map<String, List<Transaction>>) {
         data = newData
         notifyDataSetChanged()

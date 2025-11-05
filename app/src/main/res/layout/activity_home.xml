@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="16dp"
-        android:gravity="center_vertical"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -35,6 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:paddingStart="30dp"
             android:text="Month"
             android:textColor="@color/black"
             app:backgroundTint="@color/light_green"
@@ -44,13 +45,14 @@
             app:iconPadding="8dp" />
 
         <!-- Notifications -->
-        <ImageView
-            android:id="@+id/iv_notifications"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="16dp"
-            android:contentDescription="Notifications"
-            android:src="@drawable/ic_notifications" />
+<!--        <ImageView-->
+<!--            android:id="@+id/iv_notifications"-->
+<!--            android:layout_width="24dp"-->
+<!--            android:layout_height="24dp"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:contentDescription="Notifications"-->
+<!--            android:paddingLeft="60dp"-->
+<!--            android:src="@drawable/ic_notifications" />-->
 
     </LinearLayout>
 

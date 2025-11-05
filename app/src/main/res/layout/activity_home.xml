@@ -35,9 +35,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:fontFamily="@font/raleway_medium"
             android:paddingStart="30dp"
             android:text="Month"
             android:textColor="@color/black"
+            android:textSize="14dp"
             app:backgroundTint="@color/light_green"
             app:cornerRadius="20dp"
             app:icon="@drawable/ic_arrow_down"
@@ -77,20 +79,24 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/raleway_medium"
                 android:text="Account Balance"
                 android:textColor="@color/primary_green"
-                android:textSize="14sp"
-                android:layout_marginBottom="8dp" />
+                android:layout_gravity="center"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/tv_balance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:fontFamily="@font/inter_semibold"
                 android:text="LKR 0"
                 android:textColor="@color/black"
-                android:textSize="32sp"
+                android:textSize="40sp"
                 android:textStyle="bold"
-                android:layout_marginBottom="24dp" />
+                android:layout_gravity="center"/>
 
             <!-- Income and Expenses Cards -->
             <LinearLayout
@@ -118,15 +124,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:fontFamily="@font/raleway_medium"
                         android:text="Income"
                         android:textColor="@color/white"
-                        android:textSize="12sp"
-                        android:layout_marginBottom="4dp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/tv_income"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_semibold"
                         android:text="LKR 0"
                         android:textColor="@color/white"
                         android:textSize="16sp"
@@ -153,15 +161,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:fontFamily="@font/raleway_medium"
                         android:text="Expenses"
                         android:textColor="@color/white"
-                        android:textSize="12sp"
-                        android:layout_marginBottom="4dp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/tv_expenses"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_semibold"
                         android:text="LKR 0"
                         android:textColor="@color/white"
                         android:textSize="16sp"
@@ -175,11 +185,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/raleway_semibold"
                 android:text="Spend Frequency"
                 android:textColor="@color/black"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="16dp" />
+                android:textStyle="bold" />
 
             <!-- Chart Placeholder -->
             <View
@@ -200,8 +211,10 @@
                     android:id="@+id/btn_today"
                     android:layout_width="0dp"
                     android:layout_height="36dp"
-                    android:layout_weight="1"
                     android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/raleway"
+                    android:insetBottom="0dp"
                     android:text="Today"
                     android:textColor="@color/white"
                     android:textSize="12sp"
@@ -212,11 +225,13 @@
                     android:id="@+id/btn_week"
                     android:layout_width="0dp"
                     android:layout_height="36dp"
-                    android:layout_weight="1"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/raleway"
+                    android:insetBottom="0dp"
                     android:text="Week"
-                    android:textColor="@color/white"
+                    android:textColor="@color/gray"
                     android:textSize="12sp"
                     app:backgroundTint="@color/light_gray"
                     app:cornerRadius="18dp" />
@@ -225,11 +240,13 @@
                     android:id="@+id/btn2_month"
                     android:layout_width="0dp"
                     android:layout_height="36dp"
-                    android:layout_weight="1"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/raleway"
+                    android:insetBottom="0dp"
                     android:text="Month"
-                    android:textColor="@color/white"
+                    android:textColor="@color/gray"
                     android:textSize="12sp"
                     app:backgroundTint="@color/light_gray"
                     app:cornerRadius="18dp" />
@@ -238,10 +255,12 @@
                     android:id="@+id/btn_year"
                     android:layout_width="0dp"
                     android:layout_height="36dp"
-                    android:layout_weight="1"
                     android:layout_marginStart="4dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/raleway"
+                    android:insetBottom="0dp"
                     android:text="Year"
-                    android:textColor="@color/white"
+                    android:textColor="@color/gray"
                     android:textSize="12sp"
                     app:backgroundTint="@color/light_gray"
                     app:cornerRadius="18dp" />
@@ -260,6 +279,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/raleway_semibold"
                     android:text="Recent Transaction"
                     android:textColor="@color/black"
                     android:textSize="18sp"
@@ -269,11 +289,12 @@
                     android:id="@+id/tv_see_all"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:fontFamily="@font/raleway_medium"
+                    android:padding="8dp"
                     android:text="See All"
                     android:textColor="@color/primary_green"
-                    android:textSize="14sp"
-                    android:background="?attr/selectableItemBackground"
-                    android:padding="8dp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 

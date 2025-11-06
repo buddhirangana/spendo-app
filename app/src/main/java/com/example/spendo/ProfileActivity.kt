@@ -7,27 +7,33 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.spendo.data.Repository
 import com.google.android.material.navigation.NavigationBarView
 import com.google.firebase.auth.FirebaseAuth
+import de.hdodenhof.circleimageview.CircleImageView
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var repository: Repository
-    
+    private lateinit var ivProfilePicture: CircleImageView
+    private lateinit var tvUsername: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
-        
+
         repository = Repository()
+        ivProfilePicture = findViewById(R.id.iv_profile_picture)
+        tvUsername = findViewById(R.id.tv_username)
+
         setupViews()
-        loadUserData()
     }
 
     override fun onResume() {
         super.onResume()
         loadUserData() // Refresh data when returning from EditProfileActivity
     }
-    
+
     @SuppressLint("WrongConstant")
     private fun setupViews() {
         // Bottom navigation
@@ -58,24 +64,24 @@ class ProfileActivity : AppCompatActivity() {
             }
         }
         bottomNavigationView.selectedItemId = R.id.nav_profile
-        
+
         // Menu options
         findViewById<View>(R.id.layout_account).setOnClickListener {
             startActivity(Intent(this, EditProfileActivity::class.java))
         }
-        
+
         findViewById<View>(R.id.layout_settings).setOnClickListener {
             Toast.makeText(this, "Settings coming soon", Toast.LENGTH_SHORT).show()
         }
-        
+
         findViewById<View>(R.id.layout_export_data).setOnClickListener {
             Toast.makeText(this, "Export data coming soon", Toast.LENGTH_SHORT).show()
         }
-        
+
         findViewById<View>(R.id.layout_logout).setOnClickListener {
             logout()
         }
-        
+
         // Edit profile
         findViewById<View>(R.id.iv_edit).setOnClickListener {
             startActivity(Intent(this, EditProfileActivity::class.java))
@@ -86,7 +92,7 @@ class ProfileActivity : AppCompatActivity() {
             startActivity(Intent(this, AddTransactionActivity::class.java))
         }
     }
-    
+
     private fun loadUserData() {
         val user = FirebaseAuth.getInstance().currentUser
         if (user != null) {
@@ -95,10 +101,16 @@ class ProfileActivity : AppCompatActivity() {
                 !user.email.isNullOrBlank() -> user.email!!.substringBefore('@')
                 else -> "User"
             }
-            findViewById<TextView>(R.id.tv_username).text = username
+            tvUsername.text = username
+
+            // Load profile image using Glide
+            Glide.with(this)
+                .load(user.photoUrl)
+                .placeholder(R.drawable.ic_profile_placeholder) // Default image
+                .into(ivProfilePicture)
         }
     }
-    
+
     private fun logout() {
         repository.logout()
         startActivity(Intent(this, AuthActivity::class.java))

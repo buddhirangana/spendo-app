@@ -63,4 +63,6 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.androidx.core.splashscreen)
+    implementation(libs.glide)
+    implementation("com.google.firebase:firebase-storage-ktx:21.0.2")
 }

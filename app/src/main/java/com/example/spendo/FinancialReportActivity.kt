@@ -31,10 +31,6 @@ class FinancialReportActivity : AppCompatActivity() {
     }
     
     private fun setupViews() {
-        // Back button
-        findViewById<View>(R.id.iv_back).setOnClickListener {
-            finish()
-        }
 
         // Bottom navigation
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
@@ -86,6 +82,11 @@ class FinancialReportActivity : AppCompatActivity() {
         }
         
         updateToggleButtons()
+
+        // Add transaction FAB
+        findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.fab_add).setOnClickListener {
+            startActivity(Intent(this, AddTransactionActivity::class.java))
+        }
     }
     
     private fun updateToggleButtons() {

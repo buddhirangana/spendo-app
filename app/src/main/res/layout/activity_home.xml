@@ -327,13 +327,17 @@
         android:id="@+id/fab_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="2dp"
+        android:contentDescription="TODO"
         android:src="@drawable/ic_add"
         app:backgroundTint="@color/primary_green"
-        app:fabSize="normal"
+        app:fabCustomSize="60dp"
         app:elevation="8dp"
+        app:useCompatPadding="true"
+        app:maxImageSize="28dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

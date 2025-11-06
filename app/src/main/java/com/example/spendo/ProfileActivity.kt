@@ -26,7 +26,7 @@ class ProfileActivity : AppCompatActivity() {
     private fun setupViews() {
         // Bottom navigation
         val bottomNavigationView = findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottom_navigation)
-        bottomNavigationView.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_AUTO
+        bottomNavigationView.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_LABELED
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {

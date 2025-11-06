@@ -1,72 +1,118 @@
 package com.example.spendo.adapters
 
+import android.annotation.SuppressLint
+import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spendo.R
 import com.example.spendo.data.Transaction
 import com.example.spendo.data.TransactionType
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class TransactionAdapter(private val transactions: List<Transaction>) : 
+class TransactionAdapter(private val transactions: List<Transaction>) :
     RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder>() {
-    
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_transaction, parent, false)
         return TransactionViewHolder(view)
     }
-    
+
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
-        holder.bind(transactions[position])
+        val transaction = transactions[position]
+        holder.bind(transaction)
     }
-    
+
     override fun getItemCount(): Int = transactions.size
-    
-    class TransactionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val categoryIcon: View = itemView.findViewById(R.id.iv_category_icon)
-        private val categoryText: TextView = itemView.findViewById(R.id.tv_category)
-        private val descriptionText: TextView = itemView.findViewById(R.id.tv_description)
-        private val amountText: TextView = itemView.findViewById(R.id.tv_amount)
-        private val timeText: TextView = itemView.findViewById(R.id.tv_time)
-        
+
+    inner class TransactionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val tvCategory: TextView = itemView.findViewById(R.id.tv_category)
+        private val tvDescription: TextView = itemView.findViewById(R.id.tv_description)
+        private val tvAmount: TextView = itemView.findViewById(R.id.tv_amount)
+        private val tvTime: TextView = itemView.findViewById(R.id.tv_time)
+        private val ivCategoryIcon: ImageView = itemView.findViewById(R.id.iv_category_icon)
+
+        @SuppressLint("SetTextI18n")
         fun bind(transaction: Transaction) {
-            categoryText.text = transaction.category
-            descriptionText.text = transaction.description
-            
-            val amount = String.format("%,d", transaction.amount)
-            val prefix = if (transaction.type == TransactionType.INCOME) "+" else "-"
-            amountText.text = "$prefix LKR $amount"
-            amountText.setTextColor(
-                if (transaction.type == TransactionType.INCOME) 
-                    itemView.context.getColor(R.color.primary_green)
-                else 
-                    itemView.context.getColor(R.color.red)
-            )
-            
-            // Format time
-            val dateFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
-            timeText.text = dateFormat.format(transaction.date.toDate())
-            
-            // Set category icon background color
-            val colors = mapOf(
-                "Food" to R.color.red,
-                "Transportation" to R.color.blue,
-                "Shopping" to R.color.orange,
-                "Entertainment" to R.color.yellow,
-                "Bills" to R.color.primary_green,
-                "Healthcare" to R.color.blue,
-                "Education" to R.color.orange,
-                "Other" to R.color.gray
-            )
-            
-            val colorRes = colors[transaction.category] ?: R.color.gray
-            categoryIcon.setBackgroundColor(itemView.context.getColor(colorRes))
+            tvCategory.text = transaction.category
+            tvDescription.text = transaction.description
+
+            // Format amount and set color
+            val format = NumberFormat.getCurrencyInstance(Locale("en", "LK"))
+            format.currency = Currency.getInstance("LKR")
+
+            if (transaction.type == TransactionType.INCOME) {
+                tvAmount.text = "+ ${format.format (transaction.amount)}"
+                tvAmount.setTextColor(ContextCompat.getColor(itemView.context, R.color.primary_green))
+            } else {
+                tvAmount.text = "- ${format.format (transaction.amount)}"
+                tvAmount.setTextColor(ContextCompat.getColor(itemView.context, R.color.red))
+            }
+
+            // Format and set time
+            val timeFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
+            tvTime.text = timeFormat.format(transaction.date.toDate())
+
+            setCategoryIcon(transaction.category)
+        }
+
+        private fun setCategoryIcon(category: String) {
+            val context = itemView.context
+            val iconResId: Int
+            val backgroundTintId: Int
+
+            when (category) {
+                "Food" -> {
+                    iconResId = R.drawable.ic_food
+                    backgroundTintId = R.color.category_food
+                }
+                "Transportation" -> {
+                    iconResId = R.drawable.ic_transport
+                    backgroundTintId = R.color.category_transport
+                }
+                "Shopping" -> {
+                    iconResId = R.drawable.ic_shopping
+                    backgroundTintId = R.color.category_shopping
+                }
+                "Entertainment" -> {
+                    iconResId = R.drawable.ic_entertainment
+                    backgroundTintId = R.color.category_entertainment
+                }
+                "Bills" -> {
+                    iconResId = R.drawable.ic_bills
+                    backgroundTintId = R.color.category_bills
+                }
+                "Healthcare" -> {
+                    iconResId = R.drawable.ic_health
+                    backgroundTintId = R.color.category_health
+                }
+                "Education" -> {
+                    iconResId = R.drawable.ic_education
+                    backgroundTintId = R.color.category_education
+                }
+                "Salary" -> {
+                    iconResId = R.drawable.ic_salary
+                    backgroundTintId = R.color.category_salary
+                }
+                else -> {
+                    iconResId = R.drawable.ic_other
+                    backgroundTintId = R.color.category_other
+                }
+            }
+
+
+            ivCategoryIcon.setImageResource(iconResId)
+
+            // CORRECTED: Get the background from the ImageView directly
+            val drawable = ivCategoryIcon.background as? GradientDrawable
+            drawable?.setColor(ContextCompat.getColor(context, backgroundTintId))
         }
     }
 }
-
-

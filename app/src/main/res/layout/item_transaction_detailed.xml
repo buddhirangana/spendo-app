@@ -2,18 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:padding="16dp"
     android:gravity="center_vertical"
     android:background="@drawable/transaction_item_background">
 
     <!-- Category Icon -->
-    <View
-        android:id="@+id/iv_category_icon"
+    <LinearLayout
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:gravity="center"
         android:background="@drawable/category_icon_background"
-        android:layout_marginEnd="16dp" />
+        android:layout_marginEnd="16dp">
+
+        <ImageView
+            android:id="@+id/iv_category_icon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_other"
+            app:tint="@color/white" />
+    </LinearLayout>
+
 
     <!-- Transaction Details -->
     <LinearLayout

@@ -3,16 +3,18 @@ package com.example.spendo
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.spendo.adapters.TransactionAdapter
 import com.example.spendo.data.Repository
 import com.example.spendo.data.Transaction
+import com.example.spendo.data.TransactionType
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.navigation.NavigationBarView
@@ -32,70 +34,76 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var transactionAdapter: TransactionAdapter
     private var transactions = mutableListOf<Transaction>()
 
-    // Add a variable for the profile ImageView
     private lateinit var ivProfile: CircleImageView
+    private lateinit var rvRecentTransactions: RecyclerView
+    private lateinit var tvBalance: TextView
+    private lateinit var tvIncome: TextView
+    private lateinit var tvExpenses: TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        // Find the profile image view
-        ivProfile = findViewById(R.id.iv_profile)
-        btnMonth = findViewById(R.id.btn_month)
+        // Initialize repository
+        repository = Repository()
 
-        // Set the current month as the default
+        // Initialize all views
+        initViews()
+        setupClickListeners()
+
+        // Set initial state
         val calendar = Calendar.getInstance()
         selectedMonthIndex = calendar.get(Calendar.MONTH)
         updateMonthButtonText()
 
-        // Set a click listener to show the dialog
+        // Load data for the first time
+        loadProfilePicture()
+        loadData()
+    }
+
+    private fun initViews() {
+        ivProfile = findViewById(R.id.iv_profile)
+        btnMonth = findViewById(R.id.btn_month)
+        rvRecentTransactions = findViewById(R.id.rv_recent_transactions)
+        tvBalance = findViewById(R.id.tv_balance)
+        tvIncome = findViewById(R.id.tv_income)
+        tvExpenses = findViewById(R.id.tv_expenses)
+
+        // Setup RecyclerView
+        transactionAdapter = TransactionAdapter(transactions)
+        rvRecentTransactions.apply {
+            layoutManager = LinearLayoutManager(this@HomeActivity)
+            adapter = transactionAdapter
+        }
+
+        // Setup Bottom Navigation
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNavigationView.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_LABELED
+        bottomNavigationView.selectedItemId = R.id.nav_home
+    }
+
+    private fun setupClickListeners() {
         btnMonth.setOnClickListener {
             showMonthSelectorDialog()
         }
 
-        // Add a click listener for the profile picture to go to the Edit Profile screen
         ivProfile.setOnClickListener {
-            startActivity(Intent(this, ProfileActivity::class.java))
+            startActivity(Intent(this, EditProfileActivity::class.java))
         }
 
-        repository = Repository()
-        setupViews()
-        loadData()
-        loadProfilePicture() // Call the new function
-    }
-
-    // --- ADD THIS NEW FUNCTION ---
-    private fun loadProfilePicture() {
-        val user = FirebaseAuth.getInstance().currentUser
-        if (user != null) {
-            // If the user has a photo URL, load it with Glide
-            if (user.photoUrl != null) {
-                Glide.with(this)
-                    .load(user.photoUrl)
-                    .placeholder(R.drawable.ic_profile_placeholder) // Show placeholder while loading
-                    .error(R.drawable.ic_profile_placeholder) // Show placeholder if loading fails
-                    .into(ivProfile)
-            } else {
-                // If there's no photo URL, load the default placeholder
-                ivProfile.setImageResource(R.drawable.ic_profile_placeholder)
-            }
-        } else {
-            // If no user is logged in, load the default placeholder
-            ivProfile.setImageResource(R.drawable.ic_profile_placeholder)
+        findViewById<View>(R.id.fab_add).setOnClickListener {
+            startActivity(Intent(this, AddTransactionActivity::class.java))
         }
-    }
 
-    private fun setupViews() {
-        // ... (your existing setupViews code remains the same)
-        // Bottom navigation
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        bottomNavigationView.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_LABELED
-        bottomNavigationView.setOnItemSelectedListener { item ->
+        findViewById<View>(R.id.tv_see_all).setOnClickListener {
+            startActivity(Intent(this, TransactionsActivity::class.java))
+        }
+
+        // Bottom Navigation listener
+        findViewById<BottomNavigationView>(R.id.bottom_navigation).setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.nav_home -> {
-                    // Already on home
-                    true
-                }
+                R.id.nav_home -> true // Already here
                 R.id.nav_transactions -> {
                     startActivity(Intent(this, TransactionsActivity::class.java))
                     true
@@ -111,29 +119,16 @@ class HomeActivity : AppCompatActivity() {
                 else -> false
             }
         }
-        bottomNavigationView.selectedItemId = R.id.nav_home
-
-        // Add transaction FAB
-        findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.fab_add).setOnClickListener {
-            startActivity(Intent(this, AddTransactionActivity::class.java))
-        }
-
-        // See all transactions
-        findViewById<View>(R.id.tv_see_all).setOnClickListener {
-            startActivity(Intent(this, TransactionsActivity::class.java))
-        }
-
-        // Setup recycler view
-        transactionAdapter = TransactionAdapter(transactions)
-        findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.rv_recent_transactions).apply {
-            layoutManager = LinearLayoutManager(this@HomeActivity)
-            adapter = transactionAdapter
-        }
     }
 
     private fun loadData() {
-        // ... (your existing loadData code remains the same)
-        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        if (userId == null) {
+            // Handle case where user is not logged in, though this shouldn't happen
+            // if your navigation logic is correct.
+            Toast.makeText(this, "User not logged in!", Toast.LENGTH_SHORT).show()
+            return
+        }
 
         lifecycleScope.launch {
             try {
@@ -148,12 +143,13 @@ class HomeActivity : AppCompatActivity() {
                         calendar.get(Calendar.MONTH) == selectedMonthIndex
                     }
 
+                    // Update the local list and notify the adapter
                     transactions.clear()
-                    transactions.addAll(filteredTransactions)
-
-                    // Update UI with calculated values
-                    updateSummary()
+                    transactions.addAll(filteredTransactions.sortedByDescending { it.date }) // Show most recent first
                     transactionAdapter.notifyDataSetChanged()
+
+                    // Update summary UI
+                    updateSummary()
                 } else {
                     Toast.makeText(this@HomeActivity, "Failed to load transactions", Toast.LENGTH_SHORT).show()
                 }
@@ -164,30 +160,39 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun updateSummary() {
-        // ... (your existing updateSummary code remains the same)
-        val totalIncome = transactions.filter { it.type == com.example.spendo.data.TransactionType.INCOME }.sumOf { it.amount }
-        val totalExpenses = transactions.filter { it.type == com.example.spendo.data.TransactionType.EXPENSE }.sumOf { it.amount }
+        val totalIncome = transactions.filter { it.type == TransactionType.INCOME }.sumOf { it.amount }
+        val totalExpenses = transactions.filter { it.type == TransactionType.EXPENSE }.sumOf { it.amount }
         val balance = totalIncome - totalExpenses
 
-        findViewById<com.google.android.material.textview.MaterialTextView>(R.id.tv_balance).text = "LKR ${String.format("%,d", balance)}"
-        findViewById<com.google.android.material.textview.MaterialTextView>(R.id.tv_income).text = "LKR ${String.format("%,d", totalIncome)}"
-        findViewById<com.google.android.material.textview.MaterialTextView>(R.id.tv_expenses).text = "LKR ${String.format("%,d", totalExpenses)}"
+        tvBalance.text = "LKR ${String.format("%,d", balance)}"
+        tvIncome.text = "LKR ${String.format("%,d", totalIncome)}"
+        tvExpenses.text = "LKR ${String.format("%,d", totalExpenses)}"
+    }
+
+    private fun loadProfilePicture() {
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null && user.photoUrl != null) {
+            Glide.with(this)
+                .load(user.photoUrl)
+                .placeholder(R.drawable.ic_profile_placeholder)
+                .error(R.drawable.ic_profile_placeholder)
+                .into(ivProfile)
+        } else {
+            ivProfile.setImageResource(R.drawable.ic_profile_placeholder)
+        }
     }
 
     private fun showMonthSelectorDialog() {
-        // ... (your existing showMonthSelectorDialog code remains the same)
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Select a Month")
-
-        builder.setSingleChoiceItems(months, selectedMonthIndex) { dialog, which ->
-            selectedMonthIndex = which
-            updateMonthButtonText()
-            loadData() // Refresh data for the newly selected month
-            dialog.dismiss()
-        }
-
-        val dialog = builder.create()
-        dialog.show()
+        AlertDialog.Builder(this)
+            .setTitle("Select a Month")
+            .setSingleChoiceItems(months, selectedMonthIndex) { dialog, which ->
+                selectedMonthIndex = which
+                updateMonthButtonText()
+                loadData() // Refresh data for the newly selected month
+                dialog.dismiss()
+            }
+            .create()
+            .show()
     }
 
     private fun updateMonthButtonText() {
@@ -196,7 +201,8 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        loadData() // Refresh transaction data
-        loadProfilePicture() // Refresh the profile picture
+        // Refresh data every time the user returns to this screen
+        loadData()
+        loadProfilePicture()
     }
 }

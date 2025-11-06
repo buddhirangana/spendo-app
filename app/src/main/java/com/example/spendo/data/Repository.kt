@@ -70,11 +70,13 @@ class Repository(
     suspend fun addTransaction(tx: Transaction): Result<Unit> = runCatching {
         val firestore = db ?: FirebaseFirestore.getInstance()
         val doc = if (tx.id.isEmpty()) {
+            // Creates a new document with a unique ID
             firestore.collection("transactions").document()
         } else {
+            // Uses existing ID if provided
             firestore.collection("transactions").document(tx.id)
         }
-        // Always set the final document ID before saving
+        // Set the document ID on the object itself and save it
         doc.set(tx.copy(id = doc.id)).await()
     }
 

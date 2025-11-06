@@ -61,7 +61,7 @@ class ProfileActivity : AppCompatActivity() {
         
         // Menu options
         findViewById<View>(R.id.layout_account).setOnClickListener {
-            Toast.makeText(this, "Account settings coming soon", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, EditProfileActivity::class.java))
         }
         
         findViewById<View>(R.id.layout_settings).setOnClickListener {

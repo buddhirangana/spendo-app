@@ -64,7 +64,7 @@
             android:src="@drawable/ic_edit"
             android:background="@drawable/edit_button_background"
             android:padding="8dp"
-            app:tint="@color/black"
+            app:tint="@color/gray"
             android:contentDescription="Edit Profile" />
 
     </LinearLayout>
@@ -87,7 +87,7 @@
             android:padding="16dp"
             android:background="@color/white">
 
-            <!-- Account Option -->
+            <!-- Account Option (Corrected) -->
             <LinearLayout
                 android:id="@+id/layout_account"
                 android:layout_width="match_parent"
@@ -97,19 +97,20 @@
                 android:gravity="center_vertical"
                 android:background="?attr/selectableItemBackground">
 
-                <View
+                <!-- Corrected Icon Layout -->
+                <FrameLayout
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:background="@drawable/menu_icon_background"
-                    android:layout_marginEnd="16dp" />
+                    android:layout_marginEnd="16dp">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_account"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="-30dp"
-                    android:contentDescription="Account" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_account"
+                        android:layout_gravity="center"
+                        android:contentDescription="Account" />
+                </FrameLayout>
 
                 <TextView
                     android:layout_width="0dp"
@@ -128,7 +129,7 @@
 
             </LinearLayout>
 
-            <!-- Settings Option -->
+            <!-- Settings Option (Corrected) -->
             <LinearLayout
                 android:id="@+id/layout_settings"
                 android:layout_width="match_parent"
@@ -138,19 +139,20 @@
                 android:gravity="center_vertical"
                 android:background="?attr/selectableItemBackground">
 
-                <View
+                <!-- Corrected Icon Layout -->
+                <FrameLayout
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:background="@drawable/menu_icon_background"
-                    android:layout_marginEnd="16dp" />
+                    android:layout_marginEnd="16dp">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="-30dp"
-                    android:contentDescription="Settings"
-                    android:src="@drawable/ic_settings" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_settings"
+                        android:contentDescription="Settings" />
+                </FrameLayout>
 
                 <TextView
                     android:layout_width="0dp"
@@ -169,7 +171,7 @@
 
             </LinearLayout>
 
-            <!-- Export Data Option -->
+            <!-- Export Data Option (Corrected) -->
             <LinearLayout
                 android:id="@+id/layout_export_data"
                 android:layout_width="match_parent"
@@ -179,19 +181,20 @@
                 android:gravity="center_vertical"
                 android:background="?attr/selectableItemBackground">
 
-                <View
+                <!-- Corrected Icon Layout -->
+                <FrameLayout
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:background="@drawable/menu_icon_background"
-                    android:layout_marginEnd="16dp" />
+                    android:layout_marginEnd="16dp">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_export"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="-30dp"
-                    android:contentDescription="Export" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_export"
+                        android:layout_gravity="center"
+                        android:contentDescription="Export" />
+                </FrameLayout>
 
                 <TextView
                     android:layout_width="0dp"
@@ -210,7 +213,7 @@
 
             </LinearLayout>
 
-            <!-- Logout Option -->
+            <!-- Logout Option (Corrected) -->
             <LinearLayout
                 android:id="@+id/layout_logout"
                 android:layout_width="match_parent"
@@ -220,19 +223,20 @@
                 android:gravity="center_vertical"
                 android:background="?attr/selectableItemBackground">
 
-                <View
+                <!-- Corrected Icon Layout -->
+                <FrameLayout
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:background="@drawable/menu_icon_background_red"
-                    android:layout_marginEnd="16dp" />
+                    android:layout_marginEnd="16dp">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_logout"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="-30dp"
-                    android:contentDescription="Logout" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_logout"
+                        android:layout_gravity="center"
+                        android:contentDescription="Logout" />
+                </FrameLayout>
 
                 <TextView
                     android:layout_width="0dp"
@@ -282,5 +286,3 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-

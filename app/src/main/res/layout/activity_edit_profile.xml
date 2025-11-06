@@ -4,32 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:background="@color/white"
     tools:context=".EditProfileActivity">
 
-    <!-- Back Button -->
-    <ImageView
-        android:id="@+id/iv_back"
-        android:layout_width="wrap_content"
+    <!-- Header -->
+    <LinearLayout
+        android:id="@+id/layout_header"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_arrow_back"
-        android:padding="8dp"
-        android:contentDescription="Back"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Edit Profile"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:fontFamily="@font/raleway_bold"
-        app:layout_constraintTop_toTopOf="@id/iv_back"
-        app:layout_constraintBottom_toBottomOf="@id/iv_back"
-        app:layout_constraintStart_toEndOf="@id/iv_back"
-        android:layout_marginStart="16dp"/>
+        <!-- Back Button -->
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Back"
+            android:padding="4dp"
+            android:src="?attr/homeAsUpIndicator"
+            app:tint="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/raleway_semibold"
+            android:gravity="center"
+            android:text="Edit Profile"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <!-- This is a spacer to balance the back button and keep the title centered -->
+        <Space
+            android:layout_width="28dp"
+            android:layout_height="28dp" />
+
+    </LinearLayout>
 
     <!-- Profile Picture -->
     <de.hdodenhof.circleimageview.CircleImageView
@@ -42,20 +59,20 @@
         app:civ_border_width="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+        app:layout_constraintTop_toBottomOf="@id/layout_header" /> <!-- Corrected: Constrained to header layout -->
 
     <!-- Edit/Change Picture Button -->
     <TextView
         android:id="@+id/tv_change_photo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/raleway_semibold"
         android:text="Change Photo"
         android:textColor="@color/primary_green"
-        android:fontFamily="@font/raleway_semibold"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/iv_profile_picture"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/iv_profile_picture" />
 
     <!-- Group for editable fields, shown for email users -->
     <androidx.constraintlayout.widget.Group
@@ -64,12 +81,23 @@
         android:layout_height="wrap_content"
         app:constraint_referenced_ids="til_username,til_new_password,til_confirm_password,btn_save" />
 
+    <!-- All input fields are constrained to a consistent margin of 16dp -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_username"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        app:boxCornerRadiusBottomEnd="40dp"
+        app:boxCornerRadiusBottomStart="40dp"
+        app:boxCornerRadiusTopEnd="40dp"
+        app:boxCornerRadiusTopStart="40dp"
+        app:boxStrokeColor="@color/primary_green"
+        app:counterTextColor="@color/green"
+        app:cursorColor="@color/green"
+        app:cursorErrorColor="@color/green"
+        app:hintTextColor="@color/primary_green"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_change_photo">
@@ -79,45 +107,83 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Username"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:fontFamily="@font/raleway"
+            android:textColor="@color/common_google_signin_btn_text_light_focused"
+            android:textColorHighlight="@color/green"
+            android:textColorHint="@color/green"
+            android:textColorLink="@color/green"
+            android:textSize="16dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_new_password"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        app:passwordToggleEnabled="true"
+        android:layout_marginEnd="16dp"
+        app:boxCornerRadiusBottomEnd="40dp"
+        app:boxCornerRadiusBottomStart="40dp"
+        app:boxCornerRadiusTopEnd="40dp"
+        app:boxCornerRadiusTopStart="40dp"
+        app:boxStrokeColor="@color/primary_green"
+        app:counterTextColor="@color/green"
+        app:cursorColor="@color/green"
+        app:cursorErrorColor="@color/green"
+        app:hintTextColor="@color/primary_green"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_username">
+        app:layout_constraintTop_toBottomOf="@+id/til_username"
+        app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_new_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="New Password (optional)"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:fontFamily="@font/raleway"
+            android:textColor="@color/common_google_signin_btn_text_light_focused"
+            android:textColorHighlight="@color/green"
+            android:textColorHint="@color/green"
+            android:textColorLink="@color/green"
+            android:textSize="16dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_confirm_password"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        app:passwordToggleEnabled="true"
+        android:layout_marginEnd="16dp"
+        app:boxCornerRadiusBottomEnd="40dp"
+        app:boxCornerRadiusBottomStart="40dp"
+        app:boxCornerRadiusTopEnd="40dp"
+        app:boxCornerRadiusTopStart="40dp"
+        app:boxStrokeColor="@color/primary_green"
+        app:counterTextColor="@color/green"
+        app:cursorColor="@color/green"
+        app:cursorErrorColor="@color/green"
+        app:hintTextColor="@color/primary_green"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_new_password">
+        app:layout_constraintTop_toBottomOf="@+id/til_new_password"
+        app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_confirm_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Confirm New Password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:fontFamily="@font/raleway"
+            android:textColor="@color/common_google_signin_btn_text_light_focused"
+            android:textColorHighlight="@color/green"
+            android:textColorHint="@color/green"
+            android:textColorLink="@color/green"
+            android:textSize="16dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Message for Google Login Users -->
@@ -125,24 +191,36 @@
         android:id="@+id/tv_google_message"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="You are logged in via Google. Your profile information is managed by your Google account and cannot be changed here."
+        android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:gravity="center"
-        android:visibility="gone"
-        tools:visibility="visible"
-        android:textColor="@color/gray"
+        android:layout_marginEnd="16dp"
         android:fontFamily="@font/raleway_medium"
-        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
+        android:text="You are logged in via Google. Your profile information is managed by your Google account and cannot be changed here."
+        android:textColor="@color/gray"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_change_photo"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_change_photo"
+        tools:visibility="visible" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_save"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/raleway_bold"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:backgroundTint="@color/primary_green"
+        app:cornerRadius="40dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Save Changes"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:padding="12dp"
+        android:text="Save Changes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_confirm_password" />

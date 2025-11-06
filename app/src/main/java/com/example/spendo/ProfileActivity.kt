@@ -22,6 +22,11 @@ class ProfileActivity : AppCompatActivity() {
         setupViews()
         loadUserData()
     }
+
+    override fun onResume() {
+        super.onResume()
+        loadUserData() // Refresh data when returning from EditProfileActivity
+    }
     
     @SuppressLint("WrongConstant")
     private fun setupViews() {
@@ -73,9 +78,9 @@ class ProfileActivity : AppCompatActivity() {
         
         // Edit profile
         findViewById<View>(R.id.iv_edit).setOnClickListener {
-            Toast.makeText(this, "Edit profile coming soon", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, EditProfileActivity::class.java))
         }
-        
+
         // Add transaction FAB
         findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.fab_add).setOnClickListener {
             startActivity(Intent(this, AddTransactionActivity::class.java))

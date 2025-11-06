@@ -186,23 +186,52 @@
             android:textSize="16dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Message for Google Login Users -->
-    <TextView
-        android:id="@+id/tv_google_message"
+    <!-- Improved Message for Google Login Users -->
+    <LinearLayout
+        android:id="@+id/layout_google_message"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:fontFamily="@font/raleway_medium"
+        android:background="@drawable/google_message_background"
         android:gravity="center"
-        android:text="You are logged in via Google. Your profile information is managed by your Google account and cannot be changed here."
-        android:textColor="@color/gray"
+        android:orientation="vertical"
+        android:padding="16dp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_change_photo"
-        tools:visibility="visible" />
+        tools:visibility="visible">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/ic_google_logo"
+            app:tint="@null" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/raleway_medium"
+            android:gravity="center"
+            android:text="You're signed in with Google."
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/raleway"
+            android:gravity="center"
+            android:text="Your name is managed by your Google Account."
+            android:textColor="@color/gray"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_save"

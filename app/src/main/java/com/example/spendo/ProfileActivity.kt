@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.spendo.data.Repository
@@ -84,8 +85,12 @@ class ProfileActivity : AppCompatActivity() {
     private fun loadUserData() {
         val user = FirebaseAuth.getInstance().currentUser
         if (user != null) {
-            findViewById<com.google.android.material.textview.MaterialTextView>(R.id.tv_username).text = 
-                user.displayName ?: "User"
+            val username = when {
+                !user.displayName.isNullOrBlank() -> user.displayName
+                !user.email.isNullOrBlank() -> user.email!!.substringBefore('@')
+                else -> "User"
+            }
+            findViewById<TextView>(R.id.tv_username).text = username
         }
     }
     

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.spendo.adapters.TransactionGroupAdapter
 import com.example.spendo.data.Repository
 import com.example.spendo.data.Transaction
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -36,10 +37,13 @@ class TransactionsActivity : AppCompatActivity() {
         }
         
         // Bottom navigation
-        findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottom_navigation).setOnItemSelectedListener { item ->
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNavigationView.labelVisibilityMode = com.google.android.material.bottomnavigation.LabelVisibilityMode.LABEL_VISIBILITY_LABELED
+        bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {
                     startActivity(Intent(this, HomeActivity::class.java))
+                    finish()
                     true
                 }
                 R.id.nav_transactions -> {
@@ -48,15 +52,18 @@ class TransactionsActivity : AppCompatActivity() {
                 }
                 R.id.nav_budget -> {
                     startActivity(Intent(this, FinancialReportActivity::class.java))
+                    finish()
                     true
                 }
                 R.id.nav_profile -> {
                     startActivity(Intent(this, ProfileActivity::class.java))
+                    finish()
                     true
                 }
                 else -> false
             }
         }
+        bottomNavigationView.selectedItemId = R.id.nav_transactions
         
         // Add transaction FAB
         findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.fab_add).setOnClickListener {

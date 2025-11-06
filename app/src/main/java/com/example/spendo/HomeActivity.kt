@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.spendo.adapters.TransactionAdapter
 import com.example.spendo.data.Repository
 import com.example.spendo.data.Transaction
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
@@ -51,7 +52,9 @@ class HomeActivity : AppCompatActivity() {
     
     private fun setupViews() {
         // Bottom navigation
-        findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottom_navigation).setOnItemSelectedListener { item ->
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNavigationView.labelVisibilityMode = com.google.android.material.bottomnavigation.LabelVisibilityMode.LABEL_VISIBILITY_LABELED
+        bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {
                     // Already on home
@@ -59,19 +62,23 @@ class HomeActivity : AppCompatActivity() {
                 }
                 R.id.nav_transactions -> {
                     startActivity(Intent(this, TransactionsActivity::class.java))
+                    finish()
                     true
                 }
                 R.id.nav_budget -> {
                     startActivity(Intent(this, FinancialReportActivity::class.java))
+                    finish()
                     true
                 }
                 R.id.nav_profile -> {
                     startActivity(Intent(this, ProfileActivity::class.java))
+                    finish()
                     true
                 }
                 else -> false
             }
         }
+        bottomNavigationView.selectedItemId = R.id.nav_home
         
         // Add transaction FAB
         findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.fab_add).setOnClickListener {
@@ -152,6 +159,3 @@ class HomeActivity : AppCompatActivity() {
         loadData() // Refresh data when returning from AddTransaction
     }
 }
-
-
-

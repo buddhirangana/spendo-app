@@ -1,11 +1,13 @@
 package com.example.spendo
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.spendo.data.Repository
+import com.google.android.material.navigation.NavigationBarView
 import com.google.firebase.auth.FirebaseAuth
 
 class ProfileActivity : AppCompatActivity() {
@@ -20,20 +22,26 @@ class ProfileActivity : AppCompatActivity() {
         loadUserData()
     }
     
+    @SuppressLint("WrongConstant")
     private fun setupViews() {
         // Bottom navigation
-        findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottom_navigation).setOnItemSelectedListener { item ->
+        val bottomNavigationView = findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottom_navigation)
+        bottomNavigationView.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_AUTO
+        bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {
                     startActivity(Intent(this, HomeActivity::class.java))
+                    finish()
                     true
                 }
                 R.id.nav_transactions -> {
                     startActivity(Intent(this, TransactionsActivity::class.java))
+                    finish()
                     true
                 }
                 R.id.nav_budget -> {
                     startActivity(Intent(this, FinancialReportActivity::class.java))
+                    finish()
                     true
                 }
                 R.id.nav_profile -> {
@@ -43,6 +51,7 @@ class ProfileActivity : AppCompatActivity() {
                 else -> false
             }
         }
+        bottomNavigationView.selectedItemId = R.id.nav_profile
         
         // Menu options
         findViewById<View>(R.id.layout_account).setOnClickListener {
@@ -86,5 +95,3 @@ class ProfileActivity : AppCompatActivity() {
         finish()
     }
 }
-
-

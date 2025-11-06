@@ -1,5 +1,6 @@
 package com.example.spendo
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -10,6 +11,7 @@ import com.example.spendo.adapters.CategoryBreakdownAdapter
 import com.example.spendo.data.Repository
 import com.example.spendo.data.Transaction
 import com.example.spendo.data.TransactionType
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
@@ -32,6 +34,35 @@ class FinancialReportActivity : AppCompatActivity() {
         findViewById<View>(R.id.iv_back).setOnClickListener {
             finish()
         }
+
+        // Bottom navigation
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNavigationView.labelVisibilityMode = com.google.android.material.bottomnavigation.LabelVisibilityMode.LABEL_VISIBILITY_LABELED
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    startActivity(Intent(this, HomeActivity::class.java))
+                    finish()
+                    true
+                }
+                R.id.nav_transactions -> {
+                    startActivity(Intent(this, TransactionsActivity::class.java))
+                    finish()
+                    true
+                }
+                R.id.nav_budget -> {
+                    // Already on budget
+                    true
+                }
+                R.id.nav_profile -> {
+                    startActivity(Intent(this, ProfileActivity::class.java))
+                    finish()
+                    true
+                }
+                else -> false
+            }
+        }
+        bottomNavigationView.selectedItemId = R.id.nav_budget
         
         // Toggle buttons
         findViewById<View>(R.id.btn_expense_toggle).setOnClickListener {
@@ -136,5 +167,3 @@ data class CategoryBreakdownData(
     val amount: Long,
     val color: Int
 )
-
-

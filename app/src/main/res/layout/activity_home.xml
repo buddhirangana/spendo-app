@@ -192,12 +192,11 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <!-- Chart Placeholder -->
-            <View
-                android:id="@+id/chart_placeholder"
+            <!-- Chart -->
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/bar_chart"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:background="@drawable/chart_placeholder"
                 android:layout_marginBottom="16dp" />
 
             <!-- Time Period Selector -->
@@ -340,5 +339,3 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-

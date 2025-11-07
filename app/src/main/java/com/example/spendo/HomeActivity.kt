@@ -17,12 +17,10 @@ import com.example.spendo.adapters.TransactionAdapter
 import com.example.spendo.data.Repository
 import com.example.spendo.data.Transaction
 import com.example.spendo.data.TransactionType
-import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.navigation.NavigationBarView
@@ -47,7 +45,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var tvBalance: TextView
     private lateinit var tvIncome: TextView
     private lateinit var tvExpenses: TextView
-    private lateinit var barChart: BarChart
+    private lateinit var lineChart: LineChart
     private lateinit var btnToday: MaterialButton
     private lateinit var btnWeek: MaterialButton
     private lateinit var btnMonth2: MaterialButton
@@ -83,7 +81,7 @@ class HomeActivity : AppCompatActivity() {
         tvBalance = findViewById(R.id.tv_balance)
         tvIncome = findViewById(R.id.tv_income)
         tvExpenses = findViewById(R.id.tv_expenses)
-        barChart = findViewById(R.id.bar_chart)
+        lineChart = findViewById(R.id.chart)
         btnToday = findViewById(R.id.btn_today)
         btnWeek = findViewById(R.id.btn_week)
         btnMonth2 = findViewById(R.id.btn2_month)
@@ -193,41 +191,60 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setupChart() {
-        barChart.description.isEnabled = false
-        barChart.legend.isEnabled = false
-        barChart.setDrawValueAboveBar(true)
-        barChart.setTouchEnabled(false)
-        barChart.setDrawGridBackground(false)
+        lineChart.description.isEnabled = false
+        lineChart.legend.isEnabled = false
+        lineChart.setTouchEnabled(false)
+        lineChart.setDrawGridBackground(false)
 
-        val xAxis = barChart.xAxis
-        xAxis.position = XAxis.XAxisPosition.BOTTOM
+        val xAxis = lineChart.xAxis
+        xAxis.setDrawAxisLine(false)
         xAxis.setDrawGridLines(false)
-        xAxis.granularity = 1f
-        xAxis.textColor = Color.BLACK
-        xAxis.axisLineColor = Color.BLACK
+        xAxis.setDrawLabels(false)
+        xAxis.spaceMin = 0.4f
+        xAxis.spaceMax = 0.4f
 
-        val leftAxis = barChart.axisLeft
-        leftAxis.setDrawGridLines(false)
-        leftAxis.textColor = Color.BLACK
-        leftAxis.axisMinimum = 0f
+        lineChart.axisLeft.isEnabled = false
+        lineChart.axisRight.isEnabled = false
 
-        barChart.axisRight.isEnabled = false
+        lineChart.setNoDataText("No expense data for this period.")
+        lineChart.setNoDataTextColor(ContextCompat.getColor(this, R.color.primary_green))
     }
 
 
     private fun updateChartWithPeriod(period: String) {
         // Reset button styles
-        btnToday.backgroundTintList = ContextCompat.getColorStateList(this, R.color.light_gray)
-        btnWeek.backgroundTintList = ContextCompat.getColorStateList(this, R.color.light_gray)
-        btnMonth2.backgroundTintList = ContextCompat.getColorStateList(this, R.color.light_gray)
-        btnYear.backgroundTintList = ContextCompat.getColorStateList(this, R.color.light_gray)
+        val unselectedBg = ContextCompat.getColorStateList(this, R.color.light_gray)
+        val unselectedText = ContextCompat.getColor(this, R.color.gray)
+        btnToday.backgroundTintList = unselectedBg
+        btnToday.setTextColor(unselectedText)
+        btnWeek.backgroundTintList = unselectedBg
+        btnWeek.setTextColor(unselectedText)
+        btnMonth2.backgroundTintList = unselectedBg
+        btnMonth2.setTextColor(unselectedText)
+        btnYear.backgroundTintList = unselectedBg
+        btnYear.setTextColor(unselectedText)
+
+        val selectedBg = ContextCompat.getColorStateList(this, R.color.primary_green)
+        val selectedText = Color.WHITE
 
         // Set selected button style
         when (period) {
-            "Today" -> btnToday.backgroundTintList = ContextCompat.getColorStateList(this, R.color.primary_green)
-            "Week" -> btnWeek.backgroundTintList = ContextCompat.getColorStateList(this, R.color.primary_green)
-            "Month" -> btnMonth2.backgroundTintList = ContextCompat.getColorStateList(this, R.color.primary_green)
-            "Year" -> btnYear.backgroundTintList = ContextCompat.getColorStateList(this, R.color.primary_green)
+            "Today" -> {
+                btnToday.backgroundTintList = selectedBg
+                btnToday.setTextColor(selectedText)
+            }
+            "Week" -> {
+                btnWeek.backgroundTintList = selectedBg
+                btnWeek.setTextColor(selectedText)
+            }
+            "Month" -> {
+                btnMonth2.backgroundTintList = selectedBg
+                btnMonth2.setTextColor(selectedText)
+            }
+            "Year" -> {
+                btnYear.backgroundTintList = selectedBg
+                btnYear.setTextColor(selectedText)
+            }
         }
 
         val calendar = Calendar.getInstance()
@@ -247,24 +264,21 @@ class HomeActivity : AppCompatActivity() {
 
     private fun updateChart(transactions: List<Transaction>, period: String) {
         if (transactions.isEmpty()) {
-            barChart.clear()
-            barChart.invalidate()
+            lineChart.clear()
+            lineChart.invalidate()
             return
         }
 
-        val entries = ArrayList<BarEntry>()
-        val labels = ArrayList<String>()
+        val entries = ArrayList<Entry>()
 
         when (period) {
             "Today" -> {
-                // For today, we can show hourly expenses
                 val hourlyExpenses = transactions.filter { it.type == TransactionType.EXPENSE }
                     .groupBy { Calendar.getInstance().apply { time = it.date.toDate() }.get(Calendar.HOUR_OF_DAY) }
                     .mapValues { entry -> entry.value.sumOf { it.amount } }
 
                 for (hour in 0..23) {
-                    entries.add(BarEntry(hour.toFloat(), (hourlyExpenses[hour] ?: 0.0).toFloat()))
-                    labels.add("${hour}h")
+                    entries.add(Entry(hour.toFloat(), (hourlyExpenses[hour] ?: 0.0).toFloat()))
                 }
             }
             "Week" -> {
@@ -272,10 +286,8 @@ class HomeActivity : AppCompatActivity() {
                     .groupBy { Calendar.getInstance().apply { time = it.date.toDate() }.get(Calendar.DAY_OF_WEEK) }
                     .mapValues { entry -> entry.value.sumOf { it.amount } }
 
-                val days = DateFormatSymbols().shortWeekdays
                 for (i in 1..7) {
-                    entries.add(BarEntry(i.toFloat() - 1, (weeklyExpenses[i] ?: 0.0).toFloat()))
-                    labels.add(days[i])
+                    entries.add(Entry(i.toFloat() - 1, (weeklyExpenses[i] ?: 0.0).toFloat()))
                 }
             }
             "Month" -> {
@@ -285,8 +297,7 @@ class HomeActivity : AppCompatActivity() {
 
                 val daysInMonth = Calendar.getInstance().apply { set(Calendar.MONTH, selectedMonthIndex) }.getActualMaximum(Calendar.DAY_OF_MONTH)
                 for (day in 1..daysInMonth) {
-                    entries.add(BarEntry(day.toFloat() - 1, (dailyExpenses[day] ?: 0.0).toFloat()))
-                    labels.add("$day")
+                    entries.add(Entry(day.toFloat() - 1, (dailyExpenses[day] ?: 0.0).toFloat()))
                 }
             }
             "Year" -> {
@@ -294,25 +305,24 @@ class HomeActivity : AppCompatActivity() {
                     .groupBy { Calendar.getInstance().apply { time = it.date.toDate() }.get(Calendar.MONTH) }
                     .mapValues { entry -> entry.value.sumOf { it.amount } }
 
-                val months = DateFormatSymbols().shortMonths
                 for (i in 0..11) {
-                    entries.add(BarEntry(i.toFloat(), (monthlyExpenses[i] ?: 0.0).toFloat()))
-                    labels.add(months[i])
+                    entries.add(Entry(i.toFloat(), (monthlyExpenses[i] ?: 0.0).toFloat()))
                 }
             }
         }
 
-        val dataSet = BarDataSet(entries, "Expenses")
+        val dataSet = LineDataSet(entries, "Expenses")
         dataSet.color = ContextCompat.getColor(this, R.color.primary_green)
-        dataSet.valueTextColor = Color.BLACK
-        dataSet.valueTextSize = 10f
+        dataSet.lineWidth = 3f
+        dataSet.setDrawCircles(false)
+        dataSet.setDrawValues(false)
+        dataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
+        dataSet.setDrawFilled(true)
+        dataSet.fillDrawable = ContextCompat.getDrawable(this, R.drawable.chart_gradient)
 
-        val barData = BarData(dataSet)
-        barData.barWidth = 0.5f
-
-        barChart.data = barData
-        barChart.xAxis.valueFormatter = IndexAxisValueFormatter(labels)
-        barChart.invalidate()
+        val lineData = LineData(dataSet)
+        lineChart.data = lineData
+        lineChart.invalidate()
     }
 
     private fun loadProfilePicture() {

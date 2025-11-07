@@ -12,9 +12,9 @@
         android:id="@+id/layout_top_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="horizontal"
         android:padding="16dp"
-        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -47,14 +47,14 @@
             app:iconPadding="8dp" />
 
         <!-- Notifications -->
-<!--        <ImageView-->
-<!--            android:id="@+id/iv_notifications"-->
-<!--            android:layout_width="24dp"-->
-<!--            android:layout_height="24dp"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            android:contentDescription="Notifications"-->
-<!--            android:paddingLeft="60dp"-->
-<!--            android:src="@drawable/ic_notifications" />-->
+        <!--        <ImageView-->
+        <!--            android:id="@+id/iv_notifications"-->
+        <!--            android:layout_width="24dp"-->
+        <!--            android:layout_height="24dp"-->
+        <!--            android:layout_marginStart="16dp"-->
+        <!--            android:contentDescription="Notifications"-->
+        <!--            android:paddingLeft="60dp"-->
+        <!--            android:src="@drawable/ic_notifications" />-->
 
     </LinearLayout>
 
@@ -79,47 +79,47 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/raleway_medium"
                 android:text="Account Balance"
                 android:textColor="@color/primary_green"
-                android:layout_gravity="center"
                 android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/tv_balance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginBottom="24dp"
                 android:fontFamily="@font/inter_semibold"
                 android:text="LKR 0"
                 android:textColor="@color/black"
                 android:textSize="40sp"
-                android:textStyle="bold"
-                android:layout_gravity="center"/>
+                android:textStyle="bold" />
 
             <!-- Income and Expenses Cards -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="32dp">
+                android:layout_marginBottom="32dp"
+                android:orientation="horizontal">
 
                 <!-- Income Card -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    android:orientation="vertical"
                     android:background="@drawable/card_income"
-                    android:padding="16dp"
-                    android:layout_marginEnd="8dp">
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_arrow_down_white"
-                        android:layout_marginBottom="8dp" />
+                        android:layout_marginBottom="8dp"
+                        android:src="@drawable/ic_arrow_down_white" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -146,17 +146,17 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:orientation="vertical"
                     android:background="@drawable/card_expense"
-                    android:padding="16dp"
-                    android:layout_marginStart="8dp">
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_arrow_up_white"
-                        android:layout_marginBottom="8dp" />
+                        android:layout_marginBottom="8dp"
+                        android:src="@drawable/ic_arrow_up_white" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -193,8 +193,8 @@
                 android:textStyle="bold" />
 
             <!-- Chart -->
-            <com.github.mikephil.charting.charts.BarChart
-                android:id="@+id/bar_chart"
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginBottom="16dp" />
@@ -203,8 +203,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="24dp">
+                android:layout_marginBottom="24dp"
+                android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_today"
@@ -270,9 +270,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginBottom="16dp"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="16dp">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="0dp"
@@ -316,10 +316,10 @@
         android:background="@color/light_green"
         app:itemIconTint="@color/nav_item_color"
         app:itemTextColor="@color/nav_item_color"
-        app:menu="@menu/bottom_navigation_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation_menu" />
 
     <!-- Floating Add Button - Right Bottom -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -330,12 +330,12 @@
         android:contentDescription="TODO"
         android:src="@drawable/ic_add"
         app:backgroundTint="@color/primary_green"
-        app:fabCustomSize="60dp"
         app:elevation="8dp"
-        app:useCompatPadding="true"
-        app:maxImageSize="28dp"
+        app:fabCustomSize="60dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="28dp"
+        app:useCompatPadding="true" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

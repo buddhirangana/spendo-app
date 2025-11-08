@@ -1,43 +1,78 @@
 package com.example.spendo
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.example.spendo.data.Repository
+import com.example.spendo.fragments.LoginFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.google.firebase.auth.FirebaseAuth
-import de.hdodenhof.circleimageview.CircleImageView
 
 class ProfileActivity : AppCompatActivity() {
-    private lateinit var repository: Repository
-    private lateinit var ivProfilePicture: CircleImageView
+
+    private lateinit var ivProfilePicture: ImageView
     private lateinit var tvUsername: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
-        repository = Repository()
+        initViews()
+        loadUserProfile()
+        setupClickListeners()
+    }
+
+    private fun initViews() {
         ivProfilePicture = findViewById(R.id.iv_profile_picture)
         tvUsername = findViewById(R.id.tv_username)
-
-        setupViews()
     }
 
-    override fun onResume() {
-        super.onResume()
-        loadUserData() // Refresh data when returning from EditProfileActivity
+    private fun loadUserProfile() {
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+            tvUsername.text = user.displayName ?: "User"
+            if (user.photoUrl != null) {
+                Glide.with(this)
+                    .load(user.photoUrl)
+                    .placeholder(R.drawable.ic_profile_placeholder)
+                    .error(R.drawable.ic_profile_placeholder)
+                    .into(ivProfilePicture)
+            } else {
+                ivProfilePicture.setImageResource(R.drawable.ic_profile_placeholder)
+            }
+        }
     }
 
-    @SuppressLint("WrongConstant")
-    private fun setupViews() {
+    private fun setupClickListeners() {
+        // Edit profile
+        findViewById<View>(R.id.iv_edit).setOnClickListener {
+            startActivity(Intent(this, EditProfileActivity::class.java))
+        }
+
+        // Account
+        findViewById<View>(R.id.layout_account).setOnClickListener {
+            startActivity(Intent(this, EditProfileActivity::class.java))
+        }
+
+        // Settings
+        findViewById<View>(R.id.layout_settings).setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
+        }
+
+        // Logout
+        findViewById<View>(R.id.layout_logout).setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            val intent = Intent(this, LoginFragment::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
+
         // Bottom navigation
-        val bottomNavigationView = findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottom_navigation)
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNavigationView.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_LABELED
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -56,64 +91,19 @@ class ProfileActivity : AppCompatActivity() {
                     finish()
                     true
                 }
-                R.id.nav_profile -> {
-                    // Already on profile
-                    true
-                }
+                R.id.nav_profile -> true // Already here
                 else -> false
             }
         }
         bottomNavigationView.selectedItemId = R.id.nav_profile
 
-        // Menu options
-        findViewById<View>(R.id.layout_account).setOnClickListener {
-            startActivity(Intent(this, EditProfileActivity::class.java))
-        }
-
-        findViewById<View>(R.id.layout_settings).setOnClickListener {
-            Toast.makeText(this, "Settings coming soon", Toast.LENGTH_SHORT).show()
-        }
-
-        findViewById<View>(R.id.layout_export_data).setOnClickListener {
-            Toast.makeText(this, "Export data coming soon", Toast.LENGTH_SHORT).show()
-        }
-
-        findViewById<View>(R.id.layout_logout).setOnClickListener {
-            logout()
-        }
-
-        // Edit profile
-        findViewById<View>(R.id.iv_edit).setOnClickListener {
-            startActivity(Intent(this, EditProfileActivity::class.java))
-        }
-
-        // Add transaction FAB
-        findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.fab_add).setOnClickListener {
+        findViewById<View>(R.id.fab_add).setOnClickListener {
             startActivity(Intent(this, AddTransactionActivity::class.java))
         }
     }
 
-    private fun loadUserData() {
-        val user = FirebaseAuth.getInstance().currentUser
-        if (user != null) {
-            val username = when {
-                !user.displayName.isNullOrBlank() -> user.displayName
-                !user.email.isNullOrBlank() -> user.email!!.substringBefore('@')
-                else -> "User"
-            }
-            tvUsername.text = username
-
-            // Load profile image using Glide
-            Glide.with(this)
-                .load(user.photoUrl)
-                .placeholder(R.drawable.ic_profile_placeholder) // Default image
-                .into(ivProfilePicture)
-        }
-    }
-
-    private fun logout() {
-        repository.logout()
-        startActivity(Intent(this, AuthActivity::class.java))
-        finish()
+    override fun onResume() {
+        super.onResume()
+        loadUserProfile()
     }
 }

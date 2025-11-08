@@ -50,12 +50,10 @@ class TransactionsActivity : AppCompatActivity() {
             showFilterDialog()
         }
 
-        // Financial report banner
         findViewById<View>(R.id.layout_report_banner).setOnClickListener {
             startActivity(Intent(this, FinancialReportActivity::class.java))
         }
 
-        // Bottom navigation
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNavigationView.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_LABELED
         bottomNavigationView.setOnItemSelectedListener { item ->
@@ -65,10 +63,7 @@ class TransactionsActivity : AppCompatActivity() {
                     finish()
                     true
                 }
-                R.id.nav_transactions -> {
-                    // Already on transactions
-                    true
-                }
+                R.id.nav_transactions -> true
                 R.id.nav_budget -> {
                     startActivity(Intent(this, FinancialReportActivity::class.java))
                     finish()
@@ -84,13 +79,29 @@ class TransactionsActivity : AppCompatActivity() {
         }
         bottomNavigationView.selectedItemId = R.id.nav_transactions
 
-        // Add transaction FAB
         findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.fab_add).setOnClickListener {
             startActivity(Intent(this, AddTransactionActivity::class.java))
         }
 
-        // Setup recycler view
-        transactionAdapter = TransactionGroupAdapter(emptyMap())
+        transactionAdapter = TransactionGroupAdapter(
+            emptyMap(),
+            onUpdate = { transaction ->
+                val intent = Intent(this, AddTransactionActivity::class.java).apply {
+                    putExtra("TRANSACTION_ID", transaction.id)
+                    putExtra("TRANSACTION_AMOUNT", transaction.amount)
+                    putExtra("TRANSACTION_CATEGORY", transaction.category)
+                    putExtra("TRANSACTION_DESC", transaction.description)
+                    putExtra("TRANSACTION_TYPE", transaction.type.name) // Pass enum as String
+                    putExtra("TRANSACTION_DATE_SECONDS", transaction.date.seconds)
+                    putExtra("TRANSACTION_DATE_NANOS", transaction.date.nanoseconds)
+                }
+                startActivity(intent)
+            },
+            onDelete = { transaction ->
+                showDeleteConfirmationDialog(transaction)
+            }
+        )
+
         findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.rv_transactions).apply {
             layoutManager = LinearLayoutManager(this@TransactionsActivity)
             adapter = transactionAdapter
@@ -131,7 +142,6 @@ class TransactionsActivity : AppCompatActivity() {
             filteredTransactions = filteredTransactions.filter { it.type == selectedFilterType }
         }
 
-        // Group transactions by date
         val groupedTransactions = groupTransactionsByDate(filteredTransactions)
         transactionAdapter.updateData(groupedTransactions)
     }
@@ -156,8 +166,7 @@ class TransactionsActivity : AppCompatActivity() {
         val cal2 = Calendar.getInstance()
         cal1.time = date1
         cal2.time = date2
-        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
-                cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR)
+        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) && cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR)
     }
 
     private fun showMonthSelectorDialog() {
@@ -197,12 +206,39 @@ class TransactionsActivity : AppCompatActivity() {
             .show()
     }
 
+    private fun showDeleteConfirmationDialog(transaction: Transaction) {
+        AlertDialog.Builder(this)
+            .setTitle("Delete Transaction")
+            .setMessage("Are you sure you want to delete this transaction?")
+            .setPositiveButton("Delete") { _, _ ->
+                deleteTransaction(transaction)
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun deleteTransaction(transaction: Transaction) {
+        lifecycleScope.launch {
+            try {
+                val result = repository.deleteTransaction(transaction.id)
+                if (result.isSuccess) {
+                    Toast.makeText(this@TransactionsActivity, "Transaction deleted", Toast.LENGTH_SHORT).show()
+                    loadData()
+                } else {
+                    Toast.makeText(this@TransactionsActivity, "Failed to delete transaction", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(this@TransactionsActivity, "Error deleting transaction: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     private fun updateMonthButtonText() {
         btnMonth.text = months[selectedMonthIndex]
     }
 
     override fun onResume() {
         super.onResume()
-        loadData() // Refresh data when returning from AddTransaction
+        loadData()
     }
 }

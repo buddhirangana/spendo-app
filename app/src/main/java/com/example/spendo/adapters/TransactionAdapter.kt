@@ -16,8 +16,10 @@ import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class TransactionAdapter(private val transactions: List<Transaction>) :
-    RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder>() {
+class TransactionAdapter(
+    private val transactions: List<Transaction>,
+    private val onLongClick: ((Transaction, View) -> Unit)? = null
+) : RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -39,6 +41,16 @@ class TransactionAdapter(private val transactions: List<Transaction>) :
         private val tvTime: TextView = itemView.findViewById(R.id.tv_time)
         private val ivCategoryIcon: ImageView = itemView.findViewById(R.id.iv_category_icon)
 
+        init {
+            itemView.setOnLongClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    onLongClick?.invoke(transactions[position], itemView)
+                }
+                true
+            }
+        }
+
         @SuppressLint("SetTextI18n")
         fun bind(transaction: Transaction) {
             tvCategory.text = transaction.category
@@ -49,10 +61,10 @@ class TransactionAdapter(private val transactions: List<Transaction>) :
             format.currency = Currency.getInstance("LKR")
 
             if (transaction.type == TransactionType.INCOME) {
-                tvAmount.text = "+ ${format.format (transaction.amount)}"
+                tvAmount.text = "+ ${format.format(transaction.amount)}"
                 tvAmount.setTextColor(ContextCompat.getColor(itemView.context, R.color.primary_green))
             } else {
-                tvAmount.text = "- ${format.format (transaction.amount)}"
+                tvAmount.text = "- ${format.format(transaction.amount)}"
                 tvAmount.setTextColor(ContextCompat.getColor(itemView.context, R.color.red))
             }
 
@@ -107,10 +119,8 @@ class TransactionAdapter(private val transactions: List<Transaction>) :
                 }
             }
 
-
             ivCategoryIcon.setImageResource(iconResId)
 
-            // CORRECTED: Get the background from the ImageView directly
             val drawable = ivCategoryIcon.background as? GradientDrawable
             drawable?.setColor(ContextCompat.getColor(context, backgroundTintId))
         }

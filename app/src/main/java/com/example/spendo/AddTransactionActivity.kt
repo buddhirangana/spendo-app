@@ -24,11 +24,11 @@ import java.util.*
 
 class AddTransactionActivity : AppCompatActivity() {
     private lateinit var repository: Repository
-    private var selectedType = TransactionType.EXPENSE // Default to expense
+    private var selectedType = TransactionType.EXPENSE
     private var selectedDate = Date()
     private var amount: Long = 0
+    private var transactionId: String? = null
 
-    // Declare view variables to avoid repeated findViewById calls
     private lateinit var amountTextView: MaterialTextView
     private lateinit var categoryEditText: TextInputEditText
     private lateinit var descriptionEditText: TextInputEditText
@@ -42,11 +42,13 @@ class AddTransactionActivity : AppCompatActivity() {
 
         repository = Repository()
 
-        // Initialize views once
         initViews()
         setupClickListeners()
 
-        // Set initial state
+        if (intent.hasExtra("TRANSACTION_ID")) {
+            prefillData()
+        }
+
         updateTypeButtons()
         updateDateDisplay()
         updateAmountDisplay()
@@ -62,27 +64,11 @@ class AddTransactionActivity : AppCompatActivity() {
     }
 
     private fun setupClickListeners() {
-        // Back button
-        findViewById<View>(R.id.iv_back).setOnClickListener {
-            finish()
-        }
+        findViewById<View>(R.id.iv_back).setOnClickListener { finish() }
+        amountTextView.setOnClickListener { showAmountDialog() }
+        categoryEditText.setOnClickListener { showCategoryDialog() }
+        dateEditText.setOnClickListener { showDatePicker() }
 
-        // Amount input
-        amountTextView.setOnClickListener {
-            showAmountDialog()
-        }
-
-        // Category input
-        categoryEditText.setOnClickListener {
-            showCategoryDialog()
-        }
-
-        // Date input
-        dateEditText.setOnClickListener {
-            showDatePicker()
-        }
-
-        // Transaction type buttons
         incomeButton.setOnClickListener {
             selectedType = TransactionType.INCOME
             updateTypeButtons()
@@ -93,10 +79,18 @@ class AddTransactionActivity : AppCompatActivity() {
             updateTypeButtons()
         }
 
-        // Continue button
-        findViewById<View>(R.id.btn_continue).setOnClickListener {
-            saveTransaction()
-        }
+        findViewById<View>(R.id.btn_continue).setOnClickListener { saveTransaction() }
+    }
+
+    private fun prefillData() {
+        transactionId = intent.getStringExtra("TRANSACTION_ID")
+        amount = intent.getLongExtra("TRANSACTION_AMOUNT", 0)
+        categoryEditText.setText(intent.getStringExtra("TRANSACTION_CATEGORY"))
+        descriptionEditText.setText(intent.getStringExtra("TRANSACTION_DESC"))
+        selectedType = TransactionType.valueOf(intent.getStringExtra("TRANSACTION_TYPE") ?: "EXPENSE")
+        val seconds = intent.getLongExtra("TRANSACTION_DATE_SECONDS", 0)
+        val nanos = intent.getIntExtra("TRANSACTION_DATE_NANOS", 0)
+        selectedDate = Timestamp(seconds, nanos).toDate()
     }
 
     private fun showAmountDialog() {
@@ -111,18 +105,14 @@ class AddTransactionActivity : AppCompatActivity() {
             .setView(input)
             .setPositiveButton("OK") { _, _ ->
                 val amountText = input.text.toString()
-                amount = if (amountText.isNotBlank()) {
-                    amountText.toLongOrNull() ?: 0L
-                } else {
-                    0L
-                }
+                amount = amountText.toLongOrNull() ?: 0L
                 updateAmountDisplay()
             }
             .setNegativeButton("Cancel", null)
             .show()
     }
 
-    @SuppressLint("WrongViewCast", "SetTextI18n")
+    @SuppressLint("SetTextI18n")
     private fun updateAmountDisplay() {
         val format = NumberFormat.getCurrencyInstance(Locale("en", "LK"))
         format.currency = Currency.getInstance("LKR")
@@ -130,17 +120,7 @@ class AddTransactionActivity : AppCompatActivity() {
     }
 
     private fun showCategoryDialog() {
-        val categories = listOf(
-            "Food",
-            "Transportation",
-            "Shopping",
-            "Entertainment",
-            "Bills",
-            "Healthcare",
-            "Education",
-            "Salary",
-            "Other"
-        )
+        val categories = listOf("Food", "Transportation", "Shopping", "Entertainment", "Bills", "Healthcare", "Education", "Salary", "Other")
         AlertDialog.Builder(this)
             .setTitle("Select Category")
             .setItems(categories.toTypedArray()) { _, which ->
@@ -186,15 +166,13 @@ class AddTransactionActivity : AppCompatActivity() {
         val description = descriptionEditText.text.toString()
         val userId = FirebaseAuth.getInstance().currentUser?.uid
 
-        // --- Validations ---
         if (userId.isNullOrEmpty()) {
             Toast.makeText(this, "Error: User not logged in.", Toast.LENGTH_SHORT).show()
             return
         }
 
         if (amount <= 0) {
-            Toast.makeText(this, "Please enter an amount greater than 0.", Toast.LENGTH_SHORT)
-                .show()
+            Toast.makeText(this, "Please enter an amount greater than 0.", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -202,19 +180,17 @@ class AddTransactionActivity : AppCompatActivity() {
             Toast.makeText(this, "Please select a category.", Toast.LENGTH_SHORT).show()
             return
         }
-        // --- End of Validations ---
 
-        // Create the transaction object
         val transaction = Transaction(
+            id = transactionId ?: "",
             userId = userId,
             amount = amount,
             category = category,
-            description = description.ifBlank { category }, // Use category if description is empty
+            description = description.ifBlank { category },
             type = selectedType,
             date = Timestamp(selectedDate)
         )
 
-        // Show a loading indicator (optional but good practice)
         findViewById<View>(R.id.btn_continue).isEnabled = false
 
         lifecycleScope.launch {

@@ -1,5 +1,6 @@
 package com.example.spendo
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -30,6 +31,7 @@ class TransactionsActivity : AppCompatActivity() {
     private val months = DateFormatSymbols().months
     private var selectedMonthIndex = 0
     private var selectedFilterType: TransactionType? = null
+    private var currentCurrency: String = "LKR"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +39,13 @@ class TransactionsActivity : AppCompatActivity() {
 
         repository = Repository()
         setupViews()
+        loadData()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val sharedPrefs = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        currentCurrency = sharedPrefs.getString("Currency", "LKR") ?: "LKR"
         loadData()
     }
 
@@ -85,6 +94,7 @@ class TransactionsActivity : AppCompatActivity() {
 
         transactionAdapter = TransactionGroupAdapter(
             emptyMap(),
+            currentCurrency,
             onUpdate = { transaction ->
                 val intent = Intent(this, AddTransactionActivity::class.java).apply {
                     putExtra("TRANSACTION_ID", transaction.id)
@@ -235,10 +245,5 @@ class TransactionsActivity : AppCompatActivity() {
 
     private fun updateMonthButtonText() {
         btnMonth.text = months[selectedMonthIndex]
-    }
-
-    override fun onResume() {
-        super.onResume()
-        loadData()
     }
 }

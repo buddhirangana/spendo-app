@@ -18,6 +18,7 @@ import java.util.*
 
 class TransactionAdapter(
     private val transactions: List<Transaction>,
+    private var currency: String,
     private val onLongClick: ((Transaction, View) -> Unit)? = null
 ) : RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder>() {
 
@@ -33,6 +34,12 @@ class TransactionAdapter(
     }
 
     override fun getItemCount(): Int = transactions.size
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateCurrency(newCurrency: String) {
+        currency = newCurrency
+        notifyDataSetChanged()
+    }
 
     inner class TransactionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tvCategory: TextView = itemView.findViewById(R.id.tv_category)
@@ -56,9 +63,12 @@ class TransactionAdapter(
             tvCategory.text = transaction.category
             tvDescription.text = transaction.description
 
-            // Format amount and set color
             val format = NumberFormat.getCurrencyInstance(Locale("en", "LK"))
-            format.currency = Currency.getInstance("LKR")
+            try {
+                format.currency = Currency.getInstance(currency)
+            } catch (e: Exception) {
+                format.currency = Currency.getInstance("LKR")
+            }
 
             if (transaction.type == TransactionType.INCOME) {
                 tvAmount.text = "+ ${format.format(transaction.amount)}"
@@ -68,7 +78,6 @@ class TransactionAdapter(
                 tvAmount.setTextColor(ContextCompat.getColor(itemView.context, R.color.red))
             }
 
-            // Format and set time
             val timeFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
             tvTime.text = timeFormat.format(transaction.date.toDate())
 

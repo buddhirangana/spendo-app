@@ -11,6 +11,8 @@ import com.example.spendo.adapters.CategoryBreakdownAdapter
 import com.example.spendo.data.Repository
 import com.example.spendo.data.Transaction
 import com.example.spendo.data.TransactionType
+import com.example.spendo.utils.CurrencyFormatter
+import com.example.spendo.utils.LoadingHelper
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.google.firebase.auth.FirebaseAuth
@@ -20,12 +22,15 @@ class FinancialReportActivity : AppCompatActivity() {
     private lateinit var repository: Repository
     private lateinit var categoryAdapter: CategoryBreakdownAdapter
     private var isShowingExpenses = true
+    private lateinit var loadingHelper: LoadingHelper
+    private var isLoading = false
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_financial_report)
         
         repository = Repository()
+        loadingHelper = LoadingHelper(this)
         setupViews()
         loadData()
     }
@@ -107,7 +112,12 @@ class FinancialReportActivity : AppCompatActivity() {
     }
     
     private fun loadData() {
+        if (isLoading) return // Prevent multiple simultaneous loads
+        
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        
+        isLoading = true
+        loadingHelper.showLoading("Loading financial data...")
         
         lifecycleScope.launch {
             try {
@@ -123,10 +133,28 @@ class FinancialReportActivity : AppCompatActivity() {
                     updateSummary(filteredTransactions)
                     updateCategoryBreakdown(filteredTransactions)
                 } else {
-                    Toast.makeText(this@FinancialReportActivity, "Failed to load data", Toast.LENGTH_SHORT).show()
+                    val error = result.exceptionOrNull()
+                    val errorMessage = when {
+                        error?.message?.contains("timeout", ignoreCase = true) == true -> 
+                            "Connection timeout. Please check your internet connection."
+                        error?.message?.contains("network", ignoreCase = true) == true -> 
+                            "Network error. Please check your internet connection."
+                        else -> "Failed to load data. Please try again."
+                    }
+                    Toast.makeText(this@FinancialReportActivity, errorMessage, Toast.LENGTH_LONG).show()
                 }
             } catch (e: Exception) {
-                Toast.makeText(this@FinancialReportActivity, "Error loading data: ${e.message}", Toast.LENGTH_SHORT).show()
+                val errorMessage = when {
+                    e.message?.contains("timeout", ignoreCase = true) == true -> 
+                        "Request timed out. Please check your connection and try again."
+                    e.message?.contains("network", ignoreCase = true) == true -> 
+                        "Network error. Please check your internet connection."
+                    else -> "Error loading data: ${e.message ?: "Unknown error"}"
+                }
+                Toast.makeText(this@FinancialReportActivity, errorMessage, Toast.LENGTH_LONG).show()
+            } finally {
+                isLoading = false
+                loadingHelper.hideLoading()
             }
         }
     }
@@ -134,7 +162,7 @@ class FinancialReportActivity : AppCompatActivity() {
     private fun updateSummary(transactions: List<Transaction>) {
         val total = transactions.sumOf { it.amount }
         findViewById<com.google.android.material.textview.MaterialTextView>(R.id.tv_total_amount).text = 
-            "LKR ${String.format("%,d", total)}"
+            CurrencyFormatter.formatAmountWithCode(this, total)
     }
     
     private fun updateCategoryBreakdown(transactions: List<Transaction>) {
@@ -161,6 +189,11 @@ class FinancialReportActivity : AppCompatActivity() {
             "Education" -> getColor(R.color.orange)
             else -> getColor(R.color.gray)
         }
+    }
+    
+    override fun onDestroy() {
+        super.onDestroy()
+        loadingHelper.hideLoading()
     }
 }
 

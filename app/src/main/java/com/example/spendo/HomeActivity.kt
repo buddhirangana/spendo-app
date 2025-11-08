@@ -17,6 +17,8 @@ import com.example.spendo.adapters.TransactionAdapter
 import com.example.spendo.data.Repository
 import com.example.spendo.data.Transaction
 import com.example.spendo.data.TransactionType
+import com.example.spendo.utils.CurrencyFormatter
+import com.example.spendo.utils.LoadingHelper
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -39,6 +41,8 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var repository: Repository
     private lateinit var transactionAdapter: TransactionAdapter
     private var transactions = mutableListOf<Transaction>()
+    private lateinit var loadingHelper: LoadingHelper
+    private var isLoading = false
 
     private lateinit var ivProfile: CircleImageView
     private lateinit var rvRecentTransactions: RecyclerView
@@ -58,6 +62,7 @@ class HomeActivity : AppCompatActivity() {
 
         // Initialize repository
         repository = Repository()
+        loadingHelper = LoadingHelper(this)
 
         // Initialize all views
         initViews()
@@ -144,11 +149,16 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun loadData() {
+        if (isLoading) return // Prevent multiple simultaneous loads
+        
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         if (userId == null) {
             Toast.makeText(this, "User not logged in!", Toast.LENGTH_SHORT).show()
             return
         }
+
+        isLoading = true
+        loadingHelper.showLoading("Loading transactions...")
 
         lifecycleScope.launch {
             try {
@@ -172,10 +182,28 @@ class HomeActivity : AppCompatActivity() {
                     updateSummary()
                     updateChartWithPeriod("Today") // Or your default selection
                 } else {
-                    Toast.makeText(this@HomeActivity, "Failed to load transactions", Toast.LENGTH_SHORT).show()
+                    val error = result.exceptionOrNull()
+                    val errorMessage = when {
+                        error?.message?.contains("timeout", ignoreCase = true) == true -> 
+                            "Connection timeout. Please check your internet connection."
+                        error?.message?.contains("network", ignoreCase = true) == true -> 
+                            "Network error. Please check your internet connection."
+                        else -> "Failed to load transactions. Please try again."
+                    }
+                    Toast.makeText(this@HomeActivity, errorMessage, Toast.LENGTH_LONG).show()
                 }
             } catch (e: Exception) {
-                Toast.makeText(this@HomeActivity, "Error loading data: ${e.message}", Toast.LENGTH_SHORT).show()
+                val errorMessage = when {
+                    e.message?.contains("timeout", ignoreCase = true) == true -> 
+                        "Request timed out. Please check your connection and try again."
+                    e.message?.contains("network", ignoreCase = true) == true -> 
+                        "Network error. Please check your internet connection."
+                    else -> "Error loading data: ${e.message ?: "Unknown error"}"
+                }
+                Toast.makeText(this@HomeActivity, errorMessage, Toast.LENGTH_LONG).show()
+            } finally {
+                isLoading = false
+                loadingHelper.hideLoading()
             }
         }
     }
@@ -185,9 +213,9 @@ class HomeActivity : AppCompatActivity() {
         val totalExpenses = transactions.filter { it.type == TransactionType.EXPENSE }.sumOf { it.amount }
         val balance = totalIncome - totalExpenses
 
-        tvBalance.text = "LKR ${String.format("%,d", balance.toLong())}"
-        tvIncome.text = "LKR ${String.format("%,d", totalIncome.toLong())}"
-        tvExpenses.text = "LKR ${String.format("%,d", totalExpenses.toLong())}"
+        tvBalance.text = CurrencyFormatter.formatAmountWithCode(this, balance.toLong())
+        tvIncome.text = CurrencyFormatter.formatAmountWithCode(this, totalIncome.toLong())
+        tvExpenses.text = CurrencyFormatter.formatAmountWithCode(this, totalExpenses.toLong())
     }
 
     private fun setupChart() {
@@ -360,6 +388,11 @@ class HomeActivity : AppCompatActivity() {
         // Refresh data every time the user returns to this screen
         loadData()
         loadProfilePicture()
+    }
+    
+    override fun onDestroy() {
+        super.onDestroy()
+        loadingHelper.hideLoading()
     }
 }
 

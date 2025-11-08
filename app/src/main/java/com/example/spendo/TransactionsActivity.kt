@@ -13,6 +13,7 @@ import com.example.spendo.adapters.TransactionGroupAdapter
 import com.example.spendo.data.Repository
 import com.example.spendo.data.Transaction
 import com.example.spendo.data.TransactionType
+import com.example.spendo.utils.LoadingHelper
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.navigation.NavigationBarView
@@ -30,12 +31,15 @@ class TransactionsActivity : AppCompatActivity() {
     private val months = DateFormatSymbols().months
     private var selectedMonthIndex = 0
     private var selectedFilterType: TransactionType? = null
+    private lateinit var loadingHelper: LoadingHelper
+    private var isLoading = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transactions)
 
         repository = Repository()
+        loadingHelper = LoadingHelper(this)
         setupViews()
         loadData()
     }
@@ -102,7 +106,12 @@ class TransactionsActivity : AppCompatActivity() {
     }
 
     private fun loadData() {
+        if (isLoading) return // Prevent multiple simultaneous loads
+        
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
+
+        isLoading = true
+        loadingHelper.showLoading("Loading transactions...")
 
         lifecycleScope.launch {
             try {
@@ -112,10 +121,28 @@ class TransactionsActivity : AppCompatActivity() {
                     transactions.addAll(result.getOrNull() ?: emptyList())
                     filterAndGroupTransactions()
                 } else {
-                    Toast.makeText(this@TransactionsActivity, "Failed to load transactions", Toast.LENGTH_SHORT).show()
+                    val error = result.exceptionOrNull()
+                    val errorMessage = when {
+                        error?.message?.contains("timeout", ignoreCase = true) == true -> 
+                            "Connection timeout. Please check your internet connection."
+                        error?.message?.contains("network", ignoreCase = true) == true -> 
+                            "Network error. Please check your internet connection."
+                        else -> "Failed to load transactions. Please try again."
+                    }
+                    Toast.makeText(this@TransactionsActivity, errorMessage, Toast.LENGTH_LONG).show()
                 }
             } catch (e: Exception) {
-                Toast.makeText(this@TransactionsActivity, "Error loading data: ${e.message}", Toast.LENGTH_SHORT).show()
+                val errorMessage = when {
+                    e.message?.contains("timeout", ignoreCase = true) == true -> 
+                        "Request timed out. Please check your connection and try again."
+                    e.message?.contains("network", ignoreCase = true) == true -> 
+                        "Network error. Please check your internet connection."
+                    else -> "Error loading data: ${e.message ?: "Unknown error"}"
+                }
+                Toast.makeText(this@TransactionsActivity, errorMessage, Toast.LENGTH_LONG).show()
+            } finally {
+                isLoading = false
+                loadingHelper.hideLoading()
             }
         }
     }
@@ -204,5 +231,10 @@ class TransactionsActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         loadData() // Refresh data when returning from AddTransaction
+    }
+    
+    override fun onDestroy() {
+        super.onDestroy()
+        loadingHelper.hideLoading()
     }
 }

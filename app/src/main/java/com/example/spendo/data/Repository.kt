@@ -4,7 +4,12 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.Source
+import kotlinx.coroutines.TimeoutCancellationException
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withTimeout
 
 class Repository(
     private val auth: FirebaseAuth? = null,
@@ -86,15 +91,63 @@ class Repository(
         firestore.collection("transactions").document(id).delete().await()
     }
 
-    // Fetches all transactions for a specific user from Firestore.
-    suspend fun userTransactions(userId: String): Result<List<Transaction>> = runCatching {
+    // Fetches all transactions for a specific user from Firestore with timeout and retry.
+    suspend fun userTransactions(userId: String, retryCount: Int = 2): Result<List<Transaction>> = runCatching {
         val firestore = db ?: FirebaseFirestore.getInstance()
-        val snapshot = firestore.collection("transactions")
-            .whereEqualTo("userId", userId)
-            .orderBy("date")
-            .get()
-            .await()
-        snapshot.toObjects(Transaction::class.java)
+        var lastException: Exception? = null
+        
+        // Try with timeout, fallback to cache if network fails
+        repeat(retryCount) { attempt ->
+            try {
+                val query: Query = firestore.collection("transactions")
+                    .whereEqualTo("userId", userId)
+                    .orderBy("date")
+                
+                // First try: Use server (network) with timeout
+                val snapshot = if (attempt == 0) {
+                    withTimeout(10000) { // 10 second timeout
+                        query.get(Source.SERVER).await()
+                    }
+                } else {
+                    // Retry: Try cache first, then server
+                    try {
+                        withTimeout(5000) {
+                            query.get(Source.CACHE).await()
+                        }
+                    } catch (e: Exception) {
+                        // If cache fails or not available, try server one more time
+                        withTimeout(10000) {
+                            query.get(Source.SERVER).await()
+                        }
+                    }
+                }
+                
+                return@runCatching snapshot.toObjects(Transaction::class.java)
+            } catch (e: TimeoutCancellationException) {
+                lastException = e
+                if (attempt < retryCount - 1) {
+                    delay(1000) // Wait 1 second before retry
+                }
+            } catch (e: Exception) {
+                lastException = e
+                if (attempt < retryCount - 1) {
+                    delay(1000)
+                }
+            }
+        }
+        
+        // If all retries failed, try cache as last resort (if available)
+        try {
+            val snapshot = firestore.collection("transactions")
+                .whereEqualTo("userId", userId)
+                .orderBy("date")
+                .get(Source.CACHE)
+                .await()
+            snapshot.toObjects(Transaction::class.java)
+        } catch (e: Exception) {
+            // If cache is not available or fails, throw the original exception
+            throw lastException ?: Exception("Failed to load transactions: ${e.message}")
+        }
     }
 
     // Sends a password reset email to the given email address using Firebase.

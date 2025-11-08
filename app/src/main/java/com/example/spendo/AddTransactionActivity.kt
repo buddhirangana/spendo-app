@@ -12,18 +12,20 @@ import androidx.lifecycle.lifecycleScope
 import com.example.spendo.data.Repository
 import com.example.spendo.data.Transaction
 import com.example.spendo.data.TransactionType
+import com.example.spendo.utils.CurrencyFormatter
+import com.example.spendo.utils.PreferencesManager
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textview.MaterialTextView
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
-import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
 class AddTransactionActivity : AppCompatActivity() {
     private lateinit var repository: Repository
+    private lateinit var preferencesManager: PreferencesManager
     private var selectedType = TransactionType.EXPENSE // Default to expense
     private var selectedDate = Date()
     private var amount: Long = 0
@@ -41,6 +43,7 @@ class AddTransactionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_transaction)
 
         repository = Repository()
+        preferencesManager = PreferencesManager.getInstance(this)
 
         // Initialize views once
         initViews()
@@ -101,10 +104,11 @@ class AddTransactionActivity : AppCompatActivity() {
 
     private fun showAmountDialog() {
         val builder = AlertDialog.Builder(this)
+        val currencyCode = preferencesManager.getDefaultCurrency()
         val input = EditText(this).apply {
             inputType = android.text.InputType.TYPE_CLASS_NUMBER
             setText(if (amount > 0) amount.toString() else "")
-            hint = "Enter amount in LKR"
+            hint = "Enter amount in $currencyCode"
         }
 
         builder.setTitle("Enter Amount")
@@ -124,9 +128,7 @@ class AddTransactionActivity : AppCompatActivity() {
 
     @SuppressLint("WrongViewCast", "SetTextI18n")
     private fun updateAmountDisplay() {
-        val format = NumberFormat.getCurrencyInstance(Locale("en", "LK"))
-        format.currency = Currency.getInstance("LKR")
-        amountTextView.text = format.format(amount)
+        amountTextView.text = CurrencyFormatter.formatAmount(this, amount)
     }
 
     private fun showCategoryDialog() {
@@ -205,9 +207,11 @@ class AddTransactionActivity : AppCompatActivity() {
         // --- End of Validations ---
 
         // Create the transaction object
+        val currencyCode = preferencesManager.getDefaultCurrency()
         val transaction = Transaction(
             userId = userId,
             amount = amount,
+            currency = currencyCode,
             category = category,
             description = description.ifBlank { category }, // Use category if description is empty
             type = selectedType,

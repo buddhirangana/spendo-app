@@ -71,7 +71,7 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         findViewById<View>(R.id.layout_settings).setOnClickListener {
-            Toast.makeText(this, "Settings coming soon", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, SettingsActivity::class.java))
         }
 
         findViewById<View>(R.id.layout_export_data).setOnClickListener {

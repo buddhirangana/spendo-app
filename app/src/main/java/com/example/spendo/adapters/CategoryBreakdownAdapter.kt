@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spendo.CategoryBreakdownData
 import com.example.spendo.R
+import com.example.spendo.utils.CurrencyFormatter
 
 class CategoryBreakdownAdapter(private var data: List<CategoryBreakdownData>) : 
     RecyclerView.Adapter<CategoryBreakdownAdapter.CategoryViewHolder>() {
@@ -39,7 +40,8 @@ class CategoryBreakdownAdapter(private var data: List<CategoryBreakdownData>) :
         
         fun bind(data: CategoryBreakdownData) {
             categoryName.text = data.category
-            amount.text = "- LKR ${String.format("%,d", data.amount)}"
+            val formattedAmount = CurrencyFormatter.formatAmountWithCode(itemView.context, data.amount)
+            amount.text = "- $formattedAmount"
             categoryDot.setBackgroundColor(data.color)
             
             // Calculate progress percentage (simplified)

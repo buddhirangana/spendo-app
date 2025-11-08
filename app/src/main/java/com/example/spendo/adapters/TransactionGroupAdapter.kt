@@ -13,6 +13,7 @@ import com.example.spendo.data.Transaction
 
 class TransactionGroupAdapter(
     private var data: Map<String, List<Transaction>>,
+    private var currency: String,
     private val onUpdate: (Transaction) -> Unit,
     private val onDelete: (Transaction) -> Unit
 ) : RecyclerView.Adapter<TransactionGroupAdapter.GroupViewHolder>() {
@@ -20,7 +21,7 @@ class TransactionGroupAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_transaction_group, parent, false)
-        return GroupViewHolder(view, onUpdate, onDelete)
+        return GroupViewHolder(view, currency, onUpdate, onDelete)
     }
 
     override fun onBindViewHolder(holder: GroupViewHolder, position: Int) {
@@ -37,8 +38,15 @@ class TransactionGroupAdapter(
         notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateCurrency(newCurrency: String) {
+        currency = newCurrency
+        notifyDataSetChanged()
+    }
+
     class GroupViewHolder(
         itemView: View,
+        private val currency: String,
         private val onUpdate: (Transaction) -> Unit,
         private val onDelete: (Transaction) -> Unit
     ) : RecyclerView.ViewHolder(itemView) {
@@ -48,8 +56,7 @@ class TransactionGroupAdapter(
         fun bind(dateKey: String, transactions: List<Transaction>) {
             dateHeader.text = dateKey
 
-            // Correctly instantiate TransactionAdapter with the onLongClick lambda
-            val adapter = TransactionAdapter(transactions) { transaction, view ->
+            val adapter = TransactionAdapter(transactions, currency) { transaction, view ->
                 showPopupMenu(transaction, view)
             }
             transactionsRecycler.apply {
@@ -72,3 +79,4 @@ class TransactionGroupAdapter(
         }
     }
 }
+

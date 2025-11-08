@@ -1,5 +1,6 @@
 package com.example.spendo
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -28,7 +29,9 @@ import com.google.firebase.auth.FirebaseAuth
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.launch
 import java.text.DateFormatSymbols
-import java.util.Calendar
+import java.util.*
+import com.example.spendo.adapters.formatCurrency
+
 
 class HomeActivity : AppCompatActivity() {
 
@@ -51,27 +54,29 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var btnMonth2: MaterialButton
     private lateinit var btnYear: MaterialButton
 
+    private var currentCurrency: String = "LKR"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        // Initialize repository
         repository = Repository()
-
-        // Initialize all views
         initViews()
         setupClickListeners()
 
-        // Set initial state
         val calendar = Calendar.getInstance()
         selectedMonthIndex = calendar.get(Calendar.MONTH)
         updateMonthButtonText()
         setupChart()
+    }
 
-        // Load data for the first time
-        loadProfilePicture()
+    override fun onResume() {
+        super.onResume()
+        val sharedPrefs = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        currentCurrency = sharedPrefs.getString("Currency", "LKR") ?: "LKR"
+
         loadData()
+        loadProfilePicture()
     }
 
     private fun initViews() {
@@ -87,45 +92,30 @@ class HomeActivity : AppCompatActivity() {
         btnMonth2 = findViewById(R.id.btn2_month)
         btnYear = findViewById(R.id.btn_year)
 
-        // Setup RecyclerView
-        transactionAdapter = TransactionAdapter(transactions)
+        transactionAdapter = TransactionAdapter(transactions, currentCurrency)
         rvRecentTransactions.apply {
             layoutManager = LinearLayoutManager(this@HomeActivity)
             adapter = transactionAdapter
         }
 
-        // Setup Bottom Navigation
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNavigationView.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_LABELED
         bottomNavigationView.selectedItemId = R.id.nav_home
     }
 
     private fun setupClickListeners() {
-        btnMonth.setOnClickListener {
-            showMonthSelectorDialog()
-        }
-
-        ivProfile.setOnClickListener {
-            startActivity(Intent(this, EditProfileActivity::class.java))
-        }
-
-        findViewById<View>(R.id.fab_add).setOnClickListener {
-            startActivity(Intent(this, AddTransactionActivity::class.java))
-        }
-
-        findViewById<View>(R.id.tv_see_all).setOnClickListener {
-            startActivity(Intent(this, TransactionsActivity::class.java))
-        }
-
+        btnMonth.setOnClickListener { showMonthSelectorDialog() }
+        ivProfile.setOnClickListener { startActivity(Intent(this, EditProfileActivity::class.java)) }
+        findViewById<View>(R.id.fab_add).setOnClickListener { startActivity(Intent(this, AddTransactionActivity::class.java)) }
+        findViewById<View>(R.id.tv_see_all).setOnClickListener { startActivity(Intent(this, TransactionsActivity::class.java)) }
         btnToday.setOnClickListener { updateChartWithPeriod("Today") }
         btnWeek.setOnClickListener { updateChartWithPeriod("Week") }
         btnMonth2.setOnClickListener { updateChartWithPeriod("Month") }
         btnYear.setOnClickListener { updateChartWithPeriod("Year") }
 
-        // Bottom Navigation listener
         findViewById<BottomNavigationView>(R.id.bottom_navigation).setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.nav_home -> true // Already here
+                R.id.nav_home -> true
                 R.id.nav_transactions -> {
                     startActivity(Intent(this, TransactionsActivity::class.java))
                     true
@@ -144,50 +134,42 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun loadData() {
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
-        if (userId == null) {
-            Toast.makeText(this, "User not logged in!", Toast.LENGTH_SHORT).show()
-            return
-        }
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
 
         lifecycleScope.launch {
             try {
                 val result = repository.userTransactions(userId)
                 if (result.isSuccess) {
                     val allTransactions = result.getOrNull() ?: emptyList()
-
-                    // Filter transactions for the selected month
                     val calendar = Calendar.getInstance()
-                    val filteredTransactions = allTransactions.filter { transaction ->
-                        calendar.time = transaction.date.toDate()
+                    val filteredTransactions = allTransactions.filter {
+                        calendar.time = it.date.toDate()
                         calendar.get(Calendar.MONTH) == selectedMonthIndex
                     }
-
-                    // Update the local list and notify the adapter
                     transactions.clear()
-                    transactions.addAll(filteredTransactions.sortedByDescending { it.date }) // Show most recent first
-                    transactionAdapter.notifyDataSetChanged()
+                    transactions.addAll(filteredTransactions.sortedByDescending { it.date })
+                    transactionAdapter.updateCurrency(currentCurrency)
 
-                    // Update summary UI
                     updateSummary()
-                    updateChartWithPeriod("Today") // Or your default selection
+                    updateChartWithPeriod("Today")
                 } else {
                     Toast.makeText(this@HomeActivity, "Failed to load transactions", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
-                Toast.makeText(this@HomeActivity, "Error loading data: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@HomeActivity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     private fun updateSummary() {
-        val totalIncome = transactions.filter { it.type == TransactionType.INCOME }.sumOf { it.amount }
-        val totalExpenses = transactions.filter { it.type == TransactionType.EXPENSE }.sumOf { it.amount }
+        val totalIncome = transactions.filter { it.type == TransactionType.INCOME }.sumOf { it.amount }.toDouble()
+        val totalExpenses = transactions.filter { it.type == TransactionType.EXPENSE }.sumOf { it.amount }.toDouble()
         val balance = totalIncome - totalExpenses
 
-        tvBalance.text = "LKR ${String.format("%,d", balance.toLong())}"
-        tvIncome.text = "LKR ${String.format("%,d", totalIncome.toLong())}"
-        tvExpenses.text = "LKR ${String.format("%,d", totalExpenses.toLong())}"
+        // Use the consistent currency formatting helper
+        tvBalance.text = formatCurrency(balance, currentCurrency)
+        tvIncome.text = formatCurrency(totalIncome, currentCurrency)
+        tvExpenses.text = formatCurrency(totalExpenses, currentCurrency)
     }
 
     private fun setupChart() {
@@ -210,9 +192,7 @@ class HomeActivity : AppCompatActivity() {
         lineChart.setNoDataTextColor(ContextCompat.getColor(this, R.color.primary_green))
     }
 
-
     private fun updateChartWithPeriod(period: String) {
-        // Reset button styles
         val unselectedBg = ContextCompat.getColorStateList(this, R.color.light_gray)
         val unselectedText = ContextCompat.getColor(this, R.color.gray)
         btnToday.backgroundTintList = unselectedBg
@@ -227,7 +207,6 @@ class HomeActivity : AppCompatActivity() {
         val selectedBg = ContextCompat.getColorStateList(this, R.color.primary_green)
         val selectedText = Color.WHITE
 
-        // Set selected button style
         when (period) {
             "Today" -> {
                 btnToday.backgroundTintList = selectedBg
@@ -248,91 +227,66 @@ class HomeActivity : AppCompatActivity() {
         }
 
         val calendar = Calendar.getInstance()
-        val now = calendar.time
+        val now = Date()
 
         val filtered = when (period) {
             "Today" -> transactions.filter { it.date.toDate().isSameDay(now) }
             "Week" -> transactions.filter { it.date.toDate().isSameWeek(now) }
-            "Month" -> transactions // Already filtered by month
+            "Month" -> transactions
             "Year" -> transactions.filter { it.date.toDate().isSameYear(now) }
             else -> transactions
         }
 
-        updateChart(filtered, period)
+        updateChart(filtered)
     }
 
-
-    private fun updateChart(transactions: List<Transaction>, period: String) {
+    private fun updateChart(transactions: List<Transaction>) {
         if (transactions.isEmpty()) {
             lineChart.clear()
             lineChart.invalidate()
             return
         }
 
-        val entries = ArrayList<Entry>()
-
-        when (period) {
-            "Today" -> {
-                val hourlyExpenses = transactions.filter { it.type == TransactionType.EXPENSE }
-                    .groupBy { Calendar.getInstance().apply { time = it.date.toDate() }.get(Calendar.HOUR_OF_DAY) }
-                    .mapValues { entry -> entry.value.sumOf { it.amount } }
-
-                for (hour in 0..23) {
-                    entries.add(Entry(hour.toFloat(), (hourlyExpenses[hour] ?: 0.0).toFloat()))
-                }
-            }
-            "Week" -> {
-                val weeklyExpenses = transactions.filter { it.type == TransactionType.EXPENSE }
-                    .groupBy { Calendar.getInstance().apply { time = it.date.toDate() }.get(Calendar.DAY_OF_WEEK) }
-                    .mapValues { entry -> entry.value.sumOf { it.amount } }
-
-                for (i in 1..7) {
-                    entries.add(Entry(i.toFloat() - 1, (weeklyExpenses[i] ?: 0.0).toFloat()))
-                }
-            }
-            "Month" -> {
-                val dailyExpenses = transactions.filter { it.type == TransactionType.EXPENSE }
-                    .groupBy { Calendar.getInstance().apply { time = it.date.toDate() }.get(Calendar.DAY_OF_MONTH) }
-                    .mapValues { entry -> entry.value.sumOf { it.amount } }
-
-                val daysInMonth = Calendar.getInstance().apply { set(Calendar.MONTH, selectedMonthIndex) }.getActualMaximum(Calendar.DAY_OF_MONTH)
-                for (day in 1..daysInMonth) {
-                    entries.add(Entry(day.toFloat() - 1, (dailyExpenses[day] ?: 0.0).toFloat()))
-                }
-            }
-            "Year" -> {
-                val monthlyExpenses = transactions.filter { it.type == TransactionType.EXPENSE }
-                    .groupBy { Calendar.getInstance().apply { time = it.date.toDate() }.get(Calendar.MONTH) }
-                    .mapValues { entry -> entry.value.sumOf { it.amount } }
-
-                for (i in 0..11) {
-                    entries.add(Entry(i.toFloat(), (monthlyExpenses[i] ?: 0.0).toFloat()))
-                }
-            }
+        // Filter only expenses for the chart
+        val expenseTransactions = transactions.filter { it.type == TransactionType.EXPENSE }
+        
+        if (expenseTransactions.isEmpty()) {
+            lineChart.clear()
+            lineChart.invalidate()
+            return
         }
 
-        val dataSet = LineDataSet(entries, "Expenses")
-        dataSet.color = ContextCompat.getColor(this, R.color.primary_green)
-        dataSet.lineWidth = 3f
-        dataSet.setDrawCircles(false)
-        dataSet.setDrawValues(false)
-        dataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
-        dataSet.setDrawFilled(true)
-        dataSet.fillDrawable = ContextCompat.getDrawable(this, R.drawable.chart_gradient)
+        // Aggregate transactions by day to handle multiple transactions on the same day
+        val dailyTotals = expenseTransactions.groupBy { transaction ->
+            val calendar = Calendar.getInstance().apply { time = transaction.date.toDate() }
+            calendar.get(Calendar.DAY_OF_MONTH)
+        }.mapValues { (_, txs) ->
+            txs.sumOf { it.amount }.toFloat()
+        }
 
-        val lineData = LineData(dataSet)
-        lineChart.data = lineData
+        // Create entries sorted by day
+        val entries = dailyTotals.map { (day, total) ->
+            Entry(day.toFloat(), total)
+        }.sortedBy { it.x }
+
+        val dataSet = LineDataSet(entries, "Expenses").apply {
+            color = ContextCompat.getColor(this@HomeActivity, R.color.primary_green)
+            lineWidth = 3f
+            setDrawCircles(false)
+            setDrawValues(false)
+            mode = LineDataSet.Mode.CUBIC_BEZIER
+            setDrawFilled(true)
+            fillDrawable = ContextCompat.getDrawable(this@HomeActivity, R.drawable.chart_gradient)
+        }
+
+        lineChart.data = LineData(dataSet)
         lineChart.invalidate()
     }
 
     private fun loadProfilePicture() {
         val user = FirebaseAuth.getInstance().currentUser
-        if (user != null && user.photoUrl != null) {
-            Glide.with(this)
-                .load(user.photoUrl)
-                .placeholder(R.drawable.ic_profile_placeholder)
-                .error(R.drawable.ic_profile_placeholder)
-                .into(ivProfile)
+        if (user?.photoUrl != null) {
+            Glide.with(this).load(user.photoUrl).into(ivProfile)
         } else {
             ivProfile.setImageResource(R.drawable.ic_profile_placeholder)
         }
@@ -344,7 +298,7 @@ class HomeActivity : AppCompatActivity() {
             .setSingleChoiceItems(months, selectedMonthIndex) { dialog, which ->
                 selectedMonthIndex = which
                 updateMonthButtonText()
-                loadData() // Refresh data for the newly selected month
+                loadData()
                 dialog.dismiss()
             }
             .create()
@@ -354,29 +308,21 @@ class HomeActivity : AppCompatActivity() {
     private fun updateMonthButtonText() {
         btnMonth.text = months[selectedMonthIndex]
     }
-
-    override fun onResume() {
-        super.onResume()
-        // Refresh data every time the user returns to this screen
-        loadData()
-        loadProfilePicture()
-    }
 }
 
-// Helper extensions for Date
-fun java.util.Date.isSameDay(other: java.util.Date): Boolean {
+fun Date.isSameDay(other: Date): Boolean {
     val cal1 = Calendar.getInstance().apply { time = this@isSameDay }
     val cal2 = Calendar.getInstance().apply { time = other }
     return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) && cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR)
 }
 
-fun java.util.Date.isSameWeek(other: java.util.Date): Boolean {
+fun Date.isSameWeek(other: Date): Boolean {
     val cal1 = Calendar.getInstance().apply { time = this@isSameWeek }
     val cal2 = Calendar.getInstance().apply { time = other }
     return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) && cal1.get(Calendar.WEEK_OF_YEAR) == cal2.get(Calendar.WEEK_OF_YEAR)
 }
 
-fun java.util.Date.isSameYear(other: java.util.Date): Boolean {
+fun Date.isSameYear(other: Date): Boolean {
     val cal1 = Calendar.getInstance().apply { time = this@isSameYear }
     val cal2 = Calendar.getInstance().apply { time = other }
     return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)

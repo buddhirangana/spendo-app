@@ -2,6 +2,7 @@ package com.example.spendo
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
@@ -28,6 +29,7 @@ class AddTransactionActivity : AppCompatActivity() {
     private var selectedDate = Date()
     private var amount: Long = 0
     private var transactionId: String? = null
+    private var currentCurrency: String = "LKR"
 
     private lateinit var amountTextView: MaterialTextView
     private lateinit var categoryEditText: TextInputEditText
@@ -41,6 +43,9 @@ class AddTransactionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_transaction)
 
         repository = Repository()
+
+        val sharedPrefs = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        currentCurrency = sharedPrefs.getString("Currency", "LKR") ?: "LKR"
 
         initViews()
         setupClickListeners()
@@ -98,7 +103,7 @@ class AddTransactionActivity : AppCompatActivity() {
         val input = EditText(this).apply {
             inputType = android.text.InputType.TYPE_CLASS_NUMBER
             setText(if (amount > 0) amount.toString() else "")
-            hint = "Enter amount in LKR"
+            hint = "Enter amount in $currentCurrency"
         }
 
         builder.setTitle("Enter Amount")
@@ -114,8 +119,12 @@ class AddTransactionActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun updateAmountDisplay() {
-        val format = NumberFormat.getCurrencyInstance(Locale("en", "LK"))
-        format.currency = Currency.getInstance("LKR")
+        val format = NumberFormat.getCurrencyInstance()
+        try {
+            format.currency = Currency.getInstance(currentCurrency)
+        } catch (e: Exception) {
+            format.currency = Currency.getInstance("LKR")
+        }
         amountTextView.text = format.format(amount)
     }
 
@@ -185,6 +194,7 @@ class AddTransactionActivity : AppCompatActivity() {
             id = transactionId ?: "",
             userId = userId,
             amount = amount,
+            currency = currentCurrency,
             category = category,
             description = description.ifBlank { category },
             type = selectedType,
@@ -195,21 +205,11 @@ class AddTransactionActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             try {
-                // Call the repository to add the transaction to Firestore
                 repository.addTransaction(transaction)
-                Toast.makeText(
-                    this@AddTransactionActivity,
-                    "Transaction saved successfully!",
-                    Toast.LENGTH_SHORT
-                ).show()
-                finish() // Close the activity and return to the previous screen
+                Toast.makeText(this@AddTransactionActivity, "Transaction saved successfully!", Toast.LENGTH_SHORT).show()
+                finish()
             } catch (e: Exception) {
-                Toast.makeText(
-                    this@AddTransactionActivity,
-                    "Failed to save transaction: ${e.message}",
-                    Toast.LENGTH_LONG
-                ).show()
-                // Re-enable the button on failure
+                Toast.makeText(this@AddTransactionActivity, "Failed to save transaction: ${e.message}", Toast.LENGTH_LONG).show()
                 findViewById<View>(R.id.btn_continue).isEnabled = true
             }
         }

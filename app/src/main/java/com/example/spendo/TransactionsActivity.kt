@@ -1,5 +1,6 @@
 package com.example.spendo
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -22,6 +23,7 @@ import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 class TransactionsActivity : AppCompatActivity() {
     private lateinit var repository: Repository
     private lateinit var transactionAdapter: TransactionGroupAdapter
@@ -30,6 +32,7 @@ class TransactionsActivity : AppCompatActivity() {
     private val months = DateFormatSymbols().months
     private var selectedMonthIndex = 0
     private var selectedFilterType: TransactionType? = null
+    private var currentCurrency: String = "LKR"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +40,15 @@ class TransactionsActivity : AppCompatActivity() {
 
         repository = Repository()
         setupViews()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val sharedPrefs = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        currentCurrency = sharedPrefs.getString("Currency", "LKR") ?: "LKR"
+        if (::transactionAdapter.isInitialized) {
+            transactionAdapter.updateCurrency(currentCurrency)
+        }
         loadData()
     }
 
@@ -85,13 +97,14 @@ class TransactionsActivity : AppCompatActivity() {
 
         transactionAdapter = TransactionGroupAdapter(
             emptyMap(),
+            currentCurrency,
             onUpdate = { transaction ->
                 val intent = Intent(this, AddTransactionActivity::class.java).apply {
                     putExtra("TRANSACTION_ID", transaction.id)
                     putExtra("TRANSACTION_AMOUNT", transaction.amount)
                     putExtra("TRANSACTION_CATEGORY", transaction.category)
                     putExtra("TRANSACTION_DESC", transaction.description)
-                    putExtra("TRANSACTION_TYPE", transaction.type.name) // Pass enum as String
+                    putExtra("TRANSACTION_TYPE", transaction.type.name)
                     putExtra("TRANSACTION_DATE_SECONDS", transaction.date.seconds)
                     putExtra("TRANSACTION_DATE_NANOS", transaction.date.nanoseconds)
                 }
@@ -235,10 +248,5 @@ class TransactionsActivity : AppCompatActivity() {
 
     private fun updateMonthButtonText() {
         btnMonth.text = months[selectedMonthIndex]
-    }
-
-    override fun onResume() {
-        super.onResume()
-        loadData()
     }
 }

@@ -48,46 +48,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Appearance -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Appearance"
-            android:textSize="14sp"
-            android:fontFamily="@font/raleway_medium"
-            android:textColor="@color/gray"
-            android:layout_marginBottom="8dp"/>
-
-        <RadioGroup
-            android:id="@+id/rg_theme"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="24dp">
-
-            <RadioButton
-                android:id="@+id/rb_light"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Light" />
-
-            <RadioButton
-                android:id="@+id/rb_dark"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Dark" />
-
-            <RadioButton
-                android:id="@+id/rb_system"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="System" />
-
-        </RadioGroup>
-
         <!-- Default Currency -->
         <TextView
             android:layout_width="wrap_content"

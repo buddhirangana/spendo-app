@@ -47,6 +47,24 @@ class AuthActivity : AppCompatActivity() {
             Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
             // Hide loading indicator on error
             hideLoadingIndicator()
+        } catch (e: SecurityException) {
+            // Handle SecurityException: Unknown calling package name
+            Log.e("AuthActivity", "SecurityException: ${e.message}", e)
+            val errorMsg = if (e.message?.contains("Unknown calling package") == true) {
+                "Google Play Services error. Please:\n" +
+                "1. Clean and rebuild the app\n" +
+                "2. Update Google Play Services\n" +
+                "3. Verify SHA-1 in Firebase Console"
+            } else {
+                "Security error: ${e.message}"
+            }
+            Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show()
+            hideLoadingIndicator()
+        } catch (e: Exception) {
+            // Handle any other exceptions
+            Log.e("AuthActivity", "Unexpected error during Google Sign In: ${e.message}", e)
+            Toast.makeText(this, "An unexpected error occurred: ${e.message}", Toast.LENGTH_LONG).show()
+            hideLoadingIndicator()
         }
     }
 
@@ -73,8 +91,10 @@ class AuthActivity : AppCompatActivity() {
 
     private fun configureGoogleSignIn() {
         // Use your server's client ID from google-services.json
+        // This web client ID is required for Firebase Authentication
+        val webClientId = getString(R.string.default_web_client_id)
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestIdToken(webClientId)
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)

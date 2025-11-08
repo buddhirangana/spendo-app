@@ -247,12 +247,27 @@ class HomeActivity : AppCompatActivity() {
             return
         }
 
-        val entries = ArrayList<Entry>()
-        transactions.forEach { transaction ->
-            val calendar = Calendar.getInstance().apply { time = transaction.date.toDate() }
-            val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH).toFloat()
-            entries.add(Entry(dayOfMonth, transaction.amount.toFloat()))
+        // Filter only expenses for the chart
+        val expenseTransactions = transactions.filter { it.type == TransactionType.EXPENSE }
+        
+        if (expenseTransactions.isEmpty()) {
+            lineChart.clear()
+            lineChart.invalidate()
+            return
         }
+
+        // Aggregate transactions by day to handle multiple transactions on the same day
+        val dailyTotals = expenseTransactions.groupBy { transaction ->
+            val calendar = Calendar.getInstance().apply { time = transaction.date.toDate() }
+            calendar.get(Calendar.DAY_OF_MONTH)
+        }.mapValues { (_, txs) ->
+            txs.sumOf { it.amount }.toFloat()
+        }
+
+        // Create entries sorted by day
+        val entries = dailyTotals.map { (day, total) ->
+            Entry(day.toFloat(), total)
+        }.sortedBy { it.x }
 
         val dataSet = LineDataSet(entries, "Expenses").apply {
             color = ContextCompat.getColor(this@HomeActivity, R.color.primary_green)

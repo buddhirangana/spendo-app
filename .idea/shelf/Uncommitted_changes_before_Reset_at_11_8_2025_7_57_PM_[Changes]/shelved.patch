@@ -1,0 +1,16 @@
+Index: app/src/main/res/values-night/colors.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<resources>\r\n    <color name=\"black\">#FFFFFFFF</color>\r\n    <color name=\"white\">#FF121212</color>\r\n\r\n    <color name=\"primary_green\">#4CAF50</color>\r\n    <color name=\"light_green\">#3A4443</color>\r\n    <color name=\"red\">#F44336</color>\r\n    <color name=\"gray\">#A9A9A9</color>\r\n    <color name=\"light_gray\">#3A4443</color>\r\n\r\n    <!-- Category Colors -->\r\n    <color name=\"category_food\">#FDD5D7</color>\r\n    <color name=\"category_transport\">#BDDCFF</color>\r\n    <color name=\"category_shopping\">#FCEED4</color>\r\n    <color name=\"category_entertainment\">#fcf0bd</color>\r\n    <color name=\"category_bills\">#c0fad7</color>\r\n    <color name=\"category_health\">#bfdeff</color>\r\n    <color name=\"category_education\">#ffe7c4</color>\r\n    <color name=\"category_salary\">#CFFAEA</color>\r\n    <color name=\"category_other\">#d6d6d6</color>\r\n</resources>
+===================================================================
+diff --git a/app/src/main/res/values-night/colors.xml b/app/src/main/res/values-night/colors.xml
+--- a/app/src/main/res/values-night/colors.xml	(revision 447d01d284a3d101af0767635a18ee2251bc4f81)
++++ b/app/src/main/res/values-night/colors.xml	(date 1762611039564)
+@@ -19,4 +19,6 @@
+     <color name="category_education">#ffe7c4</color>
+     <color name="category_salary">#CFFAEA</color>
+     <color name="category_other">#d6d6d6</color>
++
++    <color name="list_background">#2C2C2C</color>
+ </resources>
+\ No newline at end of file

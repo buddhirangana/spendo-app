@@ -1,0 +1,195 @@
+Index: app/src/main/java/com/example/spendo/HomeActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.spendo\r\n\r\nimport android.content.Context\r\nimport android.content.Intent\r\nimport android.graphics.Color\r\nimport android.os.Bundle\r\nimport android.view.View\r\nimport android.widget.TextView\r\nimport android.widget.Toast\r\nimport androidx.appcompat.app.AlertDialog\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport androidx.core.content.ContextCompat\r\nimport androidx.lifecycle.lifecycleScope\r\nimport androidx.recyclerview.widget.LinearLayoutManager\r\nimport androidx.recyclerview.widget.RecyclerView\r\nimport com.bumptech.glide.Glide\r\nimport com.example.spendo.adapters.TransactionAdapter\r\nimport com.example.spendo.data.Repository\r\nimport com.example.spendo.data.Transaction\r\nimport com.example.spendo.data.TransactionType\r\nimport com.github.mikephil.charting.charts.LineChart\r\nimport com.github.mikephil.charting.data.Entry\r\nimport com.github.mikephil.charting.data.LineData\r\nimport com.github.mikephil.charting.data.LineDataSet\r\nimport com.google.android.material.bottomnavigation.BottomNavigationView\r\nimport com.google.android.material.button.MaterialButton\r\nimport com.google.android.material.navigation.NavigationBarView\r\nimport com.google.firebase.auth.FirebaseAuth\r\nimport de.hdodenhof.circleimageview.CircleImageView\r\nimport kotlinx.coroutines.launch\r\nimport java.text.DateFormatSymbols\r\nimport java.util.*\r\nimport com.example.spendo.adapters.formatCurrency\r\n\r\n\r\nclass HomeActivity : AppCompatActivity() {\r\n\r\n    private lateinit var btnMonth: MaterialButton\r\n    private val months = DateFormatSymbols().months\r\n    private var selectedMonthIndex = 0\r\n\r\n    private lateinit var repository: Repository\r\n    private lateinit var transactionAdapter: TransactionAdapter\r\n    private var transactions = mutableListOf<Transaction>()\r\n\r\n    private lateinit var ivProfile: CircleImageView\r\n    private lateinit var rvRecentTransactions: RecyclerView\r\n    private lateinit var tvBalance: TextView\r\n    private lateinit var tvIncome: TextView\r\n    private lateinit var tvExpenses: TextView\r\n    private lateinit var lineChart: LineChart\r\n    private lateinit var btnToday: MaterialButton\r\n    private lateinit var btnWeek: MaterialButton\r\n    private lateinit var btnMonth2: MaterialButton\r\n    private lateinit var btnYear: MaterialButton\r\n\r\n    private var currentCurrency: String = \"LKR\"\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        setContentView(R.layout.activity_home)\r\n\r\n        repository = Repository()\r\n        initViews()\r\n        setupClickListeners()\r\n\r\n        val calendar = Calendar.getInstance()\r\n        selectedMonthIndex = calendar.get(Calendar.MONTH)\r\n        updateMonthButtonText()\r\n        setupChart()\r\n    }\r\n\r\n    override fun onResume() {\r\n        super.onResume()\r\n        val sharedPrefs = getSharedPreferences(\"AppSettings\", Context.MODE_PRIVATE)\r\n        currentCurrency = sharedPrefs.getString(\"Currency\", \"LKR\") ?: \"LKR\"\r\n\r\n        loadData()\r\n        loadProfilePicture()\r\n    }\r\n\r\n    private fun initViews() {\r\n        ivProfile = findViewById(R.id.iv_profile)\r\n        btnMonth = findViewById(R.id.btn_month)\r\n        rvRecentTransactions = findViewById(R.id.rv_recent_transactions)\r\n        tvBalance = findViewById(R.id.tv_balance)\r\n        tvIncome = findViewById(R.id.tv_income)\r\n        tvExpenses = findViewById(R.id.tv_expenses)\r\n        lineChart = findViewById(R.id.chart)\r\n        btnToday = findViewById(R.id.btn_today)\r\n        btnWeek = findViewById(R.id.btn_week)\r\n        btnMonth2 = findViewById(R.id.btn2_month)\r\n        btnYear = findViewById(R.id.btn_year)\r\n\r\n        transactionAdapter = TransactionAdapter(transactions, currentCurrency)\r\n        rvRecentTransactions.apply {\r\n            layoutManager = LinearLayoutManager(this@HomeActivity)\r\n            adapter = transactionAdapter\r\n        }\r\n\r\n        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)\r\n        bottomNavigationView.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_LABELED\r\n        bottomNavigationView.selectedItemId = R.id.nav_home\r\n    }\r\n\r\n    private fun setupClickListeners() {\r\n        btnMonth.setOnClickListener { showMonthSelectorDialog() }\r\n        ivProfile.setOnClickListener { startActivity(Intent(this, EditProfileActivity::class.java)) }\r\n        findViewById<View>(R.id.fab_add).setOnClickListener { startActivity(Intent(this, AddTransactionActivity::class.java)) }\r\n        findViewById<View>(R.id.tv_see_all).setOnClickListener { startActivity(Intent(this, TransactionsActivity::class.java)) }\r\n        btnToday.setOnClickListener { updateChartWithPeriod(\"Today\") }\r\n        btnWeek.setOnClickListener { updateChartWithPeriod(\"Week\") }\r\n        btnMonth2.setOnClickListener { updateChartWithPeriod(\"Month\") }\r\n        btnYear.setOnClickListener { updateChartWithPeriod(\"Year\") }\r\n\r\n        findViewById<BottomNavigationView>(R.id.bottom_navigation).setOnItemSelectedListener { item ->\r\n            when (item.itemId) {\r\n                R.id.nav_home -> true\r\n                R.id.nav_transactions -> {\r\n                    startActivity(Intent(this, TransactionsActivity::class.java))\r\n                    true\r\n                }\r\n                R.id.nav_budget -> {\r\n                    startActivity(Intent(this, FinancialReportActivity::class.java))\r\n                    true\r\n                }\r\n                R.id.nav_profile -> {\r\n                    startActivity(Intent(this, ProfileActivity::class.java))\r\n                    true\r\n                }\r\n                else -> false\r\n            }\r\n        }\r\n    }\r\n\r\n    private fun loadData() {\r\n        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return\r\n\r\n        lifecycleScope.launch {\r\n            try {\r\n                val result = repository.userTransactions(userId)\r\n                if (result.isSuccess) {\r\n                    val allTransactions = result.getOrNull() ?: emptyList()\r\n                    val calendar = Calendar.getInstance()\r\n                    val filteredTransactions = allTransactions.filter {\r\n                        calendar.time = it.date.toDate()\r\n                        calendar.get(Calendar.MONTH) == selectedMonthIndex\r\n                    }\r\n                    transactions.clear()\r\n                    transactions.addAll(filteredTransactions.sortedByDescending { it.date })\r\n                    transactionAdapter.updateCurrency(currentCurrency)\r\n\r\n                    updateSummary()\r\n                    updateChartWithPeriod(\"Today\")\r\n                } else {\r\n                    Toast.makeText(this@HomeActivity, \"Failed to load transactions\", Toast.LENGTH_SHORT).show()\r\n                }\r\n            } catch (e: Exception) {\r\n                Toast.makeText(this@HomeActivity, \"Error: ${e.message}\", Toast.LENGTH_SHORT).show()\r\n            }\r\n        }\r\n    }\r\n\r\n    private fun updateSummary() {\r\n        val totalIncome = transactions.filter { it.type == TransactionType.INCOME }.sumOf { it.amount }.toDouble()\r\n        val totalExpenses = transactions.filter { it.type == TransactionType.EXPENSE }.sumOf { it.amount }.toDouble()\r\n        val balance = totalIncome - totalExpenses\r\n\r\n        // Use the consistent currency formatting helper\r\n        tvBalance.text = formatCurrency(balance, currentCurrency)\r\n        tvIncome.text = formatCurrency(totalIncome, currentCurrency)\r\n        tvExpenses.text = formatCurrency(totalExpenses, currentCurrency)\r\n    }\r\n\r\n    private fun setupChart() {\r\n        lineChart.description.isEnabled = false\r\n        lineChart.legend.isEnabled = false\r\n        lineChart.setTouchEnabled(false)\r\n        lineChart.setDrawGridBackground(false)\r\n\r\n        val xAxis = lineChart.xAxis\r\n        xAxis.setDrawAxisLine(false)\r\n        xAxis.setDrawGridLines(false)\r\n        xAxis.setDrawLabels(false)\r\n        xAxis.spaceMin = 0.4f\r\n        xAxis.spaceMax = 0.4f\r\n\r\n        lineChart.axisLeft.isEnabled = false\r\n        lineChart.axisRight.isEnabled = false\r\n\r\n        lineChart.setNoDataText(\"No expense data for this period.\")\r\n        lineChart.setNoDataTextColor(ContextCompat.getColor(this, R.color.primary_green))\r\n    }\r\n\r\n    private fun updateChartWithPeriod(period: String) {\r\n        val unselectedBg = ContextCompat.getColorStateList(this, R.color.light_gray)\r\n        val unselectedText = ContextCompat.getColor(this, R.color.gray)\r\n        btnToday.backgroundTintList = unselectedBg\r\n        btnToday.setTextColor(unselectedText)\r\n        btnWeek.backgroundTintList = unselectedBg\r\n        btnWeek.setTextColor(unselectedText)\r\n        btnMonth2.backgroundTintList = unselectedBg\r\n        btnMonth2.setTextColor(unselectedText)\r\n        btnYear.backgroundTintList = unselectedBg\r\n        btnYear.setTextColor(unselectedText)\r\n\r\n        val selectedBg = ContextCompat.getColorStateList(this, R.color.primary_green)\r\n        val selectedText = Color.WHITE\r\n\r\n        when (period) {\r\n            \"Today\" -> {\r\n                btnToday.backgroundTintList = selectedBg\r\n                btnToday.setTextColor(selectedText)\r\n            }\r\n            \"Week\" -> {\r\n                btnWeek.backgroundTintList = selectedBg\r\n                btnWeek.setTextColor(selectedText)\r\n            }\r\n            \"Month\" -> {\r\n                btnMonth2.backgroundTintList = selectedBg\r\n                btnMonth2.setTextColor(selectedText)\r\n            }\r\n            \"Year\" -> {\r\n                btnYear.backgroundTintList = selectedBg\r\n                btnYear.setTextColor(selectedText)\r\n            }\r\n        }\r\n\r\n        val calendar = Calendar.getInstance()\r\n        val now = Date()\r\n\r\n        val filtered = when (period) {\r\n            \"Today\" -> transactions.filter { it.date.toDate().isSameDay(now) }\r\n            \"Week\" -> transactions.filter { it.date.toDate().isSameWeek(now) }\r\n            \"Month\" -> transactions\r\n            \"Year\" -> transactions.filter { it.date.toDate().isSameYear(now) }\r\n            else -> transactions\r\n        }\r\n\r\n        updateChart(filtered)\r\n    }\r\n\r\n    private fun updateChart(transactions: List<Transaction>) {\r\n        if (transactions.isEmpty()) {\r\n            lineChart.clear()\r\n            lineChart.invalidate()\r\n            return\r\n        }\r\n\r\n        // Filter only expenses for the chart\r\n        val expenseTransactions = transactions.filter { it.type == TransactionType.EXPENSE }\r\n        \r\n        if (expenseTransactions.isEmpty()) {\r\n            lineChart.clear()\r\n            lineChart.invalidate()\r\n            return\r\n        }\r\n\r\n        // Aggregate transactions by day to handle multiple transactions on the same day\r\n        val dailyTotals = expenseTransactions.groupBy { transaction ->\r\n            val calendar = Calendar.getInstance().apply { time = transaction.date.toDate() }\r\n            calendar.get(Calendar.DAY_OF_MONTH)\r\n        }.mapValues { (_, txs) ->\r\n            txs.sumOf { it.amount }.toFloat()\r\n        }\r\n\r\n        // Create entries sorted by day\r\n        val entries = dailyTotals.map { (day, total) ->\r\n            Entry(day.toFloat(), total)\r\n        }.sortedBy { it.x }\r\n\r\n        val dataSet = LineDataSet(entries, \"Expenses\").apply {\r\n            color = ContextCompat.getColor(this@HomeActivity, R.color.primary_green)\r\n            lineWidth = 3f\r\n            setDrawCircles(false)\r\n            setDrawValues(false)\r\n            mode = LineDataSet.Mode.CUBIC_BEZIER\r\n            setDrawFilled(true)\r\n            fillDrawable = ContextCompat.getDrawable(this@HomeActivity, R.drawable.chart_gradient)\r\n        }\r\n\r\n        lineChart.data = LineData(dataSet)\r\n        lineChart.invalidate()\r\n    }\r\n\r\n    private fun loadProfilePicture() {\r\n        val user = FirebaseAuth.getInstance().currentUser\r\n        if (user?.photoUrl != null) {\r\n            Glide.with(this).load(user.photoUrl).into(ivProfile)\r\n        } else {\r\n            ivProfile.setImageResource(R.drawable.ic_profile_placeholder)\r\n        }\r\n    }\r\n\r\n    private fun showMonthSelectorDialog() {\r\n        AlertDialog.Builder(this)\r\n            .setTitle(\"Select a Month\")\r\n            .setSingleChoiceItems(months, selectedMonthIndex) { dialog, which ->\r\n                selectedMonthIndex = which\r\n                updateMonthButtonText()\r\n                loadData()\r\n                dialog.dismiss()\r\n            }\r\n            .create()\r\n            .show()\r\n    }\r\n\r\n    private fun updateMonthButtonText() {\r\n        btnMonth.text = months[selectedMonthIndex]\r\n    }\r\n}\r\n\r\nfun Date.isSameDay(other: Date): Boolean {\r\n    val cal1 = Calendar.getInstance().apply { time = this@isSameDay }\r\n    val cal2 = Calendar.getInstance().apply { time = other }\r\n    return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) && cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR)\r\n}\r\n\r\nfun Date.isSameWeek(other: Date): Boolean {\r\n    val cal1 = Calendar.getInstance().apply { time = this@isSameWeek }\r\n    val cal2 = Calendar.getInstance().apply { time = other }\r\n    return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) && cal1.get(Calendar.WEEK_OF_YEAR) == cal2.get(Calendar.WEEK_OF_YEAR)\r\n}\r\n\r\nfun Date.isSameYear(other: Date): Boolean {\r\n    val cal1 = Calendar.getInstance().apply { time = this@isSameYear }\r\n    val cal2 = Calendar.getInstance().apply { time = other }\r\n    return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/spendo/HomeActivity.kt b/app/src/main/java/com/example/spendo/HomeActivity.kt
+--- a/app/src/main/java/com/example/spendo/HomeActivity.kt	(revision 1560f568df097e7787f7909b0cf288bb1bb0b728)
++++ b/app/src/main/java/com/example/spendo/HomeActivity.kt	(date 1762620379749)
+@@ -41,7 +41,9 @@
+ 
+     private lateinit var repository: Repository
+     private lateinit var transactionAdapter: TransactionAdapter
+-    private var transactions = mutableListOf<Transaction>()
++    private var transactions = mutableListOf<Transaction>() // Month-filtered transactions for summary/list
++    private var allTransactions = mutableListOf<Transaction>() // All transactions for chart
++    private var currentChartPeriod = "Today" // Track the currently selected chart period
+ 
+     private lateinit var ivProfile: CircleImageView
+     private lateinit var rvRecentTransactions: RecyclerView
+@@ -140,9 +142,15 @@
+             try {
+                 val result = repository.userTransactions(userId)
+                 if (result.isSuccess) {
+-                    val allTransactions = result.getOrNull() ?: emptyList()
++                    val loadedTransactions = result.getOrNull() ?: emptyList()
++                    
++                    // Store all transactions for chart filtering
++                    allTransactions.clear()
++                    allTransactions.addAll(loadedTransactions)
++                    
++                    // Filter by selected month for summary and recent transactions list
+                     val calendar = Calendar.getInstance()
+-                    val filteredTransactions = allTransactions.filter {
++                    val filteredTransactions = loadedTransactions.filter {
+                         calendar.time = it.date.toDate()
+                         calendar.get(Calendar.MONTH) == selectedMonthIndex
+                     }
+@@ -151,7 +159,7 @@
+                     transactionAdapter.updateCurrency(currentCurrency)
+ 
+                     updateSummary()
+-                    updateChartWithPeriod("Today")
++                    updateChartWithPeriod(currentChartPeriod)
+                 } else {
+                     Toast.makeText(this@HomeActivity, "Failed to load transactions", Toast.LENGTH_SHORT).show()
+                 }
+@@ -193,6 +201,10 @@
+     }
+ 
+     private fun updateChartWithPeriod(period: String) {
++        // Store the current period
++        currentChartPeriod = period
++        
++        // Update button states
+         val unselectedBg = ContextCompat.getColorStateList(this, R.color.light_gray)
+         val unselectedText = ContextCompat.getColor(this, R.color.gray)
+         btnToday.backgroundTintList = unselectedBg
+@@ -226,27 +238,36 @@
+             }
+         }
+ 
++        // Check if allTransactions is loaded
++        if (allTransactions.isEmpty()) {
++            // If not loaded yet, load data first (it will call updateChartWithPeriod again with currentChartPeriod)
++            loadData()
++            return
++        }
++
+         val calendar = Calendar.getInstance()
+         val now = Date()
+ 
++        // Use allTransactions for chart filtering, not the month-filtered transactions
+         val filtered = when (period) {
+-            "Today" -> transactions.filter { it.date.toDate().isSameDay(now) }
+-            "Week" -> transactions.filter { it.date.toDate().isSameWeek(now) }
+-            "Month" -> transactions
+-            "Year" -> transactions.filter { it.date.toDate().isSameYear(now) }
+-            else -> transactions
+-        }
+-
+-        updateChart(filtered)
+-    }
++            "Today" -> allTransactions.filter { it.date.toDate().isSameDay(now) }
++            "Week" -> allTransactions.filter { it.date.toDate().isSameWeek(now) }
++            "Month" -> {
++                // For Month, show transactions from the selected month
++                val cal = Calendar.getInstance()
++                allTransactions.filter {
++                    cal.time = it.date.toDate()
++                    cal.get(Calendar.MONTH) == selectedMonthIndex
++                }
++            }
++            "Year" -> allTransactions.filter { it.date.toDate().isSameYear(now) }
++            else -> allTransactions
++        }
+ 
+-    private fun updateChart(transactions: List<Transaction>) {
+-        if (transactions.isEmpty()) {
+-            lineChart.clear()
+-            lineChart.invalidate()
+-            return
+-        }
++        updateChart(filtered, period)
++    }
+ 
++    private fun updateChart(transactions: List<Transaction>, period: String = "Month") {
+         // Filter only expenses for the chart
+         val expenseTransactions = transactions.filter { it.type == TransactionType.EXPENSE }
+         
+@@ -256,19 +277,63 @@
+             return
+         }
+ 
+-        // Aggregate transactions by day to handle multiple transactions on the same day
+-        val dailyTotals = expenseTransactions.groupBy { transaction ->
+-            val calendar = Calendar.getInstance().apply { time = transaction.date.toDate() }
+-            calendar.get(Calendar.DAY_OF_MONTH)
+-        }.mapValues { (_, txs) ->
+-            txs.sumOf { it.amount }.toFloat()
++        // Aggregate transactions based on the period
++        val aggregatedData = when (period) {
++            "Today" -> {
++                // Group by hour of day (0-23)
++                expenseTransactions.groupBy { transaction ->
++                    val calendar = Calendar.getInstance().apply { time = transaction.date.toDate() }
++                    calendar.get(Calendar.HOUR_OF_DAY)
++                }.mapValues { (_, txs) -> txs.sumOf { it.amount }.toFloat() }
++            }
++            "Week" -> {
++                // Group by day of week (1 = Sunday, 2 = Monday, etc.)
++                // Since transactions are already filtered to current week, this groups by day within the week
++                expenseTransactions.groupBy { transaction ->
++                    val calendar = Calendar.getInstance().apply { time = transaction.date.toDate() }
++                    calendar.get(Calendar.DAY_OF_WEEK)
++                }.mapValues { (_, txs) -> txs.sumOf { it.amount }.toFloat() }
++            }
++            "Month" -> {
++                // Group by day of month (1-31)
++                expenseTransactions.groupBy { transaction ->
++                    val calendar = Calendar.getInstance().apply { time = transaction.date.toDate() }
++                    calendar.get(Calendar.DAY_OF_MONTH)
++                }.mapValues { (_, txs) -> txs.sumOf { it.amount }.toFloat() }
++            }
++            "Year" -> {
++                // Group by month (1-12)
++                expenseTransactions.groupBy { transaction ->
++                    val calendar = Calendar.getInstance().apply { time = transaction.date.toDate() }
++                    calendar.get(Calendar.MONTH) + 1 // +1 because Calendar.MONTH is 0-based
++                }.mapValues { (_, txs) -> txs.sumOf { it.amount }.toFloat() }
++            }
++            else -> {
++                // Default: group by day of month
++                expenseTransactions.groupBy { transaction ->
++                    val calendar = Calendar.getInstance().apply { time = transaction.date.toDate() }
++                    calendar.get(Calendar.DAY_OF_MONTH)
++                }.mapValues { (_, txs) -> txs.sumOf { it.amount }.toFloat() }
++            }
+         }
+ 
+-        // Create entries sorted by day
+-        val entries = dailyTotals.map { (day, total) ->
+-            Entry(day.toFloat(), total)
++        if (aggregatedData.isEmpty()) {
++            lineChart.clear()
++            lineChart.invalidate()
++            return
++        }
++
++        // Create entries sorted by x value
++        val entries = aggregatedData.map { (xValue, total) ->
++            Entry(xValue.toFloat(), total)
+         }.sortedBy { it.x }
+ 
++        if (entries.isEmpty()) {
++            lineChart.clear()
++            lineChart.invalidate()
++            return
++        }
++
+         val dataSet = LineDataSet(entries, "Expenses").apply {
+             color = ContextCompat.getColor(this@HomeActivity, R.color.primary_green)
+             lineWidth = 3f
+@@ -279,7 +344,9 @@
+             fillDrawable = ContextCompat.getDrawable(this@HomeActivity, R.drawable.chart_gradient)
+         }
+ 
+-        lineChart.data = LineData(dataSet)
++        val lineData = LineData(dataSet)
++        lineChart.data = lineData
++        lineChart.notifyDataSetChanged()
+         lineChart.invalidate()
+     }
+ 

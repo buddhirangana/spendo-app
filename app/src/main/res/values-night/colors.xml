@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FFFFFFFF</color>
+    <color name="white">#FF121212</color>
+
+    <color name="primary_green">#4CAF50</color>
+    <color name="light_green">#3A4443</color>
+    <color name="red">#F44336</color>
+    <color name="gray">#A9A9A9</color>
+    <color name="light_gray">#3A4443</color>
+
+    <!-- Category Colors -->
+    <color name="category_food">#FDD5D7</color>
+    <color name="category_transport">#BDDCFF</color>
+    <color name="category_shopping">#FCEED4</color>
+    <color name="category_entertainment">#fcf0bd</color>
+    <color name="category_bills">#c0fad7</color>
+    <color name="category_health">#bfdeff</color>
+    <color name="category_education">#ffe7c4</color>
+    <color name="category_salary">#CFFAEA</color>
+    <color name="category_other">#d6d6d6</color>
+</resources>

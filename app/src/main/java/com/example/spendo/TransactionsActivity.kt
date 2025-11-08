@@ -39,13 +39,13 @@ class TransactionsActivity : AppCompatActivity() {
 
         repository = Repository()
         setupViews()
+        loadData()
     }
 
     override fun onResume() {
         super.onResume()
         val sharedPrefs = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
         currentCurrency = sharedPrefs.getString("Currency", "LKR") ?: "LKR"
-        transactionAdapter.updateCurrency(currentCurrency)
         loadData()
     }
 

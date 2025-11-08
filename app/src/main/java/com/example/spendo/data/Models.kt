@@ -8,7 +8,10 @@ data class AppUser(
     val email: String = ""
 )
 
-enum class TransactionType { INCOME, EXPENSE }
+enum class TransactionType {
+    INCOME,
+    EXPENSE
+}
 
 data class Transaction(
     val id: String = "",
@@ -20,6 +23,3 @@ data class Transaction(
     val type: TransactionType = TransactionType.EXPENSE,
     val date: Timestamp = Timestamp.now()
 )
-
-
-

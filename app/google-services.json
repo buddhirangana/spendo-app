@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "515490630923",
+    "firebase_url": "https://spendo-app-751a4-default-rtdb.firebaseio.com",
+    "project_id": "spendo-app-751a4",
+    "storage_bucket": "spendo-app-751a4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:515490630923:android:3993c16b3c8ba64f05260e",
+        "android_client_info": {
+          "package_name": "com.example.spendo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "515490630923-a0vq534tpac939jub1tgfte5fgp21rjb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.spendo",
+            "certificate_hash": "64f45b39c0cd7d0b187e96529689bdcc22d54e57"
+          }
+        },
+        {
+          "client_id": "515490630923-1nq15mboo47gsstpc8n8140msb5a0tmk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByymR6JiwtwC4zZzpU1rGOiCCXGk1geK4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "515490630923-1nq15mboo47gsstpc8n8140msb5a0tmk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

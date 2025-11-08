@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:gravity="center_vertical">
+
+    <!-- Category Color Dot -->
+    <View
+        android:id="@+id/iv_category_dot"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:background="@drawable/category_dot_background"
+        android:layout_marginEnd="12dp" />
+
+    <!-- Category Name -->
+    <TextView
+        android:id="@+id/tv_category_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Category"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <!-- Progress Bar -->
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="8dp"
+        android:layout_weight="2"
+        android:layout_marginHorizontal="12dp"
+        android:progressTint="@color/primary_green"
+        android:max="100"
+        android:progress="50" />
+
+    <!-- Amount -->
+    <TextView
+        android:id="@+id/tv_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="- LKR 0"
+        android:textColor="@color/red"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+</LinearLayout>
+
+
+

@@ -1,13 +1,18 @@
 package com.example.spendo
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.spendo.adapters.CategoryBreakdownAdapter
+import com.example.spendo.adapters.formatCurrency
 import com.example.spendo.data.Repository
 import com.example.spendo.data.Transaction
 import com.example.spendo.data.TransactionType
@@ -15,24 +20,33 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
+import java.util.*
 
 class FinancialReportActivity : AppCompatActivity() {
     private lateinit var repository: Repository
     private lateinit var categoryAdapter: CategoryBreakdownAdapter
     private var isShowingExpenses = true
-    
+    private var currentCurrency: String = "LKR"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_financial_report)
-        
+
         repository = Repository()
         setupViews()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val sharedPrefs = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        currentCurrency = sharedPrefs.getString("Currency", "LKR") ?: "LKR"
+        if (::categoryAdapter.isInitialized) {
+            categoryAdapter.updateCurrency(currentCurrency)
+        }
         loadData()
     }
-    
-    private fun setupViews() {
 
-        // Bottom navigation
+    private fun setupViews() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNavigationView.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_LABELED
         bottomNavigationView.setOnItemSelectedListener { item ->
@@ -47,10 +61,7 @@ class FinancialReportActivity : AppCompatActivity() {
                     finish()
                     true
                 }
-                R.id.nav_budget -> {
-                    // Already on budget
-                    true
-                }
+                R.id.nav_budget -> true
                 R.id.nav_profile -> {
                     startActivity(Intent(this, ProfileActivity::class.java))
                     finish()
@@ -60,55 +71,52 @@ class FinancialReportActivity : AppCompatActivity() {
             }
         }
         bottomNavigationView.selectedItemId = R.id.nav_budget
-        
-        // Toggle buttons
+
         findViewById<View>(R.id.btn_expense_toggle).setOnClickListener {
             isShowingExpenses = true
             updateToggleButtons()
             loadData()
         }
-        
+
         findViewById<View>(R.id.btn_income_toggle).setOnClickListener {
             isShowingExpenses = false
             updateToggleButtons()
             loadData()
         }
-        
-        // Setup recycler view
-        categoryAdapter = CategoryBreakdownAdapter(emptyList())
-        findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.rv_category_breakdown).apply {
+
+        categoryAdapter = CategoryBreakdownAdapter(emptyList(), currentCurrency)
+        findViewById<RecyclerView>(R.id.rv_category_breakdown).apply {
             layoutManager = LinearLayoutManager(this@FinancialReportActivity)
             adapter = categoryAdapter
         }
-        
+
         updateToggleButtons()
 
-        // Add transaction FAB
         findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.fab_add).setOnClickListener {
             startActivity(Intent(this, AddTransactionActivity::class.java))
         }
     }
-    
+
     private fun updateToggleButtons() {
         val expenseBtn = findViewById<com.google.android.material.button.MaterialButton>(R.id.btn_expense_toggle)
         val incomeBtn = findViewById<com.google.android.material.button.MaterialButton>(R.id.btn_income_toggle)
-        
+
         if (isShowingExpenses) {
-            expenseBtn.setBackgroundColor(getColor(R.color.red))
-            expenseBtn.setTextColor(getColor(R.color.white))
-            incomeBtn.setBackgroundColor(getColor(android.R.color.transparent))
-            incomeBtn.setTextColor(getColor(R.color.gray))
+            expenseBtn.setBackgroundColor(ContextCompat.getColor(this, R.color.red))
+            expenseBtn.setTextColor(ContextCompat.getColor(this, R.color.white))
+            incomeBtn.setBackgroundColor(ContextCompat.getColor(this, android.R.color.transparent))
+            incomeBtn.setTextColor(ContextCompat.getColor(this, R.color.gray))
         } else {
-            incomeBtn.setBackgroundColor(getColor(R.color.primary_green))
-            incomeBtn.setTextColor(getColor(R.color.white))
-            expenseBtn.setBackgroundColor(getColor(android.R.color.transparent))
-            expenseBtn.setTextColor(getColor(R.color.gray))
+            incomeBtn.setBackgroundColor(ContextCompat.getColor(this, R.color.primary_green))
+            incomeBtn.setTextColor(ContextCompat.getColor(this, R.color.white))
+            expenseBtn.setBackgroundColor(ContextCompat.getColor(this, android.R.color.transparent))
+            expenseBtn.setTextColor(ContextCompat.getColor(this, R.color.gray))
         }
     }
-    
+
     private fun loadData() {
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
-        
+
         lifecycleScope.launch {
             try {
                 val result = repository.userTransactions(userId)
@@ -119,7 +127,7 @@ class FinancialReportActivity : AppCompatActivity() {
                     } else {
                         transactions.filter { it.type == TransactionType.INCOME }
                     }
-                    
+
                     updateSummary(filteredTransactions)
                     updateCategoryBreakdown(filteredTransactions)
                 } else {
@@ -130,42 +138,43 @@ class FinancialReportActivity : AppCompatActivity() {
             }
         }
     }
-    
+
     private fun updateSummary(transactions: List<Transaction>) {
-        val total = transactions.sumOf { it.amount }
-        findViewById<com.google.android.material.textview.MaterialTextView>(R.id.tv_total_amount).text = 
-            "LKR ${String.format("%,d", total)}"
+        val total = transactions.sumOf { it.amount }.toDouble()
+        // Use the consistent currency formatting helper
+        findViewById<TextView>(R.id.tv_total_amount).text = formatCurrency(total, currentCurrency)
     }
-    
+
     private fun updateCategoryBreakdown(transactions: List<Transaction>) {
         val categoryMap = transactions.groupBy { it.category }
         val categoryData = categoryMap.map { (category, txs) ->
             CategoryBreakdownData(
                 category = category,
-                amount = txs.sumOf { it.amount },
+                amount = txs.sumOf { it.amount }.toDouble(),
                 color = getCategoryColor(category)
             )
         }.sortedByDescending { it.amount }
-        
+
         categoryAdapter.updateData(categoryData)
     }
-    
+
     private fun getCategoryColor(category: String): Int {
         return when (category) {
-            "Food" -> getColor(R.color.red)
-            "Transportation" -> getColor(R.color.blue)
-            "Shopping" -> getColor(R.color.orange)
-            "Entertainment" -> getColor(R.color.yellow)
-            "Bills" -> getColor(R.color.primary_green)
-            "Healthcare" -> getColor(R.color.blue)
-            "Education" -> getColor(R.color.orange)
-            else -> getColor(R.color.gray)
+            "Food" -> ContextCompat.getColor(this, R.color.red)
+            "Transportation" -> ContextCompat.getColor(this, R.color.blue)
+            "Shopping" -> ContextCompat.getColor(this, R.color.orange)
+            "Entertainment" -> ContextCompat.getColor(this, R.color.yellow)
+            "Bills" -> ContextCompat.getColor(this, R.color.primary_green)
+            "Healthcare" -> ContextCompat.getColor(this, R.color.blue)
+            "Education" -> ContextCompat.getColor(this, R.color.orange)
+            else -> ContextCompat.getColor(this, R.color.gray)
         }
     }
 }
 
+// Change amount type from Long to Double to match Transaction model
 data class CategoryBreakdownData(
     val category: String,
-    val amount: Long,
+    val amount: Double,
     val color: Int
 )

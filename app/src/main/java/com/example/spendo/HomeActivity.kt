@@ -30,6 +30,8 @@ import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.launch
 import java.text.DateFormatSymbols
 import java.util.*
+import com.example.spendo.adapters.formatCurrency
+
 
 class HomeActivity : AppCompatActivity() {
 
@@ -160,13 +162,14 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun updateSummary() {
-        val totalIncome = transactions.filter { it.type == TransactionType.INCOME }.sumOf { it.amount }
-        val totalExpenses = transactions.filter { it.type == TransactionType.EXPENSE }.sumOf { it.amount }
+        val totalIncome = transactions.filter { it.type == TransactionType.INCOME }.sumOf { it.amount }.toDouble()
+        val totalExpenses = transactions.filter { it.type == TransactionType.EXPENSE }.sumOf { it.amount }.toDouble()
         val balance = totalIncome - totalExpenses
 
-        tvBalance.text = "$currentCurrency ${String.format("%,d", balance)}"
-        tvIncome.text = "$currentCurrency ${String.format("%,d", totalIncome)}"
-        tvExpenses.text = "$currentCurrency ${String.format("%,d", totalExpenses)}"
+        // Use the consistent currency formatting helper
+        tvBalance.text = formatCurrency(balance, currentCurrency)
+        tvIncome.text = formatCurrency(totalIncome, currentCurrency)
+        tvExpenses.text = formatCurrency(totalExpenses, currentCurrency)
     }
 
     private fun setupChart() {

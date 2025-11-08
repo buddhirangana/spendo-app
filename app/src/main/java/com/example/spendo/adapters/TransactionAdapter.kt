@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.spendo.R
 import com.example.spendo.data.Transaction
 import com.example.spendo.data.TransactionType
-import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -63,18 +62,14 @@ class TransactionAdapter(
             tvCategory.text = transaction.category
             tvDescription.text = transaction.description
 
-            val format = NumberFormat.getCurrencyInstance(Locale("en", "LK"))
-            try {
-                format.currency = Currency.getInstance(currency)
-            } catch (e: Exception) {
-                format.currency = Currency.getInstance("LKR")
-            }
+            // Use the consistent currency formatting helper
+            val formattedAmount = formatCurrency(transaction.amount, currency)
 
             if (transaction.type == TransactionType.INCOME) {
-                tvAmount.text = "+ ${format.format(transaction.amount)}"
+                tvAmount.text = "+ $formattedAmount"
                 tvAmount.setTextColor(ContextCompat.getColor(itemView.context, R.color.primary_green))
             } else {
-                tvAmount.text = "- ${format.format(transaction.amount)}"
+                tvAmount.text = "- $formattedAmount"
                 tvAmount.setTextColor(ContextCompat.getColor(itemView.context, R.color.red))
             }
 

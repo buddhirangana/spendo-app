@@ -23,6 +23,7 @@ import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 class TransactionsActivity : AppCompatActivity() {
     private lateinit var repository: Repository
     private lateinit var transactionAdapter: TransactionGroupAdapter
@@ -39,13 +40,15 @@ class TransactionsActivity : AppCompatActivity() {
 
         repository = Repository()
         setupViews()
-        loadData()
     }
 
     override fun onResume() {
         super.onResume()
         val sharedPrefs = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
         currentCurrency = sharedPrefs.getString("Currency", "LKR") ?: "LKR"
+        if (::transactionAdapter.isInitialized) {
+            transactionAdapter.updateCurrency(currentCurrency)
+        }
         loadData()
     }
 
@@ -101,7 +104,7 @@ class TransactionsActivity : AppCompatActivity() {
                     putExtra("TRANSACTION_AMOUNT", transaction.amount)
                     putExtra("TRANSACTION_CATEGORY", transaction.category)
                     putExtra("TRANSACTION_DESC", transaction.description)
-                    putExtra("TRANSACTION_TYPE", transaction.type.name) // Pass enum as String
+                    putExtra("TRANSACTION_TYPE", transaction.type.name)
                     putExtra("TRANSACTION_DATE_SECONDS", transaction.date.seconds)
                     putExtra("TRANSACTION_DATE_NANOS", transaction.date.nanoseconds)
                 }

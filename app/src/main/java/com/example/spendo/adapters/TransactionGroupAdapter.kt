@@ -13,7 +13,7 @@ import com.example.spendo.data.Transaction
 
 class TransactionGroupAdapter(
     private var data: Map<String, List<Transaction>>,
-    private val currency: String,
+    private var currency: String,
     private val onUpdate: (Transaction) -> Unit,
     private val onDelete: (Transaction) -> Unit
 ) : RecyclerView.Adapter<TransactionGroupAdapter.GroupViewHolder>() {
@@ -35,6 +35,12 @@ class TransactionGroupAdapter(
     @SuppressLint("NotifyDataSetChanged")
     fun updateData(newData: Map<String, List<Transaction>>) {
         data = newData
+        notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateCurrency(newCurrency: String) {
+        currency = newCurrency
         notifyDataSetChanged()
     }
 
@@ -73,3 +79,4 @@ class TransactionGroupAdapter(
         }
     }
 }
+

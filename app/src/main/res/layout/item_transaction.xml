@@ -65,7 +65,7 @@
             android:id="@+id/tv_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="- LKR 0"
+            android:text="- 0.00"
             android:textColor="@color/red"
             android:textSize="16sp"
             android:textStyle="bold" />

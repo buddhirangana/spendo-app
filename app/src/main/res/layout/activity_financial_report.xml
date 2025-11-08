@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="@font/inter_semibold"
-                    android:text="LKR 0"
+                    android:text="0"
                     android:textColor="@color/black"
                     android:textSize="24sp"
                     android:textStyle="bold" />

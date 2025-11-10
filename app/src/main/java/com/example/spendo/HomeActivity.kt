@@ -41,7 +41,8 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var repository: Repository
     private lateinit var transactionAdapter: TransactionAdapter
-    private var transactions = mutableListOf<Transaction>()
+    private var recentTransactions = mutableListOf<Transaction>()
+    private var monthlyTransactions = mutableListOf<Transaction>()
     private lateinit var loadingHelper: LoadingHelper
     private var isLoading = false
 
@@ -94,7 +95,7 @@ class HomeActivity : AppCompatActivity() {
         btnYear = findViewById(R.id.btn_year)
 
         // Setup RecyclerView
-        transactionAdapter = TransactionAdapter(transactions)
+        transactionAdapter = TransactionAdapter(recentTransactions)
         rvRecentTransactions.apply {
             layoutManager = LinearLayoutManager(this@HomeActivity)
             adapter = transactionAdapter
@@ -174,18 +175,22 @@ class HomeActivity : AppCompatActivity() {
                         calendar.get(Calendar.MONTH) == selectedMonthIndex
                     }
 
-                    // IMPROVEMENT: Show a message if no records are found for the month
-                    if (filteredTransactions.isEmpty()) {
+                    // Store all transactions for the month for summary and chart
+                    monthlyTransactions.clear()
+                    monthlyTransactions.addAll(filteredTransactions.sortedByDescending { it.date })
+
+                    // Update the recent transactions list for the adapter
+                    recentTransactions.clear()
+                    recentTransactions.addAll(monthlyTransactions.take(6)) // Take the first 6
+                    transactionAdapter.notifyDataSetChanged()
+
+
+                    if (monthlyTransactions.isEmpty()) {
                         lineChart.clear()
                         lineChart.setNoDataText("No expense data for this period.")
                         lineChart.invalidate()
                         Toast.makeText(this@HomeActivity, "No data for this period.", Toast.LENGTH_SHORT).show()
                     }
-
-                    // Update the local list and notify the adapter
-                    transactions.clear()
-                    transactions.addAll(filteredTransactions.sortedByDescending { it.date }) // Show most recent first
-                    transactionAdapter.notifyDataSetChanged()
 
                     // Update summary UI
                     updateSummary()
@@ -218,11 +223,10 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun updateSummary() {
-        val totalIncome = transactions.filter { it.type == TransactionType.INCOME }.sumOf { it.amount }
-        val totalExpenses = transactions.filter { it.type == TransactionType.EXPENSE }.sumOf { it.amount }
+        val totalIncome = monthlyTransactions.filter { it.type == TransactionType.INCOME }.sumOf { it.amount }
+        val totalExpenses = monthlyTransactions.filter { it.type == TransactionType.EXPENSE }.sumOf { it.amount }
         val balance = totalIncome - totalExpenses
 
-        // FIX: Pass Double directly and provide currency code
         val currencyCode = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
             .getString("Currency", "LKR") ?: "LKR"
 
@@ -292,11 +296,11 @@ class HomeActivity : AppCompatActivity() {
         val now = calendar.time
 
         val filtered = when (period) {
-            "Today" -> transactions.filter { it.date.toDate().isSameDay(now) }
-            "Week" -> transactions.filter { it.date.toDate().isSameWeek(now) }
-            "Month" -> transactions // Already filtered by month
-            "Year" -> transactions.filter { it.date.toDate().isSameYear(now) }
-            else -> transactions
+            "Today" -> monthlyTransactions.filter { it.date.toDate().isSameDay(now) }
+            "Week" -> monthlyTransactions.filter { it.date.toDate().isSameWeek(now) }
+            "Month" -> monthlyTransactions // Already filtered by month
+            "Year" -> monthlyTransactions.filter { it.date.toDate().isSameYear(now) }
+            else -> monthlyTransactions
         }
 
         updateChart(filtered, period)

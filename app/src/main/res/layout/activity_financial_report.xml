@@ -70,24 +70,7 @@
             app:icon="@drawable/ic_arrow_down"
             app:iconGravity="end"
             app:iconPadding="8dp" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1" />
-
-        <ImageView
-            android:id="@+id/iv_sort"
-            android:layout_width="24dp"
-            android:layout_height="match_parent"
-            android:layout_marginRight="5dp"
-            android:background="?attr/selectableItemBackground"
-            android:contentDescription="Sort"
-            android:padding="4dp"
-            android:src="@drawable/ic_sort"
-            app:tint="@color/black" />
-
-
+        
     </LinearLayout>
 
     <!-- Main Content -->

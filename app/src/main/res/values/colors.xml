@@ -20,6 +20,15 @@
     <color name="light_green_3">#FAFFFB</color>
 
     <!-- Category Colors -->
+    <color name="food">#FD3C4A</color>
+    <color name="transport">#0077FF</color>
+    <color name="shopping">#FCAC12</color>
+    <color name="entertainment">#FFCC00</color>
+    <color name="bills">#16DB65</color>
+    <color name="health">#007AFF</color>
+    <color name="education">#FF9500</color>
+    <color name="salary">#00A86B</color>
+    <color name="other">#666666</color>
     <color name="category_food">#FDD5D7</color>
     <color name="category_transport">#BDDCFF</color>
     <color name="category_shopping">#FCEED4</color>

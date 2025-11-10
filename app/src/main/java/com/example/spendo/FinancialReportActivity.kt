@@ -281,14 +281,15 @@ class FinancialReportActivity : AppCompatActivity() {
 
     private fun getCategoryColor(category: String): Int {
         return when (category) {
-            "Food" -> ContextCompat.getColor(this, R.color.red)
-            "Transportation" -> ContextCompat.getColor(this, R.color.blue)
-            "Shopping" -> ContextCompat.getColor(this, R.color.orange)
-            "Entertainment" -> ContextCompat.getColor(this, R.color.yellow)
-            "Bills" -> ContextCompat.getColor(this, R.color.primary_green)
-            "Healthcare" -> ContextCompat.getColor(this, R.color.blue)
-            "Education" -> ContextCompat.getColor(this, R.color.orange)
-            else -> ContextCompat.getColor(this, R.color.gray)
+            "Food" -> ContextCompat.getColor(this, R.color.food)
+            "Transportation" -> ContextCompat.getColor(this, R.color.transport)
+            "Shopping" -> ContextCompat.getColor(this, R.color.shopping)
+            "Entertainment" -> ContextCompat.getColor(this, R.color.entertainment)
+            "Bills" -> ContextCompat.getColor(this, R.color.bills)
+            "Healthcare" -> ContextCompat.getColor(this, R.color.health)
+            "Education" -> ContextCompat.getColor(this, R.color.education)
+            "Salary" -> ContextCompat.getColor(this, R.color.salary)
+            else -> ContextCompat.getColor(this, R.color.other)
         }
     }
 

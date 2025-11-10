@@ -241,7 +241,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun updateChartWithPeriod(period: String) {
         // Reset button styles
-        val unselectedBg = ContextCompat.getColorStateList(this, R.color.light_gray)
+        val unselectedBg = ContextCompat.getColorStateList(this, R.color.light_green)
         val unselectedText = ContextCompat.getColor(this, R.color.gray)
         btnToday.backgroundTintList = unselectedBg
         btnToday.setTextColor(unselectedText)

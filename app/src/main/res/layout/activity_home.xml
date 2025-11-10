@@ -232,7 +232,7 @@
                     android:text="Week"
                     android:textColor="@color/gray"
                     android:textSize="12sp"
-                    app:backgroundTint="@color/light_gray"
+                    app:backgroundTint="@color/light_green"
                     app:cornerRadius="18dp" />
 
                 <com.google.android.material.button.MaterialButton
@@ -247,7 +247,7 @@
                     android:text="Month"
                     android:textColor="@color/gray"
                     android:textSize="12sp"
-                    app:backgroundTint="@color/light_gray"
+                    app:backgroundTint="@color/light_green"
                     app:cornerRadius="18dp" />
 
                 <com.google.android.material.button.MaterialButton
@@ -261,7 +261,7 @@
                     android:text="Year"
                     android:textColor="@color/gray"
                     android:textSize="12sp"
-                    app:backgroundTint="@color/light_gray"
+                    app:backgroundTint="@color/light_green"
                     app:cornerRadius="18dp" />
 
             </LinearLayout>

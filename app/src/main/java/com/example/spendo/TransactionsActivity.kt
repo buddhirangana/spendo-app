@@ -158,6 +158,10 @@ class TransactionsActivity : AppCompatActivity() {
             filteredTransactions = filteredTransactions.filter { it.type == selectedFilterType }
         }
 
+        if (filteredTransactions.isEmpty()) {
+            Toast.makeText(this@TransactionsActivity, "No data for this period.", Toast.LENGTH_SHORT).show()
+        }
+
         // Group transactions by date
         val groupedTransactions = groupTransactionsByDate(filteredTransactions)
         transactionAdapter.updateData(groupedTransactions)

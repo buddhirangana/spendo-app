@@ -31,6 +31,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.launch
 import java.text.DateFormatSymbols
 import java.util.Calendar
+import android.content.Context
 
 class HomeActivity : AppCompatActivity() {
 
@@ -173,6 +174,14 @@ class HomeActivity : AppCompatActivity() {
                         calendar.get(Calendar.MONTH) == selectedMonthIndex
                     }
 
+                    // IMPROVEMENT: Show a message if no records are found for the month
+                    if (filteredTransactions.isEmpty()) {
+                        lineChart.clear()
+                        lineChart.setNoDataText("No expense data for this period.")
+                        lineChart.invalidate()
+                        Toast.makeText(this@HomeActivity, "No data for this period.", Toast.LENGTH_SHORT).show()
+                    }
+
                     // Update the local list and notify the adapter
                     transactions.clear()
                     transactions.addAll(filteredTransactions.sortedByDescending { it.date }) // Show most recent first
@@ -212,6 +221,10 @@ class HomeActivity : AppCompatActivity() {
         val totalIncome = transactions.filter { it.type == TransactionType.INCOME }.sumOf { it.amount }
         val totalExpenses = transactions.filter { it.type == TransactionType.EXPENSE }.sumOf { it.amount }
         val balance = totalIncome - totalExpenses
+
+        // FIX: Pass Double directly and provide currency code
+        val currencyCode = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+            .getString("Currency", "LKR") ?: "LKR"
 
         tvBalance.text = CurrencyFormatter.formatAmountWithCode(this, balance.toLong())
         tvIncome.text = CurrencyFormatter.formatAmountWithCode(this, totalIncome.toLong())

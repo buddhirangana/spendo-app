@@ -1,14 +1,18 @@
 package com.example.spendo
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.spendo.adapters.CategoryBreakdownAdapter
 import com.example.spendo.data.Repository
 import com.example.spendo.data.Transaction
@@ -16,6 +20,7 @@ import com.example.spendo.data.TransactionType
 import com.example.spendo.utils.CurrencyFormatter
 import com.example.spendo.utils.LoadingHelper
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.navigation.NavigationBarView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
@@ -34,6 +39,7 @@ class FinancialReportActivity : AppCompatActivity() {
     private lateinit var btnCategory: Button
     private val categories = arrayOf("Food", "Transportation", "Shopping", "Entertainment", "Bills", "Healthcare", "Education")
 
+    private lateinit var tvTotalAmount: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +69,7 @@ class FinancialReportActivity : AppCompatActivity() {
             showCategorySelectionDialog()
         }
 
+        tvTotalAmount = findViewById(R.id.tv_total_amount)
 
         // Bottom navigation
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
@@ -108,7 +115,7 @@ class FinancialReportActivity : AppCompatActivity() {
 
         // Setup recycler view
         categoryAdapter = CategoryBreakdownAdapter(emptyList())
-        findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.rv_category_breakdown).apply {
+        findViewById<RecyclerView>(R.id.rv_category_breakdown).apply {
             layoutManager = LinearLayoutManager(this@FinancialReportActivity)
             adapter = categoryAdapter
         }
@@ -159,7 +166,6 @@ class FinancialReportActivity : AppCompatActivity() {
             .show()
     }
 
-
     private fun updateMonthButtonText() {
         val monthName = java.text.DateFormatSymbols().months[selectedMonth]
         btnMonth.text = monthName
@@ -169,21 +175,20 @@ class FinancialReportActivity : AppCompatActivity() {
         btnCategory.text = selectedCategory ?: "Category"
     }
 
-
     private fun updateToggleButtons() {
-        val expenseBtn = findViewById<com.google.android.material.button.MaterialButton>(R.id.btn_expense_toggle)
-        val incomeBtn = findViewById<com.google.android.material.button.MaterialButton>(R.id.btn_income_toggle)
+        val expenseBtn = findViewById<MaterialButton>(R.id.btn_expense_toggle)
+        val incomeBtn = findViewById<MaterialButton>(R.id.btn_income_toggle)
 
         if (isShowingExpenses) {
-            expenseBtn.setBackgroundColor(getColor(R.color.red))
-            expenseBtn.setTextColor(getColor(R.color.white))
-            incomeBtn.setBackgroundColor(getColor(android.R.color.transparent))
-            incomeBtn.setTextColor(getColor(R.color.gray))
+            expenseBtn.setBackgroundColor(ContextCompat.getColor(this, R.color.red))
+            expenseBtn.setTextColor(ContextCompat.getColor(this, R.color.white))
+            incomeBtn.setBackgroundColor(ContextCompat.getColor(this, android.R.color.transparent))
+            incomeBtn.setTextColor(ContextCompat.getColor(this, R.color.gray))
         } else {
-            incomeBtn.setBackgroundColor(getColor(R.color.primary_green))
-            incomeBtn.setTextColor(getColor(R.color.white))
-            expenseBtn.setBackgroundColor(getColor(android.R.color.transparent))
-            expenseBtn.setTextColor(getColor(R.color.gray))
+            incomeBtn.setBackgroundColor(ContextCompat.getColor(this, R.color.primary_green))
+            incomeBtn.setTextColor(ContextCompat.getColor(this, R.color.white))
+            expenseBtn.setBackgroundColor(ContextCompat.getColor(this, android.R.color.transparent))
+            expenseBtn.setTextColor(ContextCompat.getColor(this, R.color.gray))
         }
     }
 
@@ -213,10 +218,18 @@ class FinancialReportActivity : AppCompatActivity() {
                         calendar.get(Calendar.MONTH) == selectedMonth && calendar.get(Calendar.YEAR) == selectedYear
                     }
 
+                    if (filteredByMonth.isEmpty()) {
+                        Toast.makeText(this@FinancialReportActivity, "No data for this period.", Toast.LENGTH_SHORT).show()
+                    }
+
                     val filteredByCategory = if (selectedCategory == null) {
                         filteredByMonth
                     } else {
                         filteredByMonth.filter { it.category == selectedCategory }
+                    }
+
+                    if (filteredByCategory.isEmpty()) {
+                        Toast.makeText(this@FinancialReportActivity, "No data for this category.", Toast.LENGTH_SHORT).show()
                     }
 
                     updateSummary(filteredByCategory)
@@ -250,8 +263,7 @@ class FinancialReportActivity : AppCompatActivity() {
 
     private fun updateSummary(transactions: List<Transaction>) {
         val total = transactions.sumOf { it.amount }
-        findViewById<com.google.android.material.textview.MaterialTextView>(R.id.tv_total_amount).text =
-            CurrencyFormatter.formatAmountWithCode(this, total)
+        tvTotalAmount.text = CurrencyFormatter.formatAmountWithCode(this, total)
     }
 
     private fun updateCategoryBreakdown(transactions: List<Transaction>) {
@@ -269,14 +281,14 @@ class FinancialReportActivity : AppCompatActivity() {
 
     private fun getCategoryColor(category: String): Int {
         return when (category) {
-            "Food" -> getColor(R.color.red)
-            "Transportation" -> getColor(R.color.blue)
-            "Shopping" -> getColor(R.color.orange)
-            "Entertainment" -> getColor(R.color.yellow)
-            "Bills" -> getColor(R.color.primary_green)
-            "Healthcare" -> getColor(R.color.blue)
-            "Education" -> getColor(R.color.orange)
-            else -> getColor(R.color.gray)
+            "Food" -> ContextCompat.getColor(this, R.color.red)
+            "Transportation" -> ContextCompat.getColor(this, R.color.blue)
+            "Shopping" -> ContextCompat.getColor(this, R.color.orange)
+            "Entertainment" -> ContextCompat.getColor(this, R.color.yellow)
+            "Bills" -> ContextCompat.getColor(this, R.color.primary_green)
+            "Healthcare" -> ContextCompat.getColor(this, R.color.blue)
+            "Education" -> ContextCompat.getColor(this, R.color.orange)
+            else -> ContextCompat.getColor(this, R.color.gray)
         }
     }
 

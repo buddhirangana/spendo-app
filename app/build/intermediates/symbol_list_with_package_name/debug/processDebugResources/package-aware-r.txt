@@ -3908,6 +3908,7 @@ id aligned
 id all
 id allStates
 id always
+id amount_input_layout
 id androidx_credential_pendingCredentialRequest
 id animateToEnd
 id animateToStart
@@ -4050,6 +4051,7 @@ id enterAlways
 id enterAlwaysCollapsed
 id entireSpace
 id escape
+id et_amount
 id et_category
 id et_confirm_password
 id et_date
@@ -4625,6 +4627,7 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
+layout dialog_amount_input
 layout fingerprint_dialog_layout
 layout fragment_forgot_password
 layout fragment_login

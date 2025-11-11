@@ -3,6 +3,7 @@ package com.example.spendo
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -16,6 +17,7 @@ import com.example.spendo.utils.CurrencyFormatter
 import com.example.spendo.utils.PreferencesManager
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.textview.MaterialTextView
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
@@ -103,18 +105,18 @@ class AddTransactionActivity : AppCompatActivity() {
     }
 
     private fun showAmountDialog() {
-        val builder = AlertDialog.Builder(this)
-        val currencyCode = preferencesManager.getDefaultCurrency()
-        val input = EditText(this).apply {
-            inputType = android.text.InputType.TYPE_CLASS_NUMBER
-            setText(if (amount > 0) amount.toString() else "")
-            hint = "Enter amount in $currencyCode"
-        }
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_amount_input, null)
+        val amountInputLayout = dialogView.findViewById<TextInputLayout>(R.id.amount_input_layout)
+        val amountEditText = dialogView.findViewById<TextInputEditText>(R.id.et_amount)
 
-        builder.setTitle("Enter Amount")
-            .setView(input)
+        amountInputLayout.hint = "Amount in ${preferencesManager.getDefaultCurrency()}"
+        amountEditText.setText(if (amount > 0) amount.toString() else "")
+
+        AlertDialog.Builder(this)
+            .setTitle("Enter Amount")
+            .setView(dialogView)
             .setPositiveButton("OK") { _, _ ->
-                val amountText = input.text.toString()
+                val amountText = amountEditText.text.toString()
                 amount = if (amountText.isNotBlank()) {
                     amountText.toLongOrNull() ?: 0L
                 } else {

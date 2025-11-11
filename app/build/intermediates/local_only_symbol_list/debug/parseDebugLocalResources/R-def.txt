@@ -103,6 +103,7 @@ font raleway_semibold
 font raleway_thin
 id action_delete
 id action_edit
+id amount_input_layout
 id bottom_navigation
 id btn2_month
 id btn_category_filter
@@ -128,6 +129,7 @@ id card_menu_options
 id card_settings
 id cb_terms
 id chart
+id et_amount
 id et_category
 id et_confirm_password
 id et_date
@@ -221,6 +223,7 @@ layout activity_onboarding
 layout activity_profile
 layout activity_settings
 layout activity_transactions
+layout dialog_amount_input
 layout fragment_forgot_password
 layout fragment_login
 layout fragment_signup

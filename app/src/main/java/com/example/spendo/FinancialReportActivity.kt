@@ -144,6 +144,14 @@ class FinancialReportActivity : AppCompatActivity() {
         pieChart.description.isEnabled = false
         pieChart.legend.isEnabled = false
         pieChart.setDrawEntryLabels(true)
+        pieChart.setNoDataTextColor(
+            ContextCompat.getColor(
+                this,
+                R.color.primary_green
+            )
+        )
+        pieChart.setNoDataText("Loading financial data...")
+
         pieChart.setExtraOffsets(18f, 18f, 18f, 18f)
     }
 
@@ -246,13 +254,6 @@ class FinancialReportActivity : AppCompatActivity() {
                     if (filteredByCategory.isEmpty()) {
                         pieChart.clear()
                         pieChart.setNoDataText("No chart data available.")
-                        pieChart.setNoDataTextColor(
-                            ContextCompat.getColor(
-                                this@FinancialReportActivity,
-                                R.color.primary_green
-                            )
-                        )
-
                         pieChart.invalidate()
 
                         Toast.makeText(this@FinancialReportActivity, "No data to display.", Toast.LENGTH_SHORT).show()

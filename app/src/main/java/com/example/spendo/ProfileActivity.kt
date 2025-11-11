@@ -75,7 +75,7 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         findViewById<View>(R.id.layout_export_data).setOnClickListener {
-            Toast.makeText(this, "Export data coming soon", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, ExportActivity::class.java))
         }
 
         findViewById<View>(R.id.layout_logout).setOnClickListener {

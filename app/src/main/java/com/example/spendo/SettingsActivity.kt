@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
 import com.example.spendo.utils.PreferencesManager
 import java.util.Currency
 
@@ -74,4 +73,3 @@ class SettingsActivity : AppCompatActivity() {
             .show()
     }
 }
-

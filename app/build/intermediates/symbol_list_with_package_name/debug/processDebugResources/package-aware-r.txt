@@ -3949,6 +3949,7 @@ id btn_category_filter
 id btn_continue
 id btn_expense
 id btn_expense_toggle
+id btn_export
 id btn_get_started
 id btn_google_signin
 id btn_google_signup
@@ -3968,6 +3969,7 @@ id cache_measures
 id callMeasure
 id cancel_button
 id card_details
+id card_export_options
 id card_menu_options
 id card_settings
 id carryVelocity
@@ -4048,6 +4050,7 @@ id elastic
 id embed
 id end
 id endToStart
+id end_date_layout
 id enterAlways
 id enterAlwaysCollapsed
 id entireSpace
@@ -4058,9 +4061,11 @@ id et_confirm_password
 id et_date
 id et_description
 id et_email
+id et_end_date
 id et_name
 id et_new_password
 id et_password
+id et_start_date
 id et_username
 id exitUntilCollapsed
 id expand_activities_button
@@ -4294,10 +4299,13 @@ id progress_circular
 id progress_horizontal
 id radio
 id ratio
+id rb_excel
+id rb_pdf
 id rectangles
 id report_drawn
 id retreat
 id reverseSawtooth
+id rg_format
 id right
 id rightToLeft
 id right_icon
@@ -4365,6 +4373,7 @@ id startHorizontal
 id startToEnd
 id startVertical
 id start_center
+id start_date_layout
 id staticLayout
 id staticPostLayout
 id stop
@@ -4605,6 +4614,7 @@ layout activity_add_transaction
 layout activity_auth
 layout activity_edit_profile
 layout activity_edit_transaction
+layout activity_export
 layout activity_financial_report
 layout activity_home
 layout activity_main

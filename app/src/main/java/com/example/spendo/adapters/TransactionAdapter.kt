@@ -1,13 +1,13 @@
 package com.example.spendo.adapters
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spendo.R
@@ -49,7 +49,6 @@ class TransactionAdapter(
             tvCategory.text = transaction.category
             tvDescription.text = transaction.description
 
-            // Format amount and set color
             val formattedAmount = CurrencyFormatter.formatAmount(
                 itemView.context,
                 transaction.amount
@@ -63,7 +62,6 @@ class TransactionAdapter(
                 tvAmount.setTextColor(ContextCompat.getColor(itemView.context, R.color.red))
             }
 
-            // Format and set time
             val timeFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
             tvTime.text = timeFormat.format(transaction.date.toDate())
 
@@ -118,7 +116,6 @@ class TransactionAdapter(
 
             ivCategoryIcon.setImageResource(iconResId)
 
-            // CORRECTED: Get the background from the ImageView directly
             val drawable = ivCategoryIcon.background as? GradientDrawable
             drawable?.setColor(ContextCompat.getColor(context, backgroundTintId))
         }
@@ -132,24 +129,22 @@ class TransactionAdapter(
 
             ivMore.visibility = View.VISIBLE
             ivMore.setOnClickListener { anchor ->
-                val popup = PopupMenu(anchor.context, anchor)
-                popup.inflate(R.menu.transaction_item_menu)
-                popup.setOnMenuItemClickListener { menuItem ->
-                    when (menuItem.itemId) {
-                        R.id.action_edit -> {
-                            listener.onEdit(transaction)
-                            true
-                        }
+                val dialogView = LayoutInflater.from(anchor.context).inflate(R.layout.dialog_transaction_options, null)
+                val dialog = AlertDialog.Builder(anchor.context)
+                    .setView(dialogView)
+                    .create()
 
-                        R.id.action_delete -> {
-                            listener.onDelete(transaction)
-                            true
-                        }
-
-                        else -> false
-                    }
+                dialogView.findViewById<TextView>(R.id.option_edit).setOnClickListener {
+                    listener.onEdit(transaction)
+                    dialog.dismiss()
                 }
-                popup.show()
+
+                dialogView.findViewById<TextView>(R.id.option_delete).setOnClickListener {
+                    listener.onDelete(transaction)
+                    dialog.dismiss()
+                }
+
+                dialog.show()
             }
         }
     }

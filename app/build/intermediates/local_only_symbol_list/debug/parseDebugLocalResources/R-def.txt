@@ -59,6 +59,7 @@ drawable ic_bills
 drawable ic_budget
 drawable ic_calendar
 drawable ic_currency
+drawable ic_delete
 drawable ic_edit
 drawable ic_education
 drawable ic_entertainment
@@ -173,6 +174,8 @@ id nav_budget
 id nav_home
 id nav_profile
 id nav_transactions
+id option_delete
+id option_edit
 id pie_chart
 id progress_bar
 id rv_category_breakdown
@@ -224,6 +227,7 @@ layout activity_profile
 layout activity_settings
 layout activity_transactions
 layout dialog_amount_input
+layout dialog_transaction_options
 layout fragment_forgot_password
 layout fragment_login
 layout fragment_signup

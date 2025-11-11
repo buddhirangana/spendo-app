@@ -3692,6 +3692,7 @@ drawable ic_call_decline_low
 drawable ic_clear_black_24
 drawable ic_clock_black_24dp
 drawable ic_currency
+drawable ic_delete
 drawable ic_edit
 drawable ic_education
 drawable ic_entertainment
@@ -4266,6 +4267,8 @@ id open_search_view_status_bar_spacer
 id open_search_view_text_container
 id open_search_view_toolbar
 id open_search_view_toolbar_container
+id option_delete
+id option_edit
 id outline
 id outward
 id overshoot
@@ -4628,6 +4631,7 @@ layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout dialog_amount_input
+layout dialog_transaction_options
 layout fingerprint_dialog_layout
 layout fragment_forgot_password
 layout fragment_login

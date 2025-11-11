@@ -35,9 +35,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginStart="16dp"
             android:fontFamily="@font/raleway_semibold"
             android:text="Settings"
+            android:gravity="center"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold" />

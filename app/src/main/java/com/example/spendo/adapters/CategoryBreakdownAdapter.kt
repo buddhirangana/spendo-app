@@ -6,12 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spendo.CategoryBreakdownData
 import com.example.spendo.R
 import com.example.spendo.utils.CurrencyFormatter
 
-class CategoryBreakdownAdapter(private var data: List<CategoryBreakdownData>) : 
+class CategoryBreakdownAdapter(
+    private var data: List<CategoryBreakdownData>,
+    private var isExpense: Boolean = true
+) : 
     RecyclerView.Adapter<CategoryBreakdownAdapter.CategoryViewHolder>() {
     
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
@@ -21,14 +25,15 @@ class CategoryBreakdownAdapter(private var data: List<CategoryBreakdownData>) :
     }
     
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        holder.bind(data[position])
+        holder.bind(data[position], isExpense)
     }
     
     override fun getItemCount(): Int = data.size
     
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(newData: List<CategoryBreakdownData>) {
-        data = newData
+    fun updateData(newData: List<CategoryBreakdownData>, isExpense: Boolean) {
+        this.data = newData
+        this.isExpense = isExpense
         notifyDataSetChanged()
     }
     
@@ -38,15 +43,23 @@ class CategoryBreakdownAdapter(private var data: List<CategoryBreakdownData>) :
         private val progressBar: ProgressBar = itemView.findViewById(R.id.progress_bar)
         private val amount: TextView = itemView.findViewById(R.id.tv_amount)
         
-        fun bind(data: CategoryBreakdownData) {
+        fun bind(data: CategoryBreakdownData, isExpense: Boolean) {
             categoryName.text = data.category
             val formattedAmount = CurrencyFormatter.formatAmountWithCode(itemView.context, data.amount)
-            amount.text = "- $formattedAmount"
+
+            if (isExpense) {
+                amount.text = "- $formattedAmount"
+                amount.setTextColor(ContextCompat.getColor(itemView.context, R.color.red))
+            } else {
+                amount.text = "+ $formattedAmount"
+                amount.setTextColor(ContextCompat.getColor(itemView.context, R.color.primary_green))
+            }
+
             categoryDot.setBackgroundColor(data.color)
             
-            // Calculate progress percentage (simplified)
-            val maxAmount = if (data.amount > 0) data.amount * 2 else 1L
-            val progress = ((data.amount * 100) / maxAmount).toInt()
+            val totalAmount = data.amount 
+            val maxAmount = if (totalAmount > 0) totalAmount * 2 else 1L 
+            val progress = ((totalAmount * 100) / maxAmount).toInt()
             progressBar.progress = progress
             progressBar.progressTintList = android.content.res.ColorStateList.valueOf(data.color)
         }

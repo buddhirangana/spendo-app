@@ -37,7 +37,15 @@ class FinancialReportActivity : AppCompatActivity() {
     private lateinit var btnMonth: Button
     private var selectedCategory: String? = null
     private lateinit var btnCategory: Button
-    private val categories = arrayOf("Food", "Transportation", "Shopping", "Entertainment", "Bills", "Healthcare", "Education")
+    private val categories = arrayOf(
+        "Food",
+        "Transportation",
+        "Shopping",
+        "Entertainment",
+        "Bills",
+        "Healthcare",
+        "Education"
+    )
 
     private lateinit var tvTotalAmount: TextView
 
@@ -81,20 +89,24 @@ class FinancialReportActivity : AppCompatActivity() {
                     finish()
                     true
                 }
+
                 R.id.nav_transactions -> {
                     startActivity(Intent(this, TransactionsActivity::class.java))
                     finish()
                     true
                 }
+
                 R.id.nav_budget -> {
                     // Already on budget
                     true
                 }
+
                 R.id.nav_profile -> {
                     startActivity(Intent(this, ProfileActivity::class.java))
                     finish()
                     true
                 }
+
                 else -> false
             }
         }
@@ -114,7 +126,7 @@ class FinancialReportActivity : AppCompatActivity() {
         }
 
         // Setup recycler view
-        categoryAdapter = CategoryBreakdownAdapter(emptyList())
+        categoryAdapter = CategoryBreakdownAdapter(emptyList(), isShowingExpenses)
         findViewById<RecyclerView>(R.id.rv_category_breakdown).apply {
             layoutManager = LinearLayoutManager(this@FinancialReportActivity)
             adapter = categoryAdapter
@@ -219,7 +231,11 @@ class FinancialReportActivity : AppCompatActivity() {
                     }
 
                     if (filteredByMonth.isEmpty()) {
-                        Toast.makeText(this@FinancialReportActivity, "No data for this period.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@FinancialReportActivity,
+                            "No data for this period.",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
 
                     val filteredByCategory = if (selectedCategory == null) {
@@ -229,7 +245,11 @@ class FinancialReportActivity : AppCompatActivity() {
                     }
 
                     if (filteredByCategory.isEmpty()) {
-                        Toast.makeText(this@FinancialReportActivity, "No data for this category.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@FinancialReportActivity,
+                            "No data for this category.",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
 
                     updateSummary(filteredByCategory)
@@ -239,18 +259,23 @@ class FinancialReportActivity : AppCompatActivity() {
                     val errorMessage = when {
                         error?.message?.contains("timeout", ignoreCase = true) == true ->
                             "Connection timeout. Please check your internet connection."
+
                         error?.message?.contains("network", ignoreCase = true) == true ->
                             "Network error. Please check your internet connection."
+
                         else -> "Failed to load data. Please try again."
                     }
-                    Toast.makeText(this@FinancialReportActivity, errorMessage, Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@FinancialReportActivity, errorMessage, Toast.LENGTH_LONG)
+                        .show()
                 }
             } catch (e: Exception) {
                 val errorMessage = when {
                     e.message?.contains("timeout", ignoreCase = true) == true ->
                         "Request timed out. Please check your connection and try again."
+
                     e.message?.contains("network", ignoreCase = true) == true ->
                         "Network error. Please check your internet connection."
+
                     else -> "Error loading data: ${e.message ?: "Unknown error"}"
                 }
                 Toast.makeText(this@FinancialReportActivity, errorMessage, Toast.LENGTH_LONG).show()
@@ -276,7 +301,7 @@ class FinancialReportActivity : AppCompatActivity() {
             )
         }.sortedByDescending { it.amount }
 
-        categoryAdapter.updateData(categoryData)
+        categoryAdapter.updateData(categoryData, isShowingExpenses)
     }
 
     private fun getCategoryColor(category: String): Int {

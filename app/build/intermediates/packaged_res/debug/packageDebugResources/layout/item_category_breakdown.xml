@@ -22,7 +22,7 @@
         android:layout_weight="1"
         android:text="Category"
         android:textColor="@color/black"
-        android:textSize="16sp" />
+        android:textSize="14sp" />
 
     <!-- Progress Bar -->
     <ProgressBar
@@ -30,7 +30,7 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="0dp"
         android:layout_height="8dp"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:layout_marginHorizontal="12dp"
         android:progressTint="@color/primary_green"
         android:max="100"

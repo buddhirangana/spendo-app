@@ -1537,6 +1537,7 @@ color background_floating_material_dark
 color background_floating_material_light
 color background_material_dark
 color background_material_light
+color bills
 color biometric_error_color
 color black
 color blue
@@ -1620,12 +1621,16 @@ color dim_foreground_disabled_material_dark
 color dim_foreground_disabled_material_light
 color dim_foreground_material_dark
 color dim_foreground_material_light
+color education
+color entertainment
 color error_color_material_dark
 color error_color_material_light
+color food
 color foreground_material_dark
 color foreground_material_light
 color gray
 color green
+color health
 color highlighted_text_material_dark
 color highlighted_text_material_light
 color ic_launcher_background
@@ -1634,6 +1639,7 @@ color light_gray_2
 color light_gray_3
 color light_green
 color light_green_2
+color light_green_3
 color m3_appbar_overlay_color
 color m3_assist_chip_icon_tint_color
 color m3_assist_chip_stroke_color
@@ -2463,6 +2469,7 @@ color nav_item_color
 color notification_action_color_filter
 color notification_icon_bg_color
 color orange
+color other
 color primary_dark_material_dark
 color primary_dark_material_light
 color primary_gray
@@ -2476,10 +2483,12 @@ color primary_text_disabled_material_light
 color red
 color ripple_material_dark
 color ripple_material_light
+color salary
 color secondary_text_default_material_dark
 color secondary_text_default_material_light
 color secondary_text_disabled_material_dark
 color secondary_text_disabled_material_light
+color shopping
 color switch_thumb_disabled_material_dark
 color switch_thumb_disabled_material_light
 color switch_thumb_material_dark
@@ -2488,6 +2497,7 @@ color switch_thumb_normal_material_dark
 color switch_thumb_normal_material_light
 color tooltip_background_dark
 color tooltip_background_light
+color transport
 color white
 color yellow
 dimen abc_action_bar_content_inset_material
@@ -3681,6 +3691,7 @@ drawable ic_call_decline
 drawable ic_call_decline_low
 drawable ic_clear_black_24
 drawable ic_clock_black_24dp
+drawable ic_currency
 drawable ic_edit
 drawable ic_education
 drawable ic_entertainment
@@ -3699,6 +3710,7 @@ drawable ic_logout
 drawable ic_m3_chip_check
 drawable ic_m3_chip_checked_circle
 drawable ic_m3_chip_close
+drawable ic_more_vert
 drawable ic_mtrl_arrow_circle
 drawable ic_mtrl_checked_circle
 drawable ic_mtrl_chip_checked_black
@@ -3875,7 +3887,9 @@ id action_bar_subtitle
 id action_bar_title
 id action_container
 id action_context_bar
+id action_delete
 id action_divider
+id action_edit
 id action_image
 id action_menu_divider
 id action_menu_presenter
@@ -3944,6 +3958,7 @@ id btn_save
 id btn_signup
 id btn_submit
 id btn_today
+id btn_update
 id btn_week
 id btn_year
 id buttonPanel
@@ -4111,11 +4126,11 @@ id iv_category_dot
 id iv_category_icon
 id iv_edit
 id iv_filter
+id iv_more
 id iv_piggy_bank
 id iv_profile
 id iv_profile_picture
 id iv_report_arrow
-id iv_sort
 id jumpToEnd
 id jumpToStart
 id labeled
@@ -4263,6 +4278,7 @@ id path
 id pathRelative
 id peekHeight
 id percent
+id pie_chart
 id pin
 id pooling_container_listener_holder_tag
 id position
@@ -4434,7 +4450,6 @@ id tv_subtitle
 id tv_terms_and_conditions
 id tv_time
 id tv_title
-id tv_total_amount
 id tv_username
 id unchecked
 id uniform
@@ -4584,6 +4599,7 @@ layout abc_tooltip
 layout activity_add_transaction
 layout activity_auth
 layout activity_edit_profile
+layout activity_edit_transaction
 layout activity_financial_report
 layout activity_home
 layout activity_main
@@ -4684,6 +4700,7 @@ layout select_dialog_singlechoice_material
 layout splash_screen_view
 layout support_simple_spinner_dropdown_item
 menu bottom_navigation_menu
+menu transaction_item_menu
 mipmap ic_launcher
 mipmap ic_launcher_foreground
 mipmap ic_launcher_round
@@ -4721,6 +4738,7 @@ string androidx_credentials_TYPE_PUBLIC_KEY_CREDENTIAL
 string androidx_startup
 string app_name
 string appbar_scrolling_view_behavior
+string back
 string bottom_sheet_behavior
 string bottomsheet_action_collapse
 string bottomsheet_action_expand
@@ -4759,6 +4777,8 @@ string confirm_device_credential_password
 string copy_toast_msg
 string default_error_msg
 string default_web_client_id
+string delete
+string edit
 string error_a11y_label
 string error_icon_content_description
 string exposed_dropdown_menu_content_description
@@ -4906,6 +4926,7 @@ string searchview_navigation_content_description
 string side_sheet_accessibility_pane_title
 string side_sheet_behavior
 string status_bar_notification_info_overflow
+string transaction_options
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
 style Animation_AppCompat_Dialog

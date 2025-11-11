@@ -64,6 +64,9 @@
             android:name="com.example.spendo.EditProfileActivity"
             android:exported="false" />
         <activity
+            android:name="com.example.spendo.EditTransactionActivity"
+            android:exported="false" />
+        <activity
             android:name="com.example.spendo.SettingsActivity"
             android:exported="false" />
         <activity

@@ -4,9 +4,7 @@ package com.example.spendo.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -14,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.example.spendo.R;
+import com.github.mikephil.charting.charts.PieChart;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -44,27 +43,20 @@ public final class ActivityFinancialReportBinding implements ViewBinding {
   public final FloatingActionButton fabAdd;
 
   @NonNull
-  public final ImageView ivSort;
-
-  @NonNull
-  public final LinearLayout layoutHeader;
-
-  @NonNull
   public final LinearLayout layoutMonth;
 
   @NonNull
-  public final RecyclerView rvCategoryBreakdown;
+  public final PieChart pieChart;
 
   @NonNull
-  public final TextView tvTotalAmount;
+  public final RecyclerView rvCategoryBreakdown;
 
   private ActivityFinancialReportBinding(@NonNull ConstraintLayout rootView,
       @NonNull BottomNavigationView bottomNavigation, @NonNull MaterialButton btnCategoryFilter,
       @NonNull MaterialButton btnExpenseToggle, @NonNull MaterialButton btnIncomeToggle,
       @NonNull MaterialButton btnMonth, @NonNull FloatingActionButton fabAdd,
-      @NonNull ImageView ivSort, @NonNull LinearLayout layoutHeader,
-      @NonNull LinearLayout layoutMonth, @NonNull RecyclerView rvCategoryBreakdown,
-      @NonNull TextView tvTotalAmount) {
+      @NonNull LinearLayout layoutMonth, @NonNull PieChart pieChart,
+      @NonNull RecyclerView rvCategoryBreakdown) {
     this.rootView = rootView;
     this.bottomNavigation = bottomNavigation;
     this.btnCategoryFilter = btnCategoryFilter;
@@ -72,11 +64,9 @@ public final class ActivityFinancialReportBinding implements ViewBinding {
     this.btnIncomeToggle = btnIncomeToggle;
     this.btnMonth = btnMonth;
     this.fabAdd = fabAdd;
-    this.ivSort = ivSort;
-    this.layoutHeader = layoutHeader;
     this.layoutMonth = layoutMonth;
+    this.pieChart = pieChart;
     this.rvCategoryBreakdown = rvCategoryBreakdown;
-    this.tvTotalAmount = tvTotalAmount;
   }
 
   @Override
@@ -142,21 +132,15 @@ public final class ActivityFinancialReportBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.iv_sort;
-      ImageView ivSort = ViewBindings.findChildViewById(rootView, id);
-      if (ivSort == null) {
-        break missingId;
-      }
-
-      id = R.id.layout_header;
-      LinearLayout layoutHeader = ViewBindings.findChildViewById(rootView, id);
-      if (layoutHeader == null) {
-        break missingId;
-      }
-
       id = R.id.layout_month;
       LinearLayout layoutMonth = ViewBindings.findChildViewById(rootView, id);
       if (layoutMonth == null) {
+        break missingId;
+      }
+
+      id = R.id.pie_chart;
+      PieChart pieChart = ViewBindings.findChildViewById(rootView, id);
+      if (pieChart == null) {
         break missingId;
       }
 
@@ -166,15 +150,9 @@ public final class ActivityFinancialReportBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.tv_total_amount;
-      TextView tvTotalAmount = ViewBindings.findChildViewById(rootView, id);
-      if (tvTotalAmount == null) {
-        break missingId;
-      }
-
       return new ActivityFinancialReportBinding((ConstraintLayout) rootView, bottomNavigation,
-          btnCategoryFilter, btnExpenseToggle, btnIncomeToggle, btnMonth, fabAdd, ivSort,
-          layoutHeader, layoutMonth, rvCategoryBreakdown, tvTotalAmount);
+          btnCategoryFilter, btnExpenseToggle, btnIncomeToggle, btnMonth, fabAdd, layoutMonth,
+          pieChart, rvCategoryBreakdown);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

@@ -24,6 +24,9 @@ public final class ItemTransactionBinding implements ViewBinding {
   public final ImageView ivCategoryIcon;
 
   @NonNull
+  public final ImageView ivMore;
+
+  @NonNull
   public final TextView tvAmount;
 
   @NonNull
@@ -36,10 +39,11 @@ public final class ItemTransactionBinding implements ViewBinding {
   public final TextView tvTime;
 
   private ItemTransactionBinding(@NonNull LinearLayout rootView, @NonNull ImageView ivCategoryIcon,
-      @NonNull TextView tvAmount, @NonNull TextView tvCategory, @NonNull TextView tvDescription,
-      @NonNull TextView tvTime) {
+      @NonNull ImageView ivMore, @NonNull TextView tvAmount, @NonNull TextView tvCategory,
+      @NonNull TextView tvDescription, @NonNull TextView tvTime) {
     this.rootView = rootView;
     this.ivCategoryIcon = ivCategoryIcon;
+    this.ivMore = ivMore;
     this.tvAmount = tvAmount;
     this.tvCategory = tvCategory;
     this.tvDescription = tvDescription;
@@ -79,6 +83,12 @@ public final class ItemTransactionBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.iv_more;
+      ImageView ivMore = ViewBindings.findChildViewById(rootView, id);
+      if (ivMore == null) {
+        break missingId;
+      }
+
       id = R.id.tv_amount;
       TextView tvAmount = ViewBindings.findChildViewById(rootView, id);
       if (tvAmount == null) {
@@ -103,7 +113,7 @@ public final class ItemTransactionBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ItemTransactionBinding((LinearLayout) rootView, ivCategoryIcon, tvAmount,
+      return new ItemTransactionBinding((LinearLayout) rootView, ivCategoryIcon, ivMore, tvAmount,
           tvCategory, tvDescription, tvTime);
     }
     String missingId = rootView.getResources().getResourceName(id);

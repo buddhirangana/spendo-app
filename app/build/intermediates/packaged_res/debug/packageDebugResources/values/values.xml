@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="bills">#16DB65</color>
     <color name="black">#FF000000</color>
     <color name="blue">#007AFF</color>
     <color name="category_bills">#c0fad7</color>
@@ -11,22 +12,34 @@
     <color name="category_salary">#CFFAEA</color>
     <color name="category_shopping">#FCEED4</color>
     <color name="category_transport">#BDDCFF</color>
+    <color name="education">#FF9500</color>
+    <color name="entertainment">#FFCC00</color>
+    <color name="food">#FD3C4A</color>
     <color name="gray">#666666</color>
     <color name="green">#16DB65</color>
+    <color name="health">#007AFF</color>
     <color name="ic_launcher_background">#16DB65</color>
     <color name="light_gray">#E0E0E0</color>
     <color name="light_gray_2">#C6C6C6</color>
     <color name="light_gray_3">#FCFCFC</color>
     <color name="light_green">#E8F5E8</color>
     <color name="light_green_2">#9FFFB7</color>
+    <color name="light_green_3">#FAFFFB</color>
     <color name="orange">#FF9500</color>
+    <color name="other">#666666</color>
     <color name="primary_gray">#989898</color>
     <color name="primary_green">#16DB65</color>
     <color name="red">#FF4444</color>
+    <color name="salary">#00A86B</color>
+    <color name="shopping">#FCAC12</color>
+    <color name="transport">#0077FF</color>
     <color name="white">#FFFFFFFF</color>
     <color name="yellow">#FFCC00</color>
     <string name="app_name">Spendo</string>
+    <string name="back">Back</string>
     <string name="default_web_client_id" translatable="false">515490630923-1nq15mboo47gsstpc8n8140msb5a0tmk.apps.googleusercontent.com</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
     <string name="firebase_database_url" translatable="false">https://spendo-app-751a4-default-rtdb.firebaseio.com</string>
     <string name="gcm_defaultSenderId" translatable="false">515490630923</string>
     <string name="google_api_key" translatable="false">AIzaSyByymR6JiwtwC4zZzpU1rGOiCCXGk1geK4</string>
@@ -34,9 +47,12 @@
     <string name="google_crash_reporting_api_key" translatable="false">AIzaSyByymR6JiwtwC4zZzpU1rGOiCCXGk1geK4</string>
     <string name="google_storage_bucket" translatable="false">spendo-app-751a4.firebasestorage.app</string>
     <string name="project_id" translatable="false">spendo-app-751a4</string>
+    <string name="transaction_options">Transaction options</string>
     <style name="Base.Theme.Spendo" parent="Theme.Material3.DayNight.NoActionBar">
         
-        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:statusBarColor">@color/primary_green</item>
+        <item name="colorPrimary">@color/primary_green</item>
+        <item name="colorAccent">@color/primary_green</item>
     </style>
     <style name="Theme.App.SplashScreen" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/green</item>

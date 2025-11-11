@@ -1,5 +1,6 @@
 R_DEF: Internal format may change without notice
 local
+color bills
 color black
 color blue
 color category_bills
@@ -11,19 +12,28 @@ color category_other
 color category_salary
 color category_shopping
 color category_transport
+color education
+color entertainment
+color food
 color gray
 color green
+color health
 color ic_launcher_background
 color light_gray
 color light_gray_2
 color light_gray_3
 color light_green
 color light_green_2
+color light_green_3
 color nav_item_color
 color orange
+color other
 color primary_gray
 color primary_green
 color red
+color salary
+color shopping
+color transport
 color white
 color yellow
 drawable banner_background
@@ -48,6 +58,7 @@ drawable ic_arrow_up_white
 drawable ic_bills
 drawable ic_budget
 drawable ic_calendar
+drawable ic_currency
 drawable ic_edit
 drawable ic_education
 drawable ic_entertainment
@@ -60,6 +71,7 @@ drawable ic_home
 drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable ic_logout
+drawable ic_more_vert
 drawable ic_notifications
 drawable ic_other
 drawable ic_profile
@@ -89,6 +101,8 @@ font raleway_light
 font raleway_medium
 font raleway_semibold
 font raleway_thin
+id action_delete
+id action_edit
 id bottom_navigation
 id btn2_month
 id btn_category_filter
@@ -106,6 +120,7 @@ id btn_save
 id btn_signup
 id btn_submit
 id btn_today
+id btn_update
 id btn_week
 id btn_year
 id card_details
@@ -131,11 +146,11 @@ id iv_category_dot
 id iv_category_icon
 id iv_edit
 id iv_filter
+id iv_more
 id iv_piggy_bank
 id iv_profile
 id iv_profile_picture
 id iv_report_arrow
-id iv_sort
 id layout_account
 id layout_amount
 id layout_bottom_section
@@ -156,6 +171,7 @@ id nav_budget
 id nav_home
 id nav_profile
 id nav_transactions
+id pie_chart
 id progress_bar
 id rv_category_breakdown
 id rv_recent_transactions
@@ -193,11 +209,11 @@ id tv_subtitle
 id tv_terms_and_conditions
 id tv_time
 id tv_title
-id tv_total_amount
 id tv_username
 layout activity_add_transaction
 layout activity_auth
 layout activity_edit_profile
+layout activity_edit_transaction
 layout activity_financial_report
 layout activity_home
 layout activity_main
@@ -213,11 +229,15 @@ layout item_transaction
 layout item_transaction_detailed
 layout item_transaction_group
 menu bottom_navigation_menu
+menu transaction_item_menu
 mipmap ic_launcher
 mipmap ic_launcher_foreground
 mipmap ic_launcher_round
 string app_name
+string back
 string default_web_client_id
+string delete
+string edit
 string firebase_database_url
 string gcm_defaultSenderId
 string google_api_key
@@ -225,6 +245,7 @@ string google_app_id
 string google_crash_reporting_api_key
 string google_storage_bucket
 string project_id
+string transaction_options
 style Base.Theme.Spendo
 style Theme.App.SplashScreen
 style Theme.Spendo

@@ -188,7 +188,7 @@ class AddTransactionActivity : AppCompatActivity() {
         val description = descriptionEditText.text.toString()
         val userId = FirebaseAuth.getInstance().currentUser?.uid
 
-        // --- Validations ---
+        // Validations
         if (userId.isNullOrEmpty()) {
             Toast.makeText(this, "Error: User not logged in.", Toast.LENGTH_SHORT).show()
             return
@@ -204,7 +204,6 @@ class AddTransactionActivity : AppCompatActivity() {
             Toast.makeText(this, "Please select a category.", Toast.LENGTH_SHORT).show()
             return
         }
-        // --- End of Validations ---
 
         // Create the transaction object
         val currencyCode = preferencesManager.getDefaultCurrency()

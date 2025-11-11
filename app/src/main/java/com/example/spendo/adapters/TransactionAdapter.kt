@@ -45,7 +45,10 @@ class TransactionAdapter(private val transactions: List<Transaction>) :
             tvDescription.text = transaction.description
 
             // Format amount and set color
-            val formattedAmount = CurrencyFormatter.formatAmount(itemView.context, transaction.amount)
+            val formattedAmount = CurrencyFormatter.formatAmount(
+                itemView.context,
+                transaction.amount,
+            )
 
             if (transaction.type == TransactionType.INCOME) {
                 tvAmount.text = "+ $formattedAmount"

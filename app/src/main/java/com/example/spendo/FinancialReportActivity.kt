@@ -323,7 +323,6 @@ class FinancialReportActivity : AppCompatActivity() {
         pieChart.invalidate()
     }
 
-
     private fun updateSummary(transactions: List<Transaction>) {
         val total = transactions.sumOf { it.amount }
         val formattedTotal = CurrencyFormatter.formatAmountWithCode(this, total)

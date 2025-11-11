@@ -144,7 +144,7 @@ class EditTransactionActivity : AppCompatActivity() {
     }
 
     private fun showCategoryDialog() {
-        val categories = listOf(
+        val categories = arrayOf(
             "Food",
             "Transportation",
             "Shopping",
@@ -155,10 +155,14 @@ class EditTransactionActivity : AppCompatActivity() {
             "Salary",
             "Other"
         )
+        val currentCategory = categoryEditText.text.toString()
+        val checkedItem = categories.indexOf(currentCategory)
+
         AlertDialog.Builder(this)
             .setTitle("Select Category")
-            .setItems(categories.toTypedArray()) { _, which ->
+            .setSingleChoiceItems(categories, checkedItem) { dialog, which ->
                 categoryEditText.setText(categories[which])
+                dialog.dismiss()
             }
             .show()
     }
@@ -279,4 +283,3 @@ class EditTransactionActivity : AppCompatActivity() {
         const val EXTRA_TRANSACTION_CURRENCY = "extra_transaction_currency"
     }
 }
-

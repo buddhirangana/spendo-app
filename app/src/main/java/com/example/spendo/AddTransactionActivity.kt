@@ -132,7 +132,7 @@ class AddTransactionActivity : AppCompatActivity() {
     }
 
     private fun showCategoryDialog() {
-        val categories = listOf(
+        val categories = arrayOf(
             "Food",
             "Transportation",
             "Shopping",
@@ -143,10 +143,14 @@ class AddTransactionActivity : AppCompatActivity() {
             "Salary",
             "Other"
         )
+        val currentCategory = categoryEditText.text.toString()
+        val checkedItem = categories.indexOf(currentCategory)
+
         AlertDialog.Builder(this)
             .setTitle("Select Category")
-            .setItems(categories.toTypedArray()) { _, which ->
+            .setSingleChoiceItems(categories, checkedItem) { dialog, which ->
                 categoryEditText.setText(categories[which])
+                dialog.dismiss()
             }
             .show()
     }
@@ -237,6 +241,9 @@ class AddTransactionActivity : AppCompatActivity() {
                     Toast.LENGTH_LONG
                 ).show()
                 // Re-enable the button on failure
+                findViewById<View>(R.id.btn_continue).isEnabled = true
+            } finally {
+                 // Hide loading indicator and re-enable button
                 findViewById<View>(R.id.btn_continue).isEnabled = true
             }
         }

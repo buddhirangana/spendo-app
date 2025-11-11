@@ -2,6 +2,7 @@ package com.example.spendo
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -11,9 +12,11 @@ import androidx.lifecycle.lifecycleScope
 import com.example.spendo.data.Repository
 import com.example.spendo.data.Transaction
 import com.example.spendo.data.TransactionType
+import com.example.spendo.utils.CurrencyFormatter
 import com.example.spendo.utils.PreferencesManager
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.textview.MaterialTextView
 import com.google.firebase.Timestamp
 import kotlinx.coroutines.launch
@@ -121,17 +124,18 @@ class EditTransactionActivity : AppCompatActivity() {
     }
 
     private fun showAmountDialog() {
-        val input = EditText(this).apply {
-            inputType = android.text.InputType.TYPE_CLASS_NUMBER
-            setText(if (amount > 0) amount.toString() else "")
-            hint = "Enter amount in $currencyCode"
-        }
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_amount_input, null)
+        val amountInputLayout = dialogView.findViewById<TextInputLayout>(R.id.amount_input_layout)
+        val amountEditText = dialogView.findViewById<TextInputEditText>(R.id.et_amount)
+
+        amountInputLayout.hint = "Amount in ${currencyCode.ifBlank { preferencesManager.getDefaultCurrency() }}"
+        amountEditText.setText(if (amount > 0) amount.toString() else "")
 
         AlertDialog.Builder(this)
             .setTitle("Enter Amount")
-            .setView(input)
+            .setView(dialogView)
             .setPositiveButton("OK") { _, _ ->
-                val amountText = input.text.toString()
+                val amountText = amountEditText.text.toString()
                 amount = if (amountText.isNotBlank()) {
                     amountText.toLongOrNull() ?: 0L
                 } else {
@@ -200,19 +204,7 @@ class EditTransactionActivity : AppCompatActivity() {
     }
 
     private fun updateAmountDisplay() {
-        amountTextView.text = formatAmount(amount)
-    }
-
-    private fun formatAmount(value: Long): String {
-        return try {
-            val formatter = NumberFormat.getCurrencyInstance(Locale.getDefault())
-            val currency = Currency.getInstance(currencyCode.ifBlank { preferencesManager.getDefaultCurrency() })
-            formatter.currency = currency
-            formatter.format(value)
-        } catch (e: Exception) {
-            val code = currencyCode.ifBlank { preferencesManager.getDefaultCurrency() }
-            "$code ${String.format("%,d", value)}"
-        }
+        amountTextView.text = CurrencyFormatter.formatAmount(this, amount)
     }
 
     private fun saveChanges() {

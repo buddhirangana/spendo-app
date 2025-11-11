@@ -2,6 +2,7 @@ package com.example.spendo
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -10,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +21,11 @@ import com.example.spendo.data.Transaction
 import com.example.spendo.data.TransactionType
 import com.example.spendo.utils.CurrencyFormatter
 import com.example.spendo.utils.LoadingHelper
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.formatter.PercentFormatter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.navigation.NavigationBarView
@@ -37,17 +44,9 @@ class FinancialReportActivity : AppCompatActivity() {
     private lateinit var btnMonth: Button
     private var selectedCategory: String? = null
     private lateinit var btnCategory: Button
-    private val categories = arrayOf(
-        "Food",
-        "Transportation",
-        "Shopping",
-        "Entertainment",
-        "Bills",
-        "Healthcare",
-        "Education"
-    )
+    private val categories = arrayOf("Food", "Transportation", "Shopping", "Entertainment", "Bills", "Healthcare", "Education")
 
-    private lateinit var tvTotalAmount: TextView
+    private lateinit var pieChart: PieChart
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,7 +76,8 @@ class FinancialReportActivity : AppCompatActivity() {
             showCategorySelectionDialog()
         }
 
-        tvTotalAmount = findViewById(R.id.tv_total_amount)
+        pieChart = findViewById(R.id.pie_chart) // Initialize PieChart
+        setupPieChart()
 
         // Bottom navigation
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
@@ -89,24 +89,20 @@ class FinancialReportActivity : AppCompatActivity() {
                     finish()
                     true
                 }
-
                 R.id.nav_transactions -> {
                     startActivity(Intent(this, TransactionsActivity::class.java))
                     finish()
                     true
                 }
-
                 R.id.nav_budget -> {
                     // Already on budget
                     true
                 }
-
                 R.id.nav_profile -> {
                     startActivity(Intent(this, ProfileActivity::class.java))
                     finish()
                     true
                 }
-
                 else -> false
             }
         }
@@ -138,6 +134,15 @@ class FinancialReportActivity : AppCompatActivity() {
         findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.fab_add).setOnClickListener {
             startActivity(Intent(this, AddTransactionActivity::class.java))
         }
+    }
+
+    private fun setupPieChart() {
+        pieChart.isDrawHoleEnabled = true
+        pieChart.holeRadius = 75f
+        pieChart.transparentCircleRadius = 78f
+        pieChart.setUsePercentValues(true)
+        pieChart.description.isEnabled = false
+        pieChart.legend.isEnabled = false
     }
 
     private fun showMonthSelectionDialog() {
@@ -230,14 +235,6 @@ class FinancialReportActivity : AppCompatActivity() {
                         calendar.get(Calendar.MONTH) == selectedMonth && calendar.get(Calendar.YEAR) == selectedYear
                     }
 
-                    if (filteredByMonth.isEmpty()) {
-                        Toast.makeText(
-                            this@FinancialReportActivity,
-                            "No data for this period.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-
                     val filteredByCategory = if (selectedCategory == null) {
                         filteredByMonth
                     } else {
@@ -245,11 +242,22 @@ class FinancialReportActivity : AppCompatActivity() {
                     }
 
                     if (filteredByCategory.isEmpty()) {
-                        Toast.makeText(
-                            this@FinancialReportActivity,
-                            "No data for this category.",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        pieChart.clear()
+
+                        // Customize the "No data" message
+                        pieChart.setNoDataText("No chart data available.")
+                        pieChart.setNoDataTextColor(
+                            ContextCompat.getColor(
+                                this@FinancialReportActivity,
+                                R.color.primary_green
+                            )
+                        )
+
+                        pieChart.invalidate()
+
+                        Toast.makeText(this@FinancialReportActivity, "No data to display.", Toast.LENGTH_SHORT).show()
+                    } else {
+                        updatePieChart(filteredByCategory)
                     }
 
                     updateSummary(filteredByCategory)
@@ -259,23 +267,18 @@ class FinancialReportActivity : AppCompatActivity() {
                     val errorMessage = when {
                         error?.message?.contains("timeout", ignoreCase = true) == true ->
                             "Connection timeout. Please check your internet connection."
-
                         error?.message?.contains("network", ignoreCase = true) == true ->
                             "Network error. Please check your internet connection."
-
                         else -> "Failed to load data. Please try again."
                     }
-                    Toast.makeText(this@FinancialReportActivity, errorMessage, Toast.LENGTH_LONG)
-                        .show()
+                    Toast.makeText(this@FinancialReportActivity, errorMessage, Toast.LENGTH_LONG).show()
                 }
             } catch (e: Exception) {
                 val errorMessage = when {
                     e.message?.contains("timeout", ignoreCase = true) == true ->
                         "Request timed out. Please check your connection and try again."
-
                     e.message?.contains("network", ignoreCase = true) == true ->
                         "Network error. Please check your internet connection."
-
                     else -> "Error loading data: ${e.message ?: "Unknown error"}"
                 }
                 Toast.makeText(this@FinancialReportActivity, errorMessage, Toast.LENGTH_LONG).show()
@@ -286,9 +289,50 @@ class FinancialReportActivity : AppCompatActivity() {
         }
     }
 
+    private fun updatePieChart(transactions: List<Transaction>) {
+        val entries = ArrayList<PieEntry>()
+        val colors = ArrayList<Int>()
+
+        val categoryMap = transactions.groupBy { it.category }
+        for ((category, txs) in categoryMap) {
+            val totalAmount = txs.sumOf { it.amount }.toFloat()
+            entries.add(PieEntry(totalAmount, category))
+            colors.add(getCategoryColor(category))
+        }
+
+        val dataSet = PieDataSet(entries, "Category Breakdown")
+        dataSet.colors = colors
+        dataSet.valueTextColor = Color.BLACK
+        dataSet.valueTextSize = 12f
+        dataSet.valueFormatter = PercentFormatter(pieChart)
+        dataSet.sliceSpace = 2f // This is the line that reduces the border thickness
+
+        // Category label color (the outside labels)
+        pieChart.setEntryLabelColor(Color.BLACK)
+        pieChart.setEntryLabelTextSize(12f)
+
+        // Chart styling for better contrast
+        pieChart.description.isEnabled = false
+        pieChart.legend.textColor = Color.DKGRAY
+        pieChart.legend.textSize = 12f
+
+
+        val pieData = PieData(dataSet)
+        pieChart.data = pieData
+        pieChart.invalidate()
+    }
+
+
     private fun updateSummary(transactions: List<Transaction>) {
         val total = transactions.sumOf { it.amount }
-        tvTotalAmount.text = CurrencyFormatter.formatAmountWithCode(this, total)
+        val formattedTotal = CurrencyFormatter.formatAmountWithCode(this, total)
+
+        val totalText = if (isShowingExpenses) "- $formattedTotal" else "+ $formattedTotal"
+        val totalColor = if (isShowingExpenses) R.color.red else R.color.primary_green
+
+        pieChart.centerText = totalText
+        pieChart.setCenterTextColor(ContextCompat.getColor(this, totalColor))
+        pieChart.setCenterTextSize(24f)
     }
 
     private fun updateCategoryBreakdown(transactions: List<Transaction>) {

@@ -4,7 +4,7 @@
             "outputFile": "com.example.spendo.app-mergeDebugResources-57:/values-h720dp-v13/values-h720dp-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\buddh\\.gradle\\caches\\8.13\\transforms\\a85fb171dd769fd85acd0360e5eb93fa\\transformed\\appcompat-1.7.1\\res\\values-h720dp-v13\\values-h720dp-v13.xml",
+                    "source": "C:\\Users\\buddh\\.gradle\\caches\\8.13\\transforms\\3b6557e97206388e95f5291521918d5d\\transformed\\appcompat-1.7.1\\res\\values-h720dp-v13\\values-h720dp-v13.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

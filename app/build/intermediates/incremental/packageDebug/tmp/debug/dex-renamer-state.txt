@@ -1,4 +1,4 @@
-#Tue Nov 11 23:47:14 IST 2025
+#Wed Nov 12 00:34:11 IST 2025
 base.0=D\:\\BSC-IT-Assignments\\3rd-Year-1st-Sem\\MAD\\Spendo-App\\Spendo\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 base.1=D\:\\BSC-IT-Assignments\\3rd-Year-1st-Sem\\MAD\\Spendo-App\\Spendo\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
 base.2=D\:\\BSC-IT-Assignments\\3rd-Year-1st-Sem\\MAD\\Spendo-App\\Spendo\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\13\\classes.dex

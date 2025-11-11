@@ -4,7 +4,7 @@
             "outputFile": "com.example.spendo.app-mergeDebugResources-57:/values-lv/values-lv.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\buddh\\.gradle\\caches\\8.13\\transforms\\4b51a0e3141564b0c0217561d7a9b251\\transformed\\material-1.13.0\\res\\values-lv\\values-lv.xml",
+                    "source": "C:\\Users\\buddh\\.gradle\\caches\\8.13\\transforms\\fcbcc6daf4e79f72dbcd154662f616c1\\transformed\\material-1.13.0\\res\\values-lv\\values-lv.xml",
                     "from": {
                         "startLines": "2,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -23,58 +23,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\buddh\\.gradle\\caches\\8.13\\transforms\\01ac3a8e4a9cba71f53bb3ec6c21be25\\transformed\\credentials-1.5.0\\res\\values-lv\\values-lv.xml",
-                    "from": {
-                        "startLines": "2,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,165",
-                        "endColumns": "109,123",
-                        "endOffsets": "160,284"
-                    },
-                    "to": {
-                        "startLines": "34,35",
-                        "startColumns": "4,4",
-                        "startOffsets": "3258,3368",
-                        "endColumns": "109,123",
-                        "endOffsets": "3363,3487"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\buddh\\.gradle\\caches\\8.13\\transforms\\e3e0418488a0ec76a38c95da9e3982f9\\transformed\\biometric-1.1.0\\res\\values-lv\\values-lv.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,164,255,387,523,657,796,931,1066,1164,1300,1462",
-                        "endColumns": "108,90,131,135,133,138,134,134,97,135,161,119",
-                        "endOffsets": "159,250,382,518,652,791,926,1061,1159,1295,1457,1577"
-                    },
-                    "to": {
-                        "startLines": "68,70,77,78,79,80,81,82,83,84,85,86",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "7186,7398,8026,8158,8294,8428,8567,8702,8837,8935,9071,9233",
-                        "endColumns": "108,90,131,135,133,138,134,134,97,135,161,119",
-                        "endOffsets": "7290,7484,8153,8289,8423,8562,8697,8832,8930,9066,9228,9348"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\buddh\\.gradle\\caches\\8.13\\transforms\\a85fb171dd769fd85acd0360e5eb93fa\\transformed\\appcompat-1.7.1\\res\\values-lv\\values-lv.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "105,225,335,444,530,634,756,838,918,1028,1136,1242,1351,1462,1565,1677,1784,1889,1989,2074,2183,2294,2393,2504,2611,2716,2890,2989",
-                        "endColumns": "119,109,108,85,103,121,81,79,109,107,105,108,110,102,111,106,104,99,84,108,110,98,110,106,104,173,98,82",
-                        "endOffsets": "220,330,439,525,629,751,833,913,1023,1131,1237,1346,1457,1560,1672,1779,1884,1984,2069,2178,2289,2388,2499,2606,2711,2885,2984,3067"
-                    },
-                    "to": {
-                        "startLines": "7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,154",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "374,494,604,713,799,903,1025,1107,1187,1297,1405,1511,1620,1731,1834,1946,2053,2158,2258,2343,2452,2563,2662,2773,2880,2985,3159,14693",
-                        "endColumns": "119,109,108,85,103,121,81,79,109,107,105,108,110,102,111,106,104,99,84,108,110,98,110,106,104,173,98,82",
-                        "endOffsets": "489,599,708,794,898,1020,1102,1182,1292,1400,1506,1615,1726,1829,1941,2048,2153,2253,2338,2447,2558,2657,2768,2875,2980,3154,3253,14771"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\buddh\\.gradle\\caches\\8.13\\transforms\\5a031eebb74f6988b00945d189d45ca7\\transformed\\play-services-basement-18.8.0\\res\\values-lv\\values.xml",
+                    "source": "C:\\Users\\buddh\\.gradle\\caches\\8.13\\transforms\\726eea01bc16b8c6b6f7e6230c47c6d6\\transformed\\play-services-basement-18.8.0\\res\\values-lv\\values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -91,24 +40,24 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\buddh\\.gradle\\caches\\8.13\\transforms\\b5aa8ec60e8b32c97d3497577975b5a5\\transformed\\core-1.17.0\\res\\values-lv\\values-lv.xml",
+                    "source": "C:\\Users\\buddh\\.gradle\\caches\\8.13\\transforms\\3b6557e97206388e95f5291521918d5d\\transformed\\appcompat-1.7.1\\res\\values-lv\\values-lv.xml",
                     "from": {
-                        "startLines": "2,3,4,5,6,7,8,9",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,153,255,355,456,563,671,786",
-                        "endColumns": "97,101,99,100,106,107,114,100",
-                        "endOffsets": "148,250,350,451,558,666,781,882"
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,225,335,444,530,634,756,838,918,1028,1136,1242,1351,1462,1565,1677,1784,1889,1989,2074,2183,2294,2393,2504,2611,2716,2890,2989",
+                        "endColumns": "119,109,108,85,103,121,81,79,109,107,105,108,110,102,111,106,104,99,84,108,110,98,110,106,104,173,98,82",
+                        "endOffsets": "220,330,439,525,629,751,833,913,1023,1131,1237,1346,1457,1560,1672,1779,1884,1984,2069,2178,2289,2388,2499,2606,2711,2885,2984,3067"
                     },
                     "to": {
-                        "startLines": "40,41,42,43,44,45,46,158",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "3833,3931,4033,4133,4234,4341,4449,15013",
-                        "endColumns": "97,101,99,100,106,107,114,100",
-                        "endOffsets": "3926,4028,4128,4229,4336,4444,4559,15109"
+                        "startLines": "7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,154",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "374,494,604,713,799,903,1025,1107,1187,1297,1405,1511,1620,1731,1834,1946,2053,2158,2258,2343,2452,2563,2662,2773,2880,2985,3159,14693",
+                        "endColumns": "119,109,108,85,103,121,81,79,109,107,105,108,110,102,111,106,104,99,84,108,110,98,110,106,104,173,98,82",
+                        "endOffsets": "489,599,708,794,898,1020,1102,1182,1292,1400,1506,1615,1726,1829,1941,2048,2153,2253,2338,2447,2558,2657,2768,2875,2980,3154,3253,14771"
                     }
                 },
                 {
-                    "source": "C:\\Users\\buddh\\.gradle\\caches\\8.13\\transforms\\059cf84fe933d8d5fdf18c28cf456077\\transformed\\browser-1.4.0\\res\\values-lv\\values-lv.xml",
+                    "source": "C:\\Users\\buddh\\.gradle\\caches\\8.13\\transforms\\6be681e4dc1b86a5ad62e16a242cecfb\\transformed\\browser-1.4.0\\res\\values-lv\\values-lv.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
@@ -125,7 +74,58 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\buddh\\.gradle\\caches\\8.13\\transforms\\e4bbe7c301dc2700340e17c319d4e689\\transformed\\play-services-base-18.5.0\\res\\values-lv\\values.xml",
+                    "source": "C:\\Users\\buddh\\.gradle\\caches\\8.13\\transforms\\5d4dfc644cccab5e1b3f14b90239de93\\transformed\\core-1.17.0\\res\\values-lv\\values-lv.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,153,255,355,456,563,671,786",
+                        "endColumns": "97,101,99,100,106,107,114,100",
+                        "endOffsets": "148,250,350,451,558,666,781,882"
+                    },
+                    "to": {
+                        "startLines": "40,41,42,43,44,45,46,158",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "3833,3931,4033,4133,4234,4341,4449,15013",
+                        "endColumns": "97,101,99,100,106,107,114,100",
+                        "endOffsets": "3926,4028,4128,4229,4336,4444,4559,15109"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\buddh\\.gradle\\caches\\8.13\\transforms\\e13a5801b8e07be9a1346a61021e9884\\transformed\\biometric-1.1.0\\res\\values-lv\\values-lv.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,164,255,387,523,657,796,931,1066,1164,1300,1462",
+                        "endColumns": "108,90,131,135,133,138,134,134,97,135,161,119",
+                        "endOffsets": "159,250,382,518,652,791,926,1061,1159,1295,1457,1577"
+                    },
+                    "to": {
+                        "startLines": "68,70,77,78,79,80,81,82,83,84,85,86",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "7186,7398,8026,8158,8294,8428,8567,8702,8837,8935,9071,9233",
+                        "endColumns": "108,90,131,135,133,138,134,134,97,135,161,119",
+                        "endOffsets": "7290,7484,8153,8289,8423,8562,8697,8832,8930,9066,9228,9348"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\buddh\\.gradle\\caches\\8.13\\transforms\\1183cde60d7d4f21d4747394f279c48a\\transformed\\credentials-1.5.0\\res\\values-lv\\values-lv.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,165",
+                        "endColumns": "109,123",
+                        "endOffsets": "160,284"
+                    },
+                    "to": {
+                        "startLines": "34,35",
+                        "startColumns": "4,4",
+                        "startOffsets": "3258,3368",
+                        "endColumns": "109,123",
+                        "endOffsets": "3363,3487"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\buddh\\.gradle\\caches\\8.13\\transforms\\7d29e4a91b4e48643e657f271ea08708\\transformed\\play-services-base-18.5.0\\res\\values-lv\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",

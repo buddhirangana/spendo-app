@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spendo.R
@@ -16,7 +17,10 @@ import com.example.spendo.utils.CurrencyFormatter
 import java.text.SimpleDateFormat
 import java.util.*
 
-class TransactionAdapter(private val transactions: List<Transaction>) :
+class TransactionAdapter(
+    private val transactions: List<Transaction>,
+    private val listener: TransactionActionListener? = null
+) :
     RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
@@ -38,6 +42,7 @@ class TransactionAdapter(private val transactions: List<Transaction>) :
         private val tvAmount: TextView = itemView.findViewById(R.id.tv_amount)
         private val tvTime: TextView = itemView.findViewById(R.id.tv_time)
         private val ivCategoryIcon: ImageView = itemView.findViewById(R.id.iv_category_icon)
+        private val ivMore: ImageView = itemView.findViewById(R.id.iv_more)
 
         @SuppressLint("SetTextI18n")
         fun bind(transaction: Transaction) {
@@ -47,7 +52,7 @@ class TransactionAdapter(private val transactions: List<Transaction>) :
             // Format amount and set color
             val formattedAmount = CurrencyFormatter.formatAmount(
                 itemView.context,
-                transaction.amount,
+                transaction.amount
             )
 
             if (transaction.type == TransactionType.INCOME) {
@@ -63,6 +68,7 @@ class TransactionAdapter(private val transactions: List<Transaction>) :
             tvTime.text = timeFormat.format(transaction.date.toDate())
 
             setCategoryIcon(transaction.category)
+            setupMenu(transaction)
         }
 
         private fun setCategoryIcon(category: String) {
@@ -116,5 +122,40 @@ class TransactionAdapter(private val transactions: List<Transaction>) :
             val drawable = ivCategoryIcon.background as? GradientDrawable
             drawable?.setColor(ContextCompat.getColor(context, backgroundTintId))
         }
+
+        private fun setupMenu(transaction: Transaction) {
+            if (listener == null) {
+                ivMore.visibility = View.GONE
+                ivMore.setOnClickListener(null)
+                return
+            }
+
+            ivMore.visibility = View.VISIBLE
+            ivMore.setOnClickListener { anchor ->
+                val popup = PopupMenu(anchor.context, anchor)
+                popup.inflate(R.menu.transaction_item_menu)
+                popup.setOnMenuItemClickListener { menuItem ->
+                    when (menuItem.itemId) {
+                        R.id.action_edit -> {
+                            listener.onEdit(transaction)
+                            true
+                        }
+
+                        R.id.action_delete -> {
+                            listener.onDelete(transaction)
+                            true
+                        }
+
+                        else -> false
+                    }
+                }
+                popup.show()
+            }
+        }
+    }
+
+    interface TransactionActionListener {
+        fun onEdit(transaction: Transaction)
+        fun onDelete(transaction: Transaction)
     }
 }

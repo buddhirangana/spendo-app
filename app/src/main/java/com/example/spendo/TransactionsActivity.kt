@@ -9,7 +9,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.spendo.EditTransactionActivity
 import com.example.spendo.adapters.TransactionGroupAdapter
+import com.example.spendo.adapters.TransactionAdapter
 import com.example.spendo.data.Repository
 import com.example.spendo.data.Transaction
 import com.example.spendo.data.TransactionType
@@ -94,7 +96,18 @@ class TransactionsActivity : AppCompatActivity() {
         }
 
         // Setup recycler view
-        transactionAdapter = TransactionGroupAdapter(emptyMap())
+        transactionAdapter = TransactionGroupAdapter(
+            emptyMap(),
+            object : TransactionAdapter.TransactionActionListener {
+                override fun onEdit(transaction: Transaction) {
+                    navigateToEdit(transaction)
+                }
+
+                override fun onDelete(transaction: Transaction) {
+                    confirmDelete(transaction)
+                }
+            }
+        )
         findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.rv_transactions).apply {
             layoutManager = LinearLayoutManager(this@TransactionsActivity)
             adapter = transactionAdapter
@@ -165,6 +178,66 @@ class TransactionsActivity : AppCompatActivity() {
         // Group transactions by date
         val groupedTransactions = groupTransactionsByDate(filteredTransactions)
         transactionAdapter.updateData(groupedTransactions)
+    }
+
+    private fun navigateToEdit(transaction: Transaction) {
+        if (transaction.id.isBlank()) {
+            Toast.makeText(this, "Unable to edit transaction. Missing identifier.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val intent = Intent(this, EditTransactionActivity::class.java).apply {
+            putExtra(EditTransactionActivity.EXTRA_TRANSACTION_ID, transaction.id)
+            putExtra(EditTransactionActivity.EXTRA_TRANSACTION_USER_ID, transaction.userId)
+            putExtra(EditTransactionActivity.EXTRA_TRANSACTION_AMOUNT, transaction.amount)
+            putExtra(EditTransactionActivity.EXTRA_TRANSACTION_CATEGORY, transaction.category)
+            putExtra(EditTransactionActivity.EXTRA_TRANSACTION_DESCRIPTION, transaction.description)
+            putExtra(EditTransactionActivity.EXTRA_TRANSACTION_TYPE, transaction.type.name)
+            putExtra(EditTransactionActivity.EXTRA_TRANSACTION_TIMESTAMP, transaction.date.toDate().time)
+            putExtra(EditTransactionActivity.EXTRA_TRANSACTION_CURRENCY, transaction.currency)
+        }
+        startActivity(intent)
+    }
+
+    private fun confirmDelete(transaction: Transaction) {
+        if (transaction.id.isBlank()) {
+            Toast.makeText(this, "Unable to delete transaction. Missing identifier.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        AlertDialog.Builder(this)
+            .setTitle("Delete Transaction")
+            .setMessage("Are you sure you want to delete this transaction?")
+            .setPositiveButton("Delete") { _, _ ->
+                deleteTransaction(transaction)
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun deleteTransaction(transaction: Transaction) {
+        lifecycleScope.launch {
+            loadingHelper.showLoading("Deleting transaction...")
+            try {
+                val result = repository.deleteTransaction(transaction.id)
+                if (result.isSuccess) {
+                    Toast.makeText(this@TransactionsActivity, "Transaction deleted.", Toast.LENGTH_SHORT).show()
+                    transactions.removeAll { it.id == transaction.id }
+                    filterAndGroupTransactions()
+                } else {
+                    val message = result.exceptionOrNull()?.message ?: "Failed to delete transaction."
+                    Toast.makeText(this@TransactionsActivity, message, Toast.LENGTH_LONG).show()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(
+                    this@TransactionsActivity,
+                    "Error deleting transaction: ${e.message ?: "Unknown error"}",
+                    Toast.LENGTH_LONG
+                ).show()
+            } finally {
+                loadingHelper.hideLoading()
+            }
+        }
     }
 
     private fun groupTransactionsByDate(transactions: List<Transaction>): Map<String, List<Transaction>> {

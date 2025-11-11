@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Spendo</string>
     <string name="default_web_client_id">515490630923-1nq15mboo47gsstpc8n8140msb5a0tmk.apps.googleusercontent.com</string>
+    <string name="transaction_options">Transaction options</string>
+    <string name="back">Back</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 </resources>

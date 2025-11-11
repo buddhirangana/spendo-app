@@ -10,7 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.spendo.R
 import com.example.spendo.data.Transaction
 
-class TransactionGroupAdapter(private var data: Map<String, List<Transaction>>) : 
+class TransactionGroupAdapter(
+    private var data: Map<String, List<Transaction>>,
+    private val listener: TransactionAdapter.TransactionActionListener? = null
+) :
     RecyclerView.Adapter<TransactionGroupAdapter.GroupViewHolder>() {
     
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolder {
@@ -33,14 +36,14 @@ class TransactionGroupAdapter(private var data: Map<String, List<Transaction>>) 
         notifyDataSetChanged()
     }
     
-    class GroupViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class GroupViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val dateHeader: TextView = itemView.findViewById(R.id.tv_date_header)
         private val transactionsRecycler: RecyclerView = itemView.findViewById(R.id.rv_transactions_in_group)
         
         fun bind(dateKey: String, transactions: List<Transaction>) {
             dateHeader.text = dateKey
             
-            val adapter = TransactionAdapter(transactions)
+            val adapter = TransactionAdapter(transactions, listener)
             transactionsRecycler.apply {
                 layoutManager = LinearLayoutManager(itemView.context)
                 this.adapter = adapter

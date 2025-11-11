@@ -138,11 +138,13 @@ class FinancialReportActivity : AppCompatActivity() {
 
     private fun setupPieChart() {
         pieChart.isDrawHoleEnabled = true
-        pieChart.holeRadius = 75f
-        pieChart.transparentCircleRadius = 78f
+        pieChart.holeRadius = 77f
+        pieChart.transparentCircleRadius = 81f
         pieChart.setUsePercentValues(true)
         pieChart.description.isEnabled = false
         pieChart.legend.isEnabled = false
+        pieChart.setDrawEntryLabels(true)
+        pieChart.setExtraOffsets(18f, 18f, 18f, 18f)
     }
 
     private fun showMonthSelectionDialog() {
@@ -243,8 +245,6 @@ class FinancialReportActivity : AppCompatActivity() {
 
                     if (filteredByCategory.isEmpty()) {
                         pieChart.clear()
-
-                        // Customize the "No data" message
                         pieChart.setNoDataText("No chart data available.")
                         pieChart.setNoDataTextColor(
                             ContextCompat.getColor(
@@ -302,20 +302,21 @@ class FinancialReportActivity : AppCompatActivity() {
 
         val dataSet = PieDataSet(entries, "Category Breakdown")
         dataSet.colors = colors
+        dataSet.sliceSpace = 2f
+
+        dataSet.xValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
+        dataSet.yValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
+        dataSet.valueLinePart1OffsetPercentage = 80f
+        dataSet.valueLinePart1Length = 0.4f
+        dataSet.valueLinePart2Length = 0.4f
+        dataSet.valueLineColor = Color.GRAY
+
         dataSet.valueTextColor = Color.BLACK
         dataSet.valueTextSize = 12f
         dataSet.valueFormatter = PercentFormatter(pieChart)
-        dataSet.sliceSpace = 2f // This is the line that reduces the border thickness
 
-        // Category label color (the outside labels)
         pieChart.setEntryLabelColor(Color.BLACK)
-        pieChart.setEntryLabelTextSize(12f)
-
-        // Chart styling for better contrast
-        pieChart.description.isEnabled = false
-        pieChart.legend.textColor = Color.DKGRAY
-        pieChart.legend.textSize = 12f
-
+        pieChart.setEntryLabelTextSize(6f)
 
         val pieData = PieData(dataSet)
         pieChart.data = pieData

@@ -4,7 +4,7 @@
             "outputFile": "com.example.spendo.app-mergeDebugResources-57:/values-land/values-land.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\buddh\\.gradle\\caches\\8.13\\transforms\\fcbcc6daf4e79f72dbcd154662f616c1\\transformed\\material-1.13.0\\res\\values-land\\values-land.xml",
+                    "source": "C:\\Users\\buddh\\.gradle\\caches\\8.13\\transforms\\3b5b3acff41a04133fb80adc264f3433\\transformed\\material-1.13.0\\res\\values-land\\values-land.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,22,31,36",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\buddh\\.gradle\\caches\\8.13\\transforms\\3b6557e97206388e95f5291521918d5d\\transformed\\appcompat-1.7.1\\res\\values-land\\values-land.xml",
+                    "source": "C:\\Users\\buddh\\.gradle\\caches\\8.13\\transforms\\c667d1a67ae76147772a2653d688ba9a\\transformed\\appcompat-1.7.1\\res\\values-land\\values-land.xml",
                     "from": {
                         "startLines": "2,3,4",
                         "startColumns": "4,4,4",

@@ -4,7 +4,7 @@
             "outputFile": "com.example.spendo.app-mergeDebugResources-57:/values-v27/values-v27.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\buddh\\.gradle\\caches\\8.13\\transforms\\c77e187d39d29387295465cf8b3cb878\\transformed\\core-splashscreen-1.0.1\\res\\values-v27\\values-v27.xml",
+                    "source": "C:\\Users\\buddh\\.gradle\\caches\\8.13\\transforms\\3d8330ce7d91b3f86f98e5e521f3eec4\\transformed\\core-splashscreen-1.2.0\\res\\values-v27\\values-v27.xml",
                     "from": {
                         "startLines": "2,3,4,7",
                         "startColumns": "4,4,4,4",

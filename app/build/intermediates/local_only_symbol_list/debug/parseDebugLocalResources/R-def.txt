@@ -264,6 +264,7 @@ string google_storage_bucket
 string project_id
 string transaction_options
 style Base.Theme.Spendo
+style ShapeAppearanceOverlay.Spendo.CircularFab
 style Theme.App.SplashScreen
 style Theme.Spendo
 xml backup_rules

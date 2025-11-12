@@ -118,6 +118,7 @@
         app:backgroundTint="@color/primary_green"
         app:fabCustomSize="60dp"
         app:elevation="8dp"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Spendo.CircularFab"
         app:useCompatPadding="true"
         app:maxImageSize="28dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"

@@ -54,6 +54,10 @@
         <item name="colorPrimary">@color/primary_green</item>
         <item name="colorAccent">@color/primary_green</item>
     </style>
+    <style name="ShapeAppearanceOverlay.Spendo.CircularFab" parent="ShapeAppearanceOverlay.Material3.FloatingActionButton">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
     <style name="Theme.App.SplashScreen" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/green</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/spendo_logo_v1</item>

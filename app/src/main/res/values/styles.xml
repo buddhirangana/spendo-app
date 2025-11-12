@@ -1,0 +1,8 @@
+<resources>
+    <style name="ShapeAppearanceOverlay.Spendo.CircularFab"
+        parent="ShapeAppearanceOverlay.Material3.FloatingActionButton">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+</resources>
+

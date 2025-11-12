@@ -331,6 +331,7 @@
         android:src="@drawable/ic_add"
         app:backgroundTint="@color/primary_green"
         app:elevation="8dp"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Spendo.CircularFab"
         app:fabCustomSize="60dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"

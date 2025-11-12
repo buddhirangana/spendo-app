@@ -78,6 +78,10 @@ class ProfileActivity : AppCompatActivity() {
             startActivity(Intent(this, ExportActivity::class.java))
         }
 
+        findViewById<View>(R.id.layout_app_info).setOnClickListener {
+            startActivity(Intent(this, AppInfoActivity::class.java))
+        }
+
         findViewById<View>(R.id.layout_logout).setOnClickListener {
             logout()
         }

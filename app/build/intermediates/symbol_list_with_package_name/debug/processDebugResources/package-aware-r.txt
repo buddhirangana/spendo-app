@@ -3704,6 +3704,7 @@ drawable ic_food
 drawable ic_google_logo
 drawable ic_health
 drawable ic_home
+drawable ic_info
 drawable ic_keyboard_black_24dp
 drawable ic_launcher_background
 drawable ic_launcher_foreground
@@ -4128,6 +4129,7 @@ id inward
 id is_pooling_container_tag
 id italic
 id item_touch_helper_previous_elevation
+id iv_app_logo
 id iv_back
 id iv_back_arrow
 id iv_category_dot
@@ -4145,6 +4147,7 @@ id labeled
 id layout
 id layout_account
 id layout_amount
+id layout_app_info
 id layout_bottom_section
 id layout_currency
 id layout_export_data
@@ -4443,6 +4446,9 @@ id transition_scene_layoutid_cache
 id transition_transform
 id triangle
 id tv_amount
+id tv_app_description
+id tv_app_name
+id tv_app_version
 id tv_back_to_login
 id tv_balance
 id tv_category
@@ -4451,6 +4457,7 @@ id tv_change_photo
 id tv_current_currency
 id tv_date_header
 id tv_description
+id tv_developer_name
 id tv_expenses
 id tv_forgot_password
 id tv_income
@@ -4611,6 +4618,7 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_add_transaction
+layout activity_app_info
 layout activity_auth
 layout activity_edit_profile
 layout activity_edit_transaction
@@ -4753,6 +4761,7 @@ string abc_toolbar_collapse_description
 string android_credentials_TYPE_PASSWORD_CREDENTIAL
 string androidx_credentials_TYPE_PUBLIC_KEY_CREDENTIAL
 string androidx_startup
+string app_description
 string app_name
 string appbar_scrolling_view_behavior
 string back

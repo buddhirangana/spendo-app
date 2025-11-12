@@ -3703,6 +3703,7 @@ int drawable ic_food 0x7f0800c8
 int drawable ic_google_logo 0x7f0800c9
 int drawable ic_health 0x7f0800ca
 int drawable ic_home 0x7f0800cb
+int drawable ic_info 0x7f08013f
 int drawable ic_keyboard_black_24dp 0x7f0800cc
 int drawable ic_launcher_background 0x7f0800cd
 int drawable ic_launcher_foreground 0x7f0800ce
@@ -4127,6 +4128,7 @@ int id inward 0x7f0a0129
 int id is_pooling_container_tag 0x7f0a012a
 int id italic 0x7f0a012b
 int id item_touch_helper_previous_elevation 0x7f0a012c
+int id iv_app_logo 0x7f0a0299
 int id iv_back 0x7f0a012d
 int id iv_back_arrow 0x7f0a012e
 int id iv_category_dot 0x7f0a012f
@@ -4144,6 +4146,7 @@ int id labeled 0x7f0a013a
 int id layout 0x7f0a013b
 int id layout_account 0x7f0a013c
 int id layout_amount 0x7f0a013d
+int id layout_app_info 0x7f0a0298
 int id layout_bottom_section 0x7f0a013e
 int id layout_currency 0x7f0a013f
 int id layout_export_data 0x7f0a0140
@@ -4442,6 +4445,9 @@ int id transition_scene_layoutid_cache 0x7f0a0264
 int id transition_transform 0x7f0a0265
 int id triangle 0x7f0a0266
 int id tv_amount 0x7f0a0267
+int id tv_app_description 0x7f0a029e
+int id tv_app_name 0x7f0a029a
+int id tv_app_version 0x7f0a029b
 int id tv_back_to_login 0x7f0a0268
 int id tv_balance 0x7f0a0269
 int id tv_category 0x7f0a026a
@@ -4450,6 +4456,7 @@ int id tv_change_photo 0x7f0a026c
 int id tv_current_currency 0x7f0a026d
 int id tv_date_header 0x7f0a026e
 int id tv_description 0x7f0a026f
+int id tv_developer_name 0x7f0a029c
 int id tv_expenses 0x7f0a0270
 int id tv_forgot_password 0x7f0a0271
 int id tv_income 0x7f0a0272
@@ -4610,6 +4617,7 @@ int layout abc_search_view 0x7f0d0019
 int layout abc_select_dialog_material 0x7f0d001a
 int layout abc_tooltip 0x7f0d001b
 int layout activity_add_transaction 0x7f0d001c
+int layout activity_app_info 0x7f0d0086
 int layout activity_auth 0x7f0d001d
 int layout activity_edit_profile 0x7f0d001e
 int layout activity_edit_transaction 0x7f0d001f
@@ -4752,6 +4760,7 @@ int string abc_toolbar_collapse_description 0x7f13001a
 int string android_credentials_TYPE_PASSWORD_CREDENTIAL 0x7f13001b
 int string androidx_credentials_TYPE_PUBLIC_KEY_CREDENTIAL 0x7f13001c
 int string androidx_startup 0x7f13001d
+int string app_description 0x7f1300dd
 int string app_name 0x7f13001e
 int string appbar_scrolling_view_behavior 0x7f13001f
 int string back 0x7f130020

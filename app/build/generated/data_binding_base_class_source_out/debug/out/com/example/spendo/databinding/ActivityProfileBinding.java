@@ -44,6 +44,9 @@ public final class ActivityProfileBinding implements ViewBinding {
   public final LinearLayout layoutAccount;
 
   @NonNull
+  public final LinearLayout layoutAppInfo;
+
+  @NonNull
   public final LinearLayout layoutExportData;
 
   @NonNull
@@ -62,9 +65,9 @@ public final class ActivityProfileBinding implements ViewBinding {
       @NonNull BottomNavigationView bottomNavigation, @NonNull CardView cardMenuOptions,
       @NonNull FloatingActionButton fabAdd, @NonNull ImageView ivEdit,
       @NonNull CircleImageView ivProfilePicture, @NonNull LinearLayout layoutAccount,
-      @NonNull LinearLayout layoutExportData, @NonNull LinearLayout layoutLogout,
-      @NonNull LinearLayout layoutProfileHeader, @NonNull LinearLayout layoutSettings,
-      @NonNull TextView tvUsername) {
+      @NonNull LinearLayout layoutAppInfo, @NonNull LinearLayout layoutExportData,
+      @NonNull LinearLayout layoutLogout, @NonNull LinearLayout layoutProfileHeader,
+      @NonNull LinearLayout layoutSettings, @NonNull TextView tvUsername) {
     this.rootView = rootView;
     this.bottomNavigation = bottomNavigation;
     this.cardMenuOptions = cardMenuOptions;
@@ -72,6 +75,7 @@ public final class ActivityProfileBinding implements ViewBinding {
     this.ivEdit = ivEdit;
     this.ivProfilePicture = ivProfilePicture;
     this.layoutAccount = layoutAccount;
+    this.layoutAppInfo = layoutAppInfo;
     this.layoutExportData = layoutExportData;
     this.layoutLogout = layoutLogout;
     this.layoutProfileHeader = layoutProfileHeader;
@@ -142,6 +146,12 @@ public final class ActivityProfileBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.layout_app_info;
+      LinearLayout layoutAppInfo = ViewBindings.findChildViewById(rootView, id);
+      if (layoutAppInfo == null) {
+        break missingId;
+      }
+
       id = R.id.layout_export_data;
       LinearLayout layoutExportData = ViewBindings.findChildViewById(rootView, id);
       if (layoutExportData == null) {
@@ -173,8 +183,8 @@ public final class ActivityProfileBinding implements ViewBinding {
       }
 
       return new ActivityProfileBinding((ConstraintLayout) rootView, bottomNavigation,
-          cardMenuOptions, fabAdd, ivEdit, ivProfilePicture, layoutAccount, layoutExportData,
-          layoutLogout, layoutProfileHeader, layoutSettings, tvUsername);
+          cardMenuOptions, fabAdd, ivEdit, ivProfilePicture, layoutAccount, layoutAppInfo,
+          layoutExportData, layoutLogout, layoutProfileHeader, layoutSettings, tvUsername);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

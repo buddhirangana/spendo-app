@@ -48,6 +48,9 @@
             android:name=".ExportActivity"
             android:exported="false" />
         <activity
+            android:name=".AppInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.App.SplashScreen">

@@ -73,6 +73,9 @@
             android:name="com.example.spendo.ExportActivity"
             android:exported="false" />
         <activity
+            android:name="com.example.spendo.AppInfoActivity"
+            android:exported="false" />
+        <activity
             android:name="com.example.spendo.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.App.SplashScreen" >

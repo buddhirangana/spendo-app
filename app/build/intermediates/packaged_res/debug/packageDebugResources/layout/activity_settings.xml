@@ -117,7 +117,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_arrow_right"
-                    android:contentDescription="Arrow" />
+                    android:contentDescription="Arrow"
+                    app:tint="@color/light_gray_2" />
             </LinearLayout>
 
         </LinearLayout>

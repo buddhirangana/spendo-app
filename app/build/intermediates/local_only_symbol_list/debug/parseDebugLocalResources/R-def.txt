@@ -69,6 +69,7 @@ drawable ic_food
 drawable ic_google_logo
 drawable ic_health
 drawable ic_home
+drawable ic_info
 drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable ic_logout
@@ -148,6 +149,7 @@ id et_username
 id fab_add
 id fragment_container
 id group_email_user
+id iv_app_logo
 id iv_back
 id iv_back_arrow
 id iv_category_dot
@@ -161,6 +163,7 @@ id iv_profile_picture
 id iv_report_arrow
 id layout_account
 id layout_amount
+id layout_app_info
 id layout_bottom_section
 id layout_currency
 id layout_export_data
@@ -202,6 +205,9 @@ id til_new_password
 id til_password
 id til_username
 id tv_amount
+id tv_app_description
+id tv_app_name
+id tv_app_version
 id tv_back_to_login
 id tv_balance
 id tv_category
@@ -210,6 +216,7 @@ id tv_change_photo
 id tv_current_currency
 id tv_date_header
 id tv_description
+id tv_developer_name
 id tv_expenses
 id tv_forgot_password
 id tv_income
@@ -225,6 +232,7 @@ id tv_time
 id tv_title
 id tv_username
 layout activity_add_transaction
+layout activity_app_info
 layout activity_auth
 layout activity_edit_profile
 layout activity_edit_transaction
@@ -250,6 +258,7 @@ menu transaction_item_menu
 mipmap ic_launcher
 mipmap ic_launcher_foreground
 mipmap ic_launcher_round
+string app_description
 string app_name
 string back
 string default_web_client_id

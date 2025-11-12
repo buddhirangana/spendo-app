@@ -1,510 +1,518 @@
 [
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable-anydpi-v24_ic_health.xml.flat",
-        "source": "com.example.spendo.app-pngs-54:/drawable-anydpi-v24/ic_health.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable-hdpi_ic_salary.png.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-pngs-54:\\drawable-hdpi\\ic_salary.png"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_menu_transaction.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/menu_transaction.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\font_raleway_light.ttf.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\font\\raleway_light.ttf"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/layout_activity_edit_profile.xml.flat",
-        "source": "com.example.spendo.app-main-61:/layout/activity_edit_profile.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable-anydpi-v24_ic_other.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-pngs-54:\\drawable-anydpi-v24\\ic_other.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable-xhdpi_ic_health.png.flat",
-        "source": "com.example.spendo.app-pngs-54:/drawable-xhdpi/ic_health.png"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\layout_item_transaction_group.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\item_transaction_group.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable-anydpi-v24_ic_launcher_foreground.xml.flat",
-        "source": "com.example.spendo.app-pngs-54:/drawable-anydpi-v24/ic_launcher_foreground.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_menu_profile.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\menu_profile.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.spendo.app-main-61:/mipmap-xxhdpi/ic_launcher_round.webp"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable-xxhdpi_ic_health.png.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-pngs-54:\\drawable-xxhdpi\\ic_health.png"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/layout_dialog_amount_input.xml.flat",
-        "source": "com.example.spendo.app-main-61:/layout/dialog_amount_input.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable-ldpi_ic_health.png.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-pngs-54:\\drawable-ldpi\\ic_health.png"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/layout_activity_settings.xml.flat",
-        "source": "com.example.spendo.app-main-61:/layout/activity_settings.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_export.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_export.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_arrow_right.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_arrow_right.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_transactions.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_transactions.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/mipmap-hdpi_ic_launcher.webp.flat",
-        "source": "com.example.spendo.app-main-61:/mipmap-hdpi/ic_launcher.webp"
+        "merged": "com.example.spendo.app-debug-59:/xml_file_paths.xml.flat",
+        "source": "com.example.spendo.app-main-61:/xml/file_paths.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/layout_activity_financial_report.xml.flat",
-        "source": "com.example.spendo.app-main-61:/layout/activity_financial_report.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_budget.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_budget.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_export.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_export.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_arrow_down.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_arrow_down.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_settings.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_settings.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable-xhdpi_ic_other.png.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-pngs-54:\\drawable-xhdpi\\ic_other.png"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_more_vert.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_more_vert.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_entertainment.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_entertainment.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_notifications.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_notifications.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_donut_chart_placeholder.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\donut_chart_placeholder.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable-xxhdpi_ic_health.png.flat",
-        "source": "com.example.spendo.app-pngs-54:/drawable-xxhdpi/ic_health.png"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_settings.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_settings.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_card_expense.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/card_expense.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_spendo_logo_v1.png.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\spendo_logo_v1.png"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable-mdpi_ic_salary.png.flat",
-        "source": "com.example.spendo.app-pngs-54:/drawable-mdpi/ic_salary.png"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_transport.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_transport.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/font_raleway_semibold.ttf.flat",
-        "source": "com.example.spendo.app-main-61:/font/raleway_semibold.ttf"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\mipmap-mdpi\\ic_launcher.webp"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable-mdpi_ic_other.png.flat",
-        "source": "com.example.spendo.app-pngs-54:/drawable-mdpi/ic_other.png"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\menu_transaction_item_menu.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\menu\\transaction_item_menu.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.spendo.app-main-61:/mipmap-xxxhdpi/ic_launcher_round.webp"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\layout_dialog_amount_input.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\dialog_amount_input.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable-xhdpi_ic_other.png.flat",
-        "source": "com.example.spendo.app-pngs-54:/drawable-xhdpi/ic_other.png"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\font_raleway_bold.ttf.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\font\\raleway_bold.ttf"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/menu_transaction_item_menu.xml.flat",
-        "source": "com.example.spendo.app-main-61:/menu/transaction_item_menu.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable-mdpi_ic_health.png.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-pngs-54:\\drawable-mdpi\\ic_health.png"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/mipmap-mdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.spendo.app-main-61:/mipmap-mdpi/ic_launcher_round.webp"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_entertainment.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_entertainment.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\layout_activity_home.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\activity_home.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/layout_item_transaction_detailed.xml.flat",
-        "source": "com.example.spendo.app-main-61:/layout/item_transaction_detailed.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_account.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_account.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/font_raleway_light.ttf.flat",
-        "source": "com.example.spendo.app-main-61:/font/raleway_light.ttf"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\layout_activity_auth.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\activity_auth.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable-ldpi_ic_other.png.flat",
-        "source": "com.example.spendo.app-pngs-54:/drawable-ldpi/ic_other.png"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_home.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_home.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "com.example.spendo.app-main-61:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\menu_bottom_navigation_menu.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\menu\\bottom_navigation_menu.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/layout_activity_profile.xml.flat",
-        "source": "com.example.spendo.app-main-61:/layout/activity_profile.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\mipmap-mdpi_ic_launcher_foreground.webp.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\mipmap-mdpi\\ic_launcher_foreground.webp"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_google_message_background.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/google_message_background.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\mipmap-hdpi_ic_launcher_foreground.webp.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\mipmap-hdpi\\ic_launcher_foreground.webp"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/layout_item_category_breakdown.xml.flat",
-        "source": "com.example.spendo.app-main-61:/layout/item_category_breakdown.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_filter.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_filter.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_filter.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_filter.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_edit.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_edit.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/layout_fragment_forgot_password.xml.flat",
-        "source": "com.example.spendo.app-main-61:/layout/fragment_forgot_password.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable-mdpi_ic_salary.png.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-pngs-54:\\drawable-mdpi\\ic_salary.png"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_logout.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_logout.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_currency.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_currency.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/mipmap-xhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.spendo.app-main-61:/mipmap-xhdpi/ic_launcher_round.webp"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_shopping.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_shopping.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable-xxxhdpi_ic_salary.png.flat",
-        "source": "com.example.spendo.app-pngs-54:/drawable-xxxhdpi/ic_salary.png"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_edit_button_background.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\edit_button_background.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_arrow_up_white.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_arrow_up_white.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_onboarding_top_background.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\onboarding_top_background.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_sort.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_sort.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_arrow_up_white.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_arrow_up_white.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_currency.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_currency.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable-xxxhdpi_ic_salary.png.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-pngs-54:\\drawable-xxxhdpi\\ic_salary.png"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_transactions.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_transactions.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_launcher_background.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/layout_fragment_login.xml.flat",
-        "source": "com.example.spendo.app-main-61:/layout/fragment_login.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_menu_budget.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\menu_budget.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/xml_data_extraction_rules.xml.flat",
-        "source": "com.example.spendo.app-main-61:/xml/data_extraction_rules.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\xml\\backup_rules.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_menu_budget.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/menu_budget.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable-xhdpi_ic_health.png.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-pngs-54:\\drawable-xhdpi\\ic_health.png"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_donut_chart_placeholder.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/donut_chart_placeholder.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_logout.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_logout.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_category_dot_background.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/category_dot_background.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\mipmap-anydpi-v26\\ic_launcher.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/layout_activity_home.xml.flat",
-        "source": "com.example.spendo.app-main-61:/layout/activity_home.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_google_logo.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_google_logo.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_menu_icon_background.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/menu_icon_background.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_education.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_education.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/color_nav_item_color.xml.flat",
-        "source": "com.example.spendo.app-main-61:/color/nav_item_color.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\mipmap-hdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/mipmap-xxxhdpi_ic_launcher_foreground.webp.flat",
-        "source": "com.example.spendo.app-main-61:/mipmap-xxxhdpi/ic_launcher_foreground.webp"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_circle_background.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\circle_background.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_menu_profile.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/menu_profile.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\layout_activity_edit_transaction.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\activity_edit_transaction.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable-hdpi_ic_health.png.flat",
-        "source": "com.example.spendo.app-pngs-54:/drawable-hdpi/ic_health.png"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_menu_transaction.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\menu_transaction.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_bills.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_bills.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\font_raleway_extralight.ttf.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\font\\raleway_extralight.ttf"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/layout_activity_main.xml.flat",
-        "source": "com.example.spendo.app-main-61:/layout/activity_main.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\font_raleway_semibold.ttf.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\font\\raleway_semibold.ttf"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_arrow_down_white.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_arrow_down_white.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_menu_icon_background.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\menu_icon_background.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable-hdpi_ic_other.png.flat",
-        "source": "com.example.spendo.app-pngs-54:/drawable-hdpi/ic_other.png"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_category_icon_background.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\category_icon_background.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/layout_activity_add_transaction.xml.flat",
-        "source": "com.example.spendo.app-main-61:/layout/activity_add_transaction.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\mipmap-mdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/font_raleway.ttf.flat",
-        "source": "com.example.spendo.app-main-61:/font/raleway.ttf"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_calendar.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_calendar.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/layout_item_transaction.xml.flat",
-        "source": "com.example.spendo.app-main-61:/layout/item_transaction.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_banner_background.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\banner_background.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/mipmap-xhdpi_ic_launcher.webp.flat",
-        "source": "com.example.spendo.app-main-61:/mipmap-xhdpi/ic_launcher.webp"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable-ldpi_ic_salary.png.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-pngs-54:\\drawable-ldpi\\ic_salary.png"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/mipmap-xxxhdpi_ic_launcher.webp.flat",
-        "source": "com.example.spendo.app-main-61:/mipmap-xxxhdpi/ic_launcher.webp"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\font_raleway_medium.ttf.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\font\\raleway_medium.ttf"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_account.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_account.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\mipmap-xhdpi\\ic_launcher.webp"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable-ldpi_ic_salary.png.flat",
-        "source": "com.example.spendo.app-pngs-54:/drawable-ldpi/ic_salary.png"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable-mdpi_ic_other.png.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-pngs-54:\\drawable-mdpi\\ic_other.png"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_arrow_back.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_arrow_back.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_home.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\home.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/layout_activity_transactions.xml.flat",
-        "source": "com.example.spendo.app-main-61:/layout/activity_transactions.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_transaction_item_background.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\transaction_item_background.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_circle_background.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/circle_background.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_delete.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_delete.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_chart_placeholder.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/chart_placeholder.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\layout_item_transaction.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\item_transaction.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable-xxxhdpi_ic_other.png.flat",
-        "source": "com.example.spendo.app-pngs-54:/drawable-xxxhdpi/ic_other.png"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\mipmap-xxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\mipmap-xxhdpi\\ic_launcher_foreground.webp"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable-xxhdpi_ic_other.png.flat",
-        "source": "com.example.spendo.app-pngs-54:/drawable-xxhdpi/ic_other.png"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_calendar.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_calendar.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable-ldpi_ic_other.png.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-pngs-54:\\drawable-ldpi\\ic_other.png"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/layout_dialog_transaction_options.xml.flat",
-        "source": "com.example.spendo.app-main-61:/layout/dialog_transaction_options.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\font_raleway.ttf.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\font\\raleway.ttf"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_edit_button_background.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/edit_button_background.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\font_raleway_thin.ttf.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\font\\raleway_thin.ttf"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_menu_icon_background_red.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/menu_icon_background_red.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\layout_fragment_signup.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\fragment_signup.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable-xxxhdpi_ic_health.png.flat",
-        "source": "com.example.spendo.app-pngs-54:/drawable-xxxhdpi/ic_health.png"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable-hdpi_ic_health.png.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-pngs-54:\\drawable-hdpi\\ic_health.png"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_onboarding_top_background.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/onboarding_top_background.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\activity_main.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/mipmap-xhdpi_ic_launcher_foreground.webp.flat",
-        "source": "com.example.spendo.app-main-61:/mipmap-xhdpi/ic_launcher_foreground.webp"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_bills.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_bills.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_home.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_home.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\mipmap-xxhdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_piggy_bank.png.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/piggy_bank.png"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable-anydpi-v24_ic_health.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-pngs-54:\\drawable-anydpi-v24\\ic_health.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_food.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_food.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\layout_item_transaction_detailed.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\item_transaction_detailed.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/font_inter_semibold.ttf.flat",
-        "source": "com.example.spendo.app-main-61:/font/inter_semibold.ttf"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\layout_item_category_breakdown.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\item_category_breakdown.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_profile_placeholder.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_profile_placeholder.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\mipmap-xxhdpi\\ic_launcher.webp"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_add.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_add.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\layout_activity_transactions.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\activity_transactions.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_delete.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_delete.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\color_nav_item_color.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\color\\nav_item_color.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable-xxhdpi_ic_salary.png.flat",
-        "source": "com.example.spendo.app-pngs-54:/drawable-xxhdpi/ic_salary.png"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\layout_fragment_login.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\fragment_login.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/mipmap-xxhdpi_ic_launcher.webp.flat",
-        "source": "com.example.spendo.app-main-61:/mipmap-xxhdpi/ic_launcher.webp"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\layout_dialog_transaction_options.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\dialog_transaction_options.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "com.example.spendo.app-main-61:/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_arrow_right.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_arrow_right.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_education.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_education.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_chart_placeholder.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\chart_placeholder.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/xml_backup_rules.xml.flat",
-        "source": "com.example.spendo.app-main-61:/xml/backup_rules.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable-anydpi-v24_ic_salary.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-pngs-54:\\drawable-anydpi-v24\\ic_salary.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_google_logo.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_google_logo.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable-xxxhdpi_ic_other.png.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-pngs-54:\\drawable-xxxhdpi\\ic_other.png"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_chart_gradient.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/chart_gradient.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_category_dot_background.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\category_dot_background.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_banner_background.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/banner_background.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\layout_activity_export.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\activity_export.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/menu_bottom_navigation_menu.xml.flat",
-        "source": "com.example.spendo.app-main-61:/menu/bottom_navigation_menu.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\mipmap-xxxhdpi\\ic_launcher.webp"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/layout_activity_auth.xml.flat",
-        "source": "com.example.spendo.app-main-61:/layout/activity_auth.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\mipmap-hdpi\\ic_launcher.webp"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_shopping.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_shopping.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\layout_activity_settings.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\activity_settings.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_transaction_item_background.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/transaction_item_background.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_profile_placeholder.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_profile_placeholder.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/layout_activity_export.xml.flat",
-        "source": "com.example.spendo.app-main-61:/layout/activity_export.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\layout_activity_edit_profile.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\activity_edit_profile.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_card_income.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/card_income.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\layout_activity_profile.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\activity_profile.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable-xhdpi_ic_salary.png.flat",
-        "source": "com.example.spendo.app-pngs-54:/drawable-xhdpi/ic_salary.png"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_menu_icon_background_red.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\menu_icon_background_red.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable-hdpi_ic_salary.png.flat",
-        "source": "com.example.spendo.app-pngs-54:/drawable-hdpi/ic_salary.png"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_card_expense.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\card_expense.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/mipmap-mdpi_ic_launcher.webp.flat",
-        "source": "com.example.spendo.app-main-61:/mipmap-mdpi/ic_launcher.webp"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_arrow_down_white.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_arrow_down_white.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/layout_activity_onboarding.xml.flat",
-        "source": "com.example.spendo.app-main-61:/layout/activity_onboarding.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\mipmap-xhdpi_ic_launcher_foreground.webp.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\mipmap-xhdpi\\ic_launcher_foreground.webp"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/font_raleway_extralight.ttf.flat",
-        "source": "com.example.spendo.app-main-61:/font/raleway_extralight.ttf"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_food.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_food.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/mipmap-mdpi_ic_launcher_foreground.webp.flat",
-        "source": "com.example.spendo.app-main-61:/mipmap-mdpi/ic_launcher_foreground.webp"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable-anydpi-v24_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-pngs-54:\\drawable-anydpi-v24\\ic_launcher_foreground.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable-mdpi_ic_health.png.flat",
-        "source": "com.example.spendo.app-pngs-54:/drawable-mdpi/ic_health.png"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_profile.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_profile.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/mipmap-hdpi_ic_launcher_foreground.webp.flat",
-        "source": "com.example.spendo.app-main-61:/mipmap-hdpi/ic_launcher_foreground.webp"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\xml\\data_extraction_rules.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_menu_home.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/menu_home.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\xml_file_paths.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\xml\\file_paths.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/layout_fragment_signup.xml.flat",
-        "source": "com.example.spendo.app-main-61:/layout/fragment_signup.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_chart_gradient.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\chart_gradient.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/layout_activity_edit_transaction.xml.flat",
-        "source": "com.example.spendo.app-main-61:/layout/activity_edit_transaction.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_more_vert.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_more_vert.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_toggle_background.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/toggle_background.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\layout_fragment_forgot_password.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\fragment_forgot_password.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_edit.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_edit.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable-xxhdpi_ic_other.png.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-pngs-54:\\drawable-xxhdpi\\ic_other.png"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/mipmap-xxhdpi_ic_launcher_foreground.webp.flat",
-        "source": "com.example.spendo.app-main-61:/mipmap-xxhdpi/ic_launcher_foreground.webp"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable-xxxhdpi_ic_health.png.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-pngs-54:\\drawable-xxxhdpi\\ic_health.png"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/layout_item_transaction_group.xml.flat",
-        "source": "com.example.spendo.app-main-61:/layout/item_transaction_group.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable-hdpi_ic_other.png.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-pngs-54:\\drawable-hdpi\\ic_other.png"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_budget.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_budget.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable-xxhdpi_ic_salary.png.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-pngs-54:\\drawable-xxhdpi\\ic_salary.png"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_home.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/home.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_card_income.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\card_income.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_arrow_down.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_arrow_down.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\font_inter_semibold.ttf.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\font\\inter_semibold.ttf"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/font_raleway_thin.ttf.flat",
-        "source": "com.example.spendo.app-main-61:/font/raleway_thin.ttf"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_sort.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_sort.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable-anydpi-v24_ic_other.xml.flat",
-        "source": "com.example.spendo.app-pngs-54:/drawable-anydpi-v24/ic_other.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\mipmap-xhdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_launcher_background.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_launcher_background.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_piggy_bank.png.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\piggy_bank.png"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_profile.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_profile.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_toggle_background.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\toggle_background.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/mipmap-hdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.spendo.app-main-61:/mipmap-hdpi/ic_launcher_round.webp"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\layout_activity_financial_report.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\activity_financial_report.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable-ldpi_ic_health.png.flat",
-        "source": "com.example.spendo.app-pngs-54:/drawable-ldpi/ic_health.png"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_arrow_back.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_arrow_back.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_spendo_logo_v1.png.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/spendo_logo_v1.png"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_notifications.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_notifications.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/font_raleway_bold.ttf.flat",
-        "source": "com.example.spendo.app-main-61:/font/raleway_bold.ttf"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\layout_activity_onboarding.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\activity_onboarding.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable-anydpi-v24_ic_salary.xml.flat",
-        "source": "com.example.spendo.app-pngs-54:/drawable-anydpi-v24/ic_salary.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\mipmap-xxxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\mipmap-xxxhdpi\\ic_launcher_foreground.webp"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/font_raleway_medium.ttf.flat",
-        "source": "com.example.spendo.app-main-61:/font/raleway_medium.ttf"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable-xhdpi_ic_salary.png.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-pngs-54:\\drawable-xhdpi\\ic_salary.png"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_ic_transport.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/ic_transport.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_google_message_background.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\google_message_background.xml"
     },
     {
-        "merged": "com.example.spendo.app-debug-59:/drawable_category_icon_background.xml.flat",
-        "source": "com.example.spendo.app-main-61:/drawable/category_icon_background.xml"
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_menu_home.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\menu_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\drawable_ic_add.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\drawable\\ic_add.xml"
+    },
+    {
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-debug-59:\\layout_activity_add_transaction.xml.flat",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\activity_add_transaction.xml"
     }
 ]

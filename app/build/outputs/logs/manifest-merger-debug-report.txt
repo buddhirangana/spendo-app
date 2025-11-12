@@ -1,9 +1,20 @@
 -- Merging decision tree log ---
+provider#androidx.core.content.FileProvider
+INJECTED from D:\BSC-IT-Assignments\3rd-Year-1st-Sem\MAD\Spendo-App\Spendo\app\src\main\AndroidManifest.xml:59:9-67:20
+	android:grantUriPermissions
+		ADDED from D:\BSC-IT-Assignments\3rd-Year-1st-Sem\MAD\Spendo-App\Spendo\app\src\main\AndroidManifest.xml:63:13-47
+	android:authorities
+		INJECTED from D:\BSC-IT-Assignments\3rd-Year-1st-Sem\MAD\Spendo-App\Spendo\app\src\main\AndroidManifest.xml
+		ADDED from D:\BSC-IT-Assignments\3rd-Year-1st-Sem\MAD\Spendo-App\Spendo\app\src\main\AndroidManifest.xml:61:13-64
+	android:exported
+		ADDED from D:\BSC-IT-Assignments\3rd-Year-1st-Sem\MAD\Spendo-App\Spendo\app\src\main\AndroidManifest.xml:62:13-37
+	android:name
+		ADDED from D:\BSC-IT-Assignments\3rd-Year-1st-Sem\MAD\Spendo-App\Spendo\app\src\main\AndroidManifest.xml:60:13-62
 manifest
-ADDED from D:\BSC-IT-Assignments\3rd-Year-1st-Sem\MAD\Spendo-App\Spendo\app\src\main\AndroidManifest.xml:2:1-61:12
-INJECTED from D:\BSC-IT-Assignments\3rd-Year-1st-Sem\MAD\Spendo-App\Spendo\app\src\main\AndroidManifest.xml:2:1-61:12
-INJECTED from D:\BSC-IT-Assignments\3rd-Year-1st-Sem\MAD\Spendo-App\Spendo\app\src\main\AndroidManifest.xml:2:1-61:12
-INJECTED from D:\BSC-IT-Assignments\3rd-Year-1st-Sem\MAD\Spendo-App\Spendo\app\src\main\AndroidManifest.xml:2:1-61:12
+ADDED from D:\BSC-IT-Assignments\3rd-Year-1st-Sem\MAD\Spendo-App\Spendo\app\src\main\AndroidManifest.xml:2:1-70:12
+INJECTED from D:\BSC-IT-Assignments\3rd-Year-1st-Sem\MAD\Spendo-App\Spendo\app\src\main\AndroidManifest.xml:2:1-70:12
+INJECTED from D:\BSC-IT-Assignments\3rd-Year-1st-Sem\MAD\Spendo-App\Spendo\app\src\main\AndroidManifest.xml:2:1-70:12
+INJECTED from D:\BSC-IT-Assignments\3rd-Year-1st-Sem\MAD\Spendo-App\Spendo\app\src\main\AndroidManifest.xml:2:1-70:12
 MERGED from [androidx.databinding:viewbinding:8.13.1] C:\Users\buddh\.gradle\caches\8.13\transforms\cb572c79c721d9ace75b73faaf08160c\transformed\viewbinding-8.13.1\AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.material:material:1.13.0] C:\Users\buddh\.gradle\caches\8.13\transforms\fcbcc6daf4e79f72dbcd154662f616c1\transformed\material-1.13.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.2.1] C:\Users\buddh\.gradle\caches\8.13\transforms\4388153ae43fa1640af0f42ecac1024e\transformed\constraintlayout-2.2.1\AndroidManifest.xml:2:1-9:12
@@ -146,8 +157,8 @@ MERGED from [com.google.android.gms:play-services-measurement-sdk-api:23.0.0] C:
 	android:name
 		ADDED from D:\BSC-IT-Assignments\3rd-Year-1st-Sem\MAD\Spendo-App\Spendo\app\src\main\AndroidManifest.xml:6:22-64
 application
-ADDED from D:\BSC-IT-Assignments\3rd-Year-1st-Sem\MAD\Spendo-App\Spendo\app\src\main\AndroidManifest.xml:8:5-59:19
-INJECTED from D:\BSC-IT-Assignments\3rd-Year-1st-Sem\MAD\Spendo-App\Spendo\app\src\main\AndroidManifest.xml:8:5-59:19
+ADDED from D:\BSC-IT-Assignments\3rd-Year-1st-Sem\MAD\Spendo-App\Spendo\app\src\main\AndroidManifest.xml:8:5-68:19
+INJECTED from D:\BSC-IT-Assignments\3rd-Year-1st-Sem\MAD\Spendo-App\Spendo\app\src\main\AndroidManifest.xml:8:5-68:19
 MERGED from [com.google.android.material:material:1.13.0] C:\Users\buddh\.gradle\caches\8.13\transforms\fcbcc6daf4e79f72dbcd154662f616c1\transformed\material-1.13.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.13.0] C:\Users\buddh\.gradle\caches\8.13\transforms\fcbcc6daf4e79f72dbcd154662f616c1\transformed\material-1.13.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.2.1] C:\Users\buddh\.gradle\caches\8.13\transforms\4388153ae43fa1640af0f42ecac1024e\transformed\constraintlayout-2.2.1\AndroidManifest.xml:7:5-20
@@ -330,6 +341,12 @@ category#android.intent.category.LAUNCHER
 ADDED from D:\BSC-IT-Assignments\3rd-Year-1st-Sem\MAD\Spendo-App\Spendo\app\src\main\AndroidManifest.xml:56:17-77
 	android:name
 		ADDED from D:\BSC-IT-Assignments\3rd-Year-1st-Sem\MAD\Spendo-App\Spendo\app\src\main\AndroidManifest.xml:56:27-74
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from D:\BSC-IT-Assignments\3rd-Year-1st-Sem\MAD\Spendo-App\Spendo\app\src\main\AndroidManifest.xml:64:13-66:54
+	android:resource
+		ADDED from D:\BSC-IT-Assignments\3rd-Year-1st-Sem\MAD\Spendo-App\Spendo\app\src\main\AndroidManifest.xml:66:17-51
+	android:name
+		ADDED from D:\BSC-IT-Assignments\3rd-Year-1st-Sem\MAD\Spendo-App\Spendo\app\src\main\AndroidManifest.xml:65:17-67
 uses-sdk
 INJECTED from D:\BSC-IT-Assignments\3rd-Year-1st-Sem\MAD\Spendo-App\Spendo\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from D:\BSC-IT-Assignments\3rd-Year-1st-Sem\MAD\Spendo-App\Spendo\app\src\main\AndroidManifest.xml

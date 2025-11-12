@@ -8405,6 +8405,7 @@ int[] styleable include { 0x7f040144 }
 int styleable include_constraintSet 0
 int xml backup_rules 0x7f160000
 int xml data_extraction_rules 0x7f160001
+int xml file_paths 0x7f160007
 int xml image_share_filepaths 0x7f160002
 int xml m3_button_group_child_size_change 0x7f160003
 int xml m3_split_button_inner_corner_size_state_list 0x7f160004

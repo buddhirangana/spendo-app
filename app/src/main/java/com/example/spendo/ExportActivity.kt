@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.spendo.data.Repository
@@ -205,106 +206,203 @@ class ExportActivity : AppCompatActivity() {
         var canvas = page.canvas
         var yPosition = 60f
 
+        val primaryColor = ContextCompat.getColor(this, R.color.primary_green)
+        val surfaceColor = ContextCompat.getColor(this, R.color.white)
+        val mutedTextColor = ContextCompat.getColor(this, R.color.primary_gray)
+        val tableHeaderBg = ContextCompat.getColor(this, R.color.light_gray_3)
+        val rowAltBg = ContextCompat.getColor(this, R.color.light_gray)
+        val dividerColor = ContextCompat.getColor(this, R.color.light_gray_2)
+
         val titlePaint = Paint().apply {
-            typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-            textSize = 18f
-            textAlign = Paint.Align.CENTER
+            color = ContextCompat.getColor(this@ExportActivity, R.color.white)
+            typeface = Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD)
+            textSize = 20f
+            textAlign = Paint.Align.LEFT
+            isAntiAlias = true
         }
 
         val subtitlePaint = Paint().apply {
-            textSize = 12f
-            textAlign = Paint.Align.CENTER
+            color = ContextCompat.getColor(this@ExportActivity, R.color.white)
+            textSize = 11f
+            textAlign = Paint.Align.LEFT
+            isAntiAlias = true
         }
 
         val headerPaint = Paint().apply {
-            typeface = Typeface.create(Typeface.MONOSPACE, Typeface.BOLD)
+            color = mutedTextColor
+            typeface = Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD)
             textSize = 11f
+            isAntiAlias = true
         }
 
         val textPaint = Paint().apply {
-            typeface = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)
+            color = ContextCompat.getColor(this@ExportActivity, R.color.black)
+            typeface = Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL)
             textSize = 10f
+            isAntiAlias = true
+        }
+
+        val amountPaint = Paint(textPaint).apply {
+            textAlign = Paint.Align.RIGHT
         }
 
         val descriptionPaint = Paint(textPaint).apply {
+            color = mutedTextColor
             textSize = 9f
         }
 
         val dividerPaint = Paint().apply {
-            strokeWidth = 1f
+            color = dividerColor
+            strokeWidth = 1.2f
+            isAntiAlias = true
         }
 
         val fileDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val displayDateTimeFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
 
-        fun finishPageIfNeeded() {
+        val headerHeight = 80f
+        val headerRectLeft = 30f
+        val headerRectRight = pageWidth - 30f
+        val headerRectTop = 30f
+        val headerRectBottom = headerRectTop + headerHeight
+
+        val headerPaintRect = Paint().apply {
+            color = primaryColor
+            isAntiAlias = true
+        }
+
+        canvas.drawRoundRect(
+            headerRectLeft,
+            headerRectTop,
+            headerRectRight,
+            headerRectBottom,
+            18f,
+            18f,
+            headerPaintRect
+        )
+
+        val headerTitleX = headerRectLeft + 24f
+        var headerTextY = headerRectTop + 32f
+        canvas.drawText("Spendo Transactions Report", headerTitleX, headerTextY, titlePaint)
+        headerTextY += 20f
+
+        val rangeText = "Date range  ${fileDateFormat.format(startDate)} – ${fileDateFormat.format(endDate)}"
+        canvas.drawText(rangeText, headerTitleX, headerTextY, subtitlePaint)
+        headerTextY += 16f
+
+        val totals = calculateTotals(transactions)
+        val summaryText = "Income ${totals.income}   ·   Expense ${totals.expense}   ·   Net ${totals.net}"
+        canvas.drawText(summaryText, headerTitleX, headerTextY, subtitlePaint)
+
+        val startX = 36f
+        val dateX = startX
+        val typeX = dateX + 150f
+        val categoryX = typeX + 90f
+        val amountX = pageWidth - 46f
+
+        val tableHeaderPaint = Paint().apply {
+            color = tableHeaderBg
+            isAntiAlias = true
+        }
+
+        fun drawTableHeaderRow() {
+            val sectionTop = yPosition
+            val sectionBottom = sectionTop + 34f
+            canvas.drawRoundRect(
+                startX - 6f,
+                sectionTop,
+                amountX + 20f,
+                sectionBottom,
+                12f,
+                12f,
+                tableHeaderPaint
+            )
+
+            val headerBaseline = sectionTop + 22f
+            headerPaint.textAlign = Paint.Align.LEFT
+            canvas.drawText("Date & Time", dateX, headerBaseline, headerPaint)
+            canvas.drawText("Type", typeX, headerBaseline, headerPaint)
+            canvas.drawText("Category", categoryX, headerBaseline, headerPaint)
+            headerPaint.textAlign = Paint.Align.RIGHT
+            canvas.drawText("Amount", amountX, headerBaseline, headerPaint)
+            headerPaint.textAlign = Paint.Align.LEFT
+
+            val dividerY = sectionBottom - 6f
+            canvas.drawLine(startX - 6f, dividerY, amountX + 20f, dividerY, dividerPaint)
+            yPosition = sectionBottom + 18f
+        }
+
+        fun startNewPage() {
             pdfDocument.finishPage(page)
             pageNumber += 1
             pageInfo = PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pageNumber).create()
             page = pdfDocument.startPage(pageInfo)
             canvas = page.canvas
             yPosition = 60f
+            drawTableHeaderRow()
         }
 
         fun ensureSpace(requiredSpace: Float) {
             if (yPosition + requiredSpace > pageHeight - 60) {
-                finishPageIfNeeded()
+                startNewPage()
             }
         }
 
-        canvas.drawText("Spendo Transactions Report", pageWidth / 2f, yPosition, titlePaint)
-        yPosition += 24f
+        yPosition = headerRectBottom + 24f
+        drawTableHeaderRow()
 
-        val rangeText = "Date range: ${fileDateFormat.format(startDate)} - ${fileDateFormat.format(endDate)}"
-        canvas.drawText(rangeText, pageWidth / 2f, yPosition, subtitlePaint)
-        yPosition += 18f
-
-        val totals = calculateTotals(transactions)
-        val summaryText = "Income: ${totals.income}   Expense: ${totals.expense}   Net: ${totals.net}"
-        canvas.drawText(summaryText, pageWidth / 2f, yPosition, subtitlePaint)
-        yPosition += 24f
-
-        val startX = 40f
-        val dateX = startX
-        val typeX = dateX + 120f
-        val categoryX = typeX + 80f
-        val amountX = pageWidth - 60f
-
-        canvas.drawText("Date & Time", dateX, yPosition, headerPaint)
-        canvas.drawText("Type", typeX, yPosition, headerPaint)
-        canvas.drawText("Category", categoryX, yPosition, headerPaint)
-        canvas.drawText("Amount", amountX, yPosition, headerPaint)
-        yPosition += 12f
-        canvas.drawLine(startX, yPosition, pageWidth - startX, yPosition, dividerPaint)
-        yPosition += 16f
-
-        transactions.forEach { transaction ->
-            ensureSpace(40f)
+        transactions.forEachIndexed { index, transaction ->
             val dateText = displayDateTimeFormat.format(transaction.date.toDate())
             val typeText = transaction.type.name
             val categoryText = transaction.category
             val amountText = CurrencyFormatter.formatAmount(this, transaction.amount)
 
-            canvas.drawText(dateText, dateX, yPosition, textPaint)
-            canvas.drawText(typeText, typeX, yPosition, textPaint)
-            canvas.drawText(categoryText, categoryX, yPosition, textPaint)
-            canvas.drawText(amountText, amountX, yPosition, textPaint)
-            yPosition += 14f
-
-            if (transaction.description.isNotBlank()) {
-                val wrappedLines = wrapText(
+            val wrappedLines = if (transaction.description.isNotBlank()) {
+                wrapText(
                     transaction.description,
                     descriptionPaint,
                     (pageWidth - (startX * 2)).toInt()
                 )
-                wrappedLines.forEach { line ->
-                    ensureSpace(16f)
-                    canvas.drawText(line, dateX, yPosition, descriptionPaint)
-                    yPosition += 12f
-                }
+            } else {
+                emptyList()
             }
 
-            yPosition += 8f
+            val descriptionLines = wrappedLines.size
+            val rowTextHeight = 18f + (descriptionLines * 12f)
+            val rowHeight = rowTextHeight + 10f
+            ensureSpace(rowHeight + 20f)
+
+            val rowTop = yPosition - 14f
+            val rowBottom = rowTop + rowHeight
+            val backgroundPaint = Paint().apply {
+                color = if ((index % 2) == 0) surfaceColor else rowAltBg
+                isAntiAlias = true
+            }
+
+            canvas.drawRoundRect(
+                startX - 6f,
+                rowTop,
+                amountX + 20f,
+                rowBottom,
+                12f,
+                12f,
+                backgroundPaint
+            )
+
+            canvas.drawText(dateText, dateX, yPosition, textPaint)
+            canvas.drawText(typeText, typeX, yPosition, textPaint)
+            canvas.drawText(categoryText, categoryX, yPosition, textPaint)
+            canvas.drawText(amountText, amountX, yPosition, amountPaint)
+            var contentY = yPosition + 16f
+
+            wrappedLines.forEach { line ->
+                canvas.drawText(line, dateX, contentY, descriptionPaint)
+                contentY += 12f
+            }
+
+            yPosition = rowBottom + 8f
+            canvas.drawLine(startX - 6f, yPosition, amountX + 20f, yPosition, dividerPaint)
+            yPosition += 12f
         }
 
         pdfDocument.finishPage(page)

@@ -20,6 +20,3 @@ data class Transaction(
     val type: TransactionType = TransactionType.EXPENSE,
     val date: Timestamp = Timestamp.now()
 )
-
-
-

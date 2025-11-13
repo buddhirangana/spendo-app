@@ -78,8 +78,6 @@ class LoginFragment : Fragment() {
         }
     }
 
-    // ... other code in LoginFragment.kt
-
     private fun login(email: String, password: String) {    // Show loading indicator
         val progressBar = view?.findViewById<View>(R.id.progress_bar)
         progressBar?.visibility = View.VISIBLE

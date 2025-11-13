@@ -1,6 +1,5 @@
 package com.example.spendo.data
 
-import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
@@ -156,6 +155,3 @@ class Repository(
         firebaseAuth.sendPasswordResetEmail(email).await()
     }
 }
-
-
-

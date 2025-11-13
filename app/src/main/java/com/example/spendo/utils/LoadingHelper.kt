@@ -19,6 +19,7 @@ class LoadingHelper(private val context: Context) {
             }
         } catch (e: Exception) {
             // Ignore if context is invalid
+            e.printStackTrace()
         }
     }
     
@@ -27,6 +28,7 @@ class LoadingHelper(private val context: Context) {
             progressDialog?.dismiss()
         } catch (e: Exception) {
             // Ignore if dialog is already dismissed
+            e.printStackTrace()
         } finally {
             progressDialog = null
         }
@@ -37,7 +39,7 @@ class LoadingHelper(private val context: Context) {
             progressDialog?.setMessage(message)
         } catch (e: Exception) {
             // Ignore if dialog is invalid
+            e.printStackTrace()
         }
     }
 }
-

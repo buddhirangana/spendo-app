@@ -29,4 +29,3 @@ class PreferencesManager(context: Context) {
         prefs.edit().putString(KEY_DEFAULT_CURRENCY, currency).apply()
     }
 }
-

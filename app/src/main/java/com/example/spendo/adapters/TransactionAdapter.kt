@@ -113,7 +113,6 @@ class TransactionAdapter(
                 }
             }
 
-
             ivCategoryIcon.setImageResource(iconResId)
 
             val drawable = ivCategoryIcon.background as? GradientDrawable

@@ -1,8 +1,12 @@
 package com.example.spendo
 
+import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
+import android.util.Base64
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -27,11 +31,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.navigation.NavigationBarView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.launch
 import java.text.DateFormatSymbols
 import java.util.Calendar
-import android.content.Context
 
 class HomeActivity : AppCompatActivity() {
 
@@ -45,6 +49,7 @@ class HomeActivity : AppCompatActivity() {
     private var monthlyTransactions = mutableListOf<Transaction>()
     private lateinit var loadingHelper: LoadingHelper
     private var isLoading = false
+    private val firestore = FirebaseFirestore.getInstance()
 
     private lateinit var ivProfile: CircleImageView
     private lateinit var rvRecentTransactions: RecyclerView
@@ -372,14 +377,50 @@ class HomeActivity : AppCompatActivity() {
 
     private fun loadProfilePicture() {
         val user = FirebaseAuth.getInstance().currentUser
-        if (user != null && user.photoUrl != null) {
+        if (user != null) {
+            val fallbackUri = user.photoUrl
+            setProfileImageFromUri(fallbackUri)
+
+            firestore.collection("users")
+                .document(user.uid)
+                .get()
+                .addOnSuccessListener { snapshot ->
+                    val base64Image = snapshot?.getString("photoBase64")
+                    if (!base64Image.isNullOrEmpty()) {
+                        setProfileImageFromBase64(base64Image, fallbackUri)
+                    }
+                }
+                .addOnFailureListener {
+                    setProfileImageFromUri(fallbackUri)
+                }
+        } else {
+            ivProfile.setImageResource(R.drawable.ic_profile_placeholder)
+        }
+    }
+
+    private fun setProfileImageFromUri(uri: Uri?) {
+        if (uri != null) {
             Glide.with(this)
-                .load(user.photoUrl)
+                .load(uri)
                 .placeholder(R.drawable.ic_profile_placeholder)
                 .error(R.drawable.ic_profile_placeholder)
                 .into(ivProfile)
         } else {
             ivProfile.setImageResource(R.drawable.ic_profile_placeholder)
+        }
+    }
+
+    private fun setProfileImageFromBase64(base64Image: String, fallbackUri: Uri?) {
+        try {
+            val decodedBytes = Base64.decode(base64Image, Base64.DEFAULT)
+            val bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+            if (bitmap != null) {
+                ivProfile.setImageBitmap(bitmap)
+            } else {
+                setProfileImageFromUri(fallbackUri)
+            }
+        } catch (e: IllegalArgumentException) {
+            setProfileImageFromUri(fallbackUri)
         }
     }
 

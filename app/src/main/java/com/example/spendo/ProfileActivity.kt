@@ -2,21 +2,25 @@ package com.example.spendo
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
+import android.util.Base64
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.spendo.data.Repository
 import com.google.android.material.navigation.NavigationBarView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import de.hdodenhof.circleimageview.CircleImageView
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var repository: Repository
     private lateinit var ivProfilePicture: CircleImageView
     private lateinit var tvUsername: TextView
+    private val firestore = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,11 +111,50 @@ class ProfileActivity : AppCompatActivity() {
             }
             tvUsername.text = username
 
-            // Load profile image using Glide
+            loadProfileImage(user.uid, user.photoUrl)
+        } else {
+            tvUsername.text = "User"
+            ivProfilePicture.setImageResource(R.drawable.ic_profile_placeholder)
+        }
+    }
+
+    private fun loadProfileImage(userId: String, fallbackUri: Uri?) {
+        setProfileImageFromUri(fallbackUri)
+
+        firestore.collection("users")
+            .document(userId)
+            .get()
+            .addOnSuccessListener { snapshot ->
+                val base64Image = snapshot?.getString("photoBase64")
+                if (!base64Image.isNullOrEmpty()) {
+                    setProfileImageFromBase64(base64Image, fallbackUri)
+                }
+            }
+    }
+
+    private fun setProfileImageFromUri(uri: Uri?) {
+        if (uri != null) {
             Glide.with(this)
-                .load(user.photoUrl)
-                .placeholder(R.drawable.ic_profile_placeholder) // Default image
+                .load(uri)
+                .placeholder(R.drawable.ic_profile_placeholder)
+                .error(R.drawable.ic_profile_placeholder)
                 .into(ivProfilePicture)
+        } else {
+            ivProfilePicture.setImageResource(R.drawable.ic_profile_placeholder)
+        }
+    }
+
+    private fun setProfileImageFromBase64(base64Image: String, fallbackUri: Uri?) {
+        try {
+            val decodedBytes = Base64.decode(base64Image, Base64.DEFAULT)
+            val bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+            if (bitmap != null) {
+                ivProfilePicture.setImageBitmap(bitmap)
+            } else {
+                setProfileImageFromUri(fallbackUri)
+            }
+        } catch (e: IllegalArgumentException) {
+            setProfileImageFromUri(fallbackUri)
         }
     }
 

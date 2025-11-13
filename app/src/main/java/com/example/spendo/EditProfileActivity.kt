@@ -17,14 +17,19 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.UserProfileChangeRequest
-import com.google.firebase.storage.FirebaseStorage
 import de.hdodenhof.circleimageview.CircleImageView
-import java.util.UUID
 import android.widget.LinearLayout
-import androidx.activity.result.launch
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.io.ByteArrayOutputStream
 
 class EditProfileActivity : AppCompatActivity() {
 
@@ -46,7 +51,9 @@ class EditProfileActivity : AppCompatActivity() {
 
     // Firebase
     private val auth = FirebaseAuth.getInstance()
-    private val storage = FirebaseStorage.getInstance()
+    private val firestore = FirebaseFirestore.getInstance()
+
+    private var hasImageUpdated = false
 
     // To hold the URI of the newly selected image
     private var newImageUri: Uri? = null
@@ -85,8 +92,8 @@ class EditProfileActivity : AppCompatActivity() {
 
         // Initialize ProgressDialog
         progressDialog = ProgressDialog(this)
-        progressDialog.setTitle("Uploading...")
-        progressDialog.setMessage("Please wait while we upload your new profile picture.")
+        progressDialog.setTitle("Saving Changes...")
+        progressDialog.setMessage("Please wait while we update your profile.")
         progressDialog.setCancelable(false)
 
         ivBack.setOnClickListener { finish() }
@@ -127,73 +134,127 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun loadUserProfile() {
-        val user = auth.currentUser
-        user?.let {
-            etUsername.setText(it.displayName)
-            Glide.with(this)
-                .load(it.photoUrl)
-                .placeholder(R.drawable.ic_profile_placeholder)
-                .into(ivProfilePicture)
+        val user = auth.currentUser ?: return
+        etUsername.setText(user.displayName ?: "")
+
+        loadProfilePictureFromAuth(user.photoUrl)
+
+        firestore.collection("users")
+            .document(user.uid)
+            .get()
+            .addOnSuccessListener { snapshot ->
+                val base64Image = snapshot?.getString("photoBase64")
+                if (!base64Image.isNullOrEmpty()) {
+                    displayProfilePictureFromBase64(base64Image)
+                }
+            }
+            .addOnFailureListener {
+                // Ignore failure and keep auth photo / placeholder
+            }
+    }
+
+    private fun loadProfilePictureFromAuth(photoUri: Uri?) {
+        Glide.with(this)
+            .load(photoUri)
+            .placeholder(R.drawable.ic_profile_placeholder)
+            .into(ivProfilePicture)
+    }
+
+    private fun displayProfilePictureFromBase64(base64Image: String) {
+        try {
+            val decodedBytes = Base64.decode(base64Image, Base64.DEFAULT)
+            val bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+            if (bitmap != null) {
+                ivProfilePicture.setImageBitmap(bitmap)
+            } else {
+                loadProfilePictureFromAuth(auth.currentUser?.photoUrl)
+            }
+        } catch (e: IllegalArgumentException) {
+            loadProfilePictureFromAuth(auth.currentUser?.photoUrl)
         }
     }
 
     private fun saveChanges() {
+        val isGoogleUser =
+            auth.currentUser?.providerData?.any { it.providerId == GoogleAuthProvider.PROVIDER_ID }
+                ?: false
+
         if (newImageUri != null) {
-            uploadImageAndUpdateProfile()
+            handleImageAndSave(isGoogleUser)
+            return
+        }
+
+        hasImageUpdated = false
+        if (!isGoogleUser) {
+            progressDialog.setTitle("Saving Changes...")
+            progressDialog.setMessage("Please wait...")
+            progressDialog.show()
+            updateUserProfile()
         } else {
-            // No new image selected, just update name/password if applicable
-            val isGoogleUser =
-                auth.currentUser?.providerData?.any { it.providerId == GoogleAuthProvider.PROVIDER_ID }
-                    ?: false
-            if (!isGoogleUser) {
-                // For email users, proceed to update username/password
-                progressDialog.setTitle("Saving Changes...")
-                progressDialog.setMessage("Please wait...")
-                progressDialog.show()
-                updateUserProfile(null) // Pass null to indicate no new photo
-            } else {
-                // For Google users, if there's no new picture, there's nothing to save.
-                Toast.makeText(this, "No new profile picture selected.", Toast.LENGTH_SHORT).show()
-            }
+            Toast.makeText(this, "No new profile picture selected.", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun uploadImageAndUpdateProfile() {
+    private fun handleImageAndSave(isGoogleUser: Boolean) {
         val user = auth.currentUser ?: return
         val imageUri = newImageUri ?: return
 
-        progressDialog.setTitle("Uploading...")
-        progressDialog.setMessage("Please wait while we upload your new profile picture.")
+        progressDialog.setTitle("Saving Changes...")
+        progressDialog.setMessage("Please wait while we process your profile picture.")
         progressDialog.show()
 
         lifecycleScope.launch {
             try {
-                val filename = UUID.randomUUID().toString()
-                val storageRef = storage.reference.child("profile_pictures/$filename")
+                val base64Image = encodeImageToBase64(imageUri)
+                saveProfileImageToFirestore(user.uid, base64Image)
+                hasImageUpdated = true
+                newImageUri = null
 
-                // 1. Await the file upload to complete
-                storageRef.putFile(imageUri).await()
-
-                // 2. Only after upload is successful, get the download URL
-                val downloadUrl = storageRef.downloadUrl.await()
-
-                // 3. Now, update the user's profile with the new URL
-                updateUserProfile(downloadUrl)
-
+                if (isGoogleUser) {
+                    progressDialog.dismiss()
+                    Toast.makeText(
+                        this@EditProfileActivity,
+                        "Profile picture updated successfully!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    finish()
+                } else {
+                    updateUserProfile()
+                }
             } catch (e: Exception) {
-                // If anything fails, dismiss dialog and show an error
                 progressDialog.dismiss()
                 Toast.makeText(
                     this@EditProfileActivity,
-                    "Upload failed: ${e.message}",
+                    "Failed to save profile picture: ${e.message}",
                     Toast.LENGTH_LONG
                 ).show()
             }
         }
     }
 
+    private suspend fun encodeImageToBase64(imageUri: Uri): String = withContext(Dispatchers.IO) {
+        val bitmap = contentResolver.openInputStream(imageUri)?.use { stream ->
+            BitmapFactory.decodeStream(stream)
+        } ?: throw IllegalStateException("Unable to decode selected image.")
 
-    private fun updateUserProfile(photoUrl: Uri?) {
+        val outputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, outputStream)
+        val byteArray = outputStream.toByteArray()
+        outputStream.close()
+
+        Base64.encodeToString(byteArray, Base64.NO_WRAP)
+    }
+
+    private suspend fun saveProfileImageToFirestore(userId: String, base64Image: String) {
+        val data = mapOf("photoBase64" to base64Image)
+        firestore.collection("users")
+            .document(userId)
+            .set(data, SetOptions.merge())
+            .await()
+    }
+
+
+    private fun updateUserProfile() {
         val user = auth.currentUser ?: run {
             progressDialog.dismiss()
             return
@@ -201,7 +262,6 @@ class EditProfileActivity : AppCompatActivity() {
         val isGoogleUser = user.providerData.any { it.providerId == GoogleAuthProvider.PROVIDER_ID }
 
         val profileUpdatesBuilder = UserProfileChangeRequest.Builder()
-        photoUrl?.let { profileUpdatesBuilder.setPhotoUri(it) }
 
         if (!isGoogleUser) {
             val newUsername = etUsername.text.toString().trim()
@@ -212,15 +272,21 @@ class EditProfileActivity : AppCompatActivity() {
 
         val profileUpdates = profileUpdatesBuilder.build()
 
-        // Check if there are any actual changes to be made (photo or name)
-        if (profileUpdates.photoUri == null && profileUpdates.displayName == null) {
-            // No profile changes, so just handle password update if needed
+        // Check if there are any actual changes to be made (name)
+        if (profileUpdates.displayName == null) {
             if (!isGoogleUser) {
                 updatePasswordIfNeeded()
             } else {
-                // Google user with no photo change
                 progressDialog.dismiss()
-                Toast.makeText(this, "No changes were made.", Toast.LENGTH_SHORT).show()
+                val message = if (hasImageUpdated) {
+                    "Profile picture updated successfully!"
+                } else {
+                    "No changes were made."
+                }
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                if (hasImageUpdated) {
+                    finish()
+                }
             }
             return
         }
@@ -233,11 +299,12 @@ class EditProfileActivity : AppCompatActivity() {
                 } else {
                     // Google user photo updated successfully
                     progressDialog.dismiss()
-                    Toast.makeText(
-                        this,
-                        "Profile picture updated successfully!",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    val message = if (hasImageUpdated) {
+                        "Profile updated successfully!"
+                    } else {
+                        "Profile updated successfully!"
+                    }
+                    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
                     finish()
                 }
             } else {
@@ -259,7 +326,8 @@ class EditProfileActivity : AppCompatActivity() {
         // If no new password is entered, the update process is finished.
         if (newPassword.isBlank()) {
             progressDialog.dismiss()
-            Toast.makeText(this, "Profile updated successfully!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, buildSuccessMessage(passwordChanged = false), Toast.LENGTH_SHORT)
+                .show()
             finish()
             return
         }
@@ -282,7 +350,7 @@ class EditProfileActivity : AppCompatActivity() {
             if (task.isSuccessful) {
                 Toast.makeText(
                     this,
-                    "Profile and password updated successfully!",
+                    buildSuccessMessage(passwordChanged = true),
                     Toast.LENGTH_SHORT
                 ).show()
                 finish()
@@ -293,6 +361,15 @@ class EditProfileActivity : AppCompatActivity() {
                     Toast.LENGTH_LONG
                 ).show()
             }
+        }
+    }
+
+    private fun buildSuccessMessage(passwordChanged: Boolean): String {
+        return when {
+            passwordChanged && hasImageUpdated -> "Profile picture and password updated successfully!"
+            passwordChanged -> "Password updated successfully!"
+            hasImageUpdated -> "Profile updated successfully!"
+            else -> "Profile updated successfully!"
         }
     }
 }

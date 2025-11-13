@@ -6,6 +6,7 @@ import android.text.SpannableString
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +22,7 @@ import kotlinx.coroutines.launch
 
 class SignUpFragment : Fragment() {
     private lateinit var repository: Repository
-    
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,7 +30,7 @@ class SignUpFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_signup, container, false)
     }
-    
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -39,30 +40,35 @@ class SignUpFragment : Fragment() {
             // This will simulate a press of the system's back button
             activity?.onBackPressedDispatcher?.onBackPressed()
         }
-        
+
         repository = Repository()
-        
+
         view.findViewById<View>(R.id.btn_signup).setOnClickListener {
             val name = view.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.et_name).text.toString()
             val email = view.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.et_email).text.toString()
             val password = view.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.et_password).text.toString()
             val termsAccepted = view.findViewById<android.widget.CheckBox>(R.id.cb_terms).isChecked
-            
+
             if (name.isBlank() || email.isBlank() || password.isBlank()) {
                 Toast.makeText(context, "Please fill all fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            
-            if (!termsAccepted) {
-                Toast.makeText(context, "Please accept terms and conditions", Toast.LENGTH_SHORT).show()
+
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                Toast.makeText(context, "Please enter a valid email address", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            
+
             if (password.length < 6) {
                 Toast.makeText(context, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            
+
+            if (!termsAccepted) {
+                Toast.makeText(context, "Please accept terms and conditions", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             signUp(name, email, password)
         }
 
@@ -72,16 +78,16 @@ class SignUpFragment : Fragment() {
             view.findViewById<View>(R.id.progress_bar)?.visibility = View.VISIBLE
             (activity as? AuthActivity)?.startGoogleSignUp()
         }
-        
+
         // Login link
         view.findViewById<View>(R.id.tv_login_link).setOnClickListener {
             (activity as? com.example.spendo.AuthActivity)?.showLogin()
         }
     }
-    
+
     private fun signUp(name: String, email: String, password: String) {
         view?.findViewById<View>(R.id.progress_bar)?.visibility = View.VISIBLE
-        
+
         lifecycleScope.launch {
             try {
                 repository.signUp(name, email, password)
@@ -95,4 +101,3 @@ class SignUpFragment : Fragment() {
         }
     }
 }
-

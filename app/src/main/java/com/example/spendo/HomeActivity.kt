@@ -113,7 +113,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         ivProfile.setOnClickListener {
-            startActivity(Intent(this, EditProfileActivity::class.java))
+            startActivity(Intent(this, ProfileActivity::class.java))
         }
 
         findViewById<View>(R.id.fab_add).setOnClickListener {

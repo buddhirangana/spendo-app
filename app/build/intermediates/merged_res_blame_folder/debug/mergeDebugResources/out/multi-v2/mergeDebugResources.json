@@ -10812,9 +10812,12 @@
                 {
                     "source": "D:\\BSC-IT-Assignments\\3rd-Year-1st-Sem\\MAD\\Spendo-App\\Spendo\\app\\src\\main\\res\\values\\themes.xml",
                     "from": {
-                        "startLines": "-1,-1,-1",
-                        "startColumns": "-1,-1,-1",
-                        "startOffsets": "-1,-1,-1"
+                        "startLines": "1,-1,-1",
+                        "startColumns": "4,-1,-1",
+                        "startOffsets": "63,-1,-1",
+                        "endLines": "6,-1,-1",
+                        "endColumns": "12,-1,-1",
+                        "endOffsets": "399,-1,-1"
                     },
                     "to": {
                         "startLines": "3160,7524,7738",
@@ -11010,11 +11013,9 @@
                 {
                     "source": "D:\\BSC-IT-Assignments\\3rd-Year-1st-Sem\\MAD\\Spendo-App\\Spendo\\app\\src\\main\\res\\values\\strings.xml",
                     "from": {
-                        "startLines": "2,-1,-1,-1,-1,-1",
-                        "startColumns": "4,-1,-1,-1,-1,-1",
-                        "startOffsets": "60,-1,-1,-1,-1,-1",
-                        "endColumns": "398,-1,-1,-1,-1,-1",
-                        "endOffsets": "454,-1,-1,-1,-1,-1"
+                        "startLines": "-1,-1,-1,-1,-1,-1",
+                        "startColumns": "-1,-1,-1,-1,-1,-1",
+                        "startOffsets": "-1,-1,-1,-1,-1,-1"
                     },
                     "to": {
                         "startLines": "2539,2540,2542,2581,2582,2746",

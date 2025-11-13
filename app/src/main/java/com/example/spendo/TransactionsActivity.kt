@@ -9,7 +9,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.spendo.EditTransactionActivity
 import com.example.spendo.adapters.TransactionGroupAdapter
 import com.example.spendo.adapters.TransactionAdapter
 import com.example.spendo.data.Repository

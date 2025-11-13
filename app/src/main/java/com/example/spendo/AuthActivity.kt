@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.spendo.data.Repository
 import com.example.spendo.fragments.ForgotPasswordFragment
@@ -17,7 +16,6 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.coroutines.launch
 
 class AuthActivity : AppCompatActivity() {

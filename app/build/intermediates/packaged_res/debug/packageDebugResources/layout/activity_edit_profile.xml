@@ -232,7 +232,6 @@
 
     </LinearLayout>
 
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_save"
         android:layout_marginTop="32dp"

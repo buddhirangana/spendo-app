@@ -1,11 +1,67 @@
 [
     {
-        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-mergeDebugResources-58:\\layout\\activity_edit_profile.xml",
-        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\activity_edit_profile.xml"
-    },
-    {
         "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-mergeDebugResources-58:\\layout\\activity_settings.xml",
         "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\activity_settings.xml"
+    },
+    {
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-mergeDebugResources-58:\\layout\\dialog_transaction_options.xml",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\dialog_transaction_options.xml"
+    },
+    {
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-mergeDebugResources-58:\\layout\\activity_auth.xml",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\activity_auth.xml"
+    },
+    {
+        "merged": "com.example.spendo.app-mergeDebugResources-58:/layout/activity_edit_transaction.xml",
+        "source": "com.example.spendo.app-main-61:/layout/activity_edit_transaction.xml"
+    },
+    {
+        "merged": "com.example.spendo.app-mergeDebugResources-58:/layout/item_transaction_group.xml",
+        "source": "com.example.spendo.app-main-61:/layout/item_transaction_group.xml"
+    },
+    {
+        "merged": "com.example.spendo.app-mergeDebugResources-58:/layout/activity_export.xml",
+        "source": "com.example.spendo.app-main-61:/layout/activity_export.xml"
+    },
+    {
+        "merged": "com.example.spendo.app-mergeDebugResources-58:/layout/activity_transactions.xml",
+        "source": "com.example.spendo.app-main-61:/layout/activity_transactions.xml"
+    },
+    {
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-mergeDebugResources-58:\\layout\\fragment_signup.xml",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\fragment_signup.xml"
+    },
+    {
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-mergeDebugResources-58:\\layout\\fragment_login.xml",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\fragment_login.xml"
+    },
+    {
+        "merged": "com.example.spendo.app-mergeDebugResources-58:/layout/activity_edit_profile.xml",
+        "source": "com.example.spendo.app-main-61:/layout/activity_edit_profile.xml"
+    },
+    {
+        "merged": "com.example.spendo.app-mergeDebugResources-58:/layout/activity_financial_report.xml",
+        "source": "com.example.spendo.app-main-61:/layout/activity_financial_report.xml"
+    },
+    {
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-mergeDebugResources-58:\\layout\\item_category_breakdown.xml",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\item_category_breakdown.xml"
+    },
+    {
+        "merged": "com.example.spendo.app-mergeDebugResources-58:/layout/item_transaction.xml",
+        "source": "com.example.spendo.app-main-61:/layout/item_transaction.xml"
+    },
+    {
+        "merged": "com.example.spendo.app-mergeDebugResources-58:/layout/item_transaction_detailed.xml",
+        "source": "com.example.spendo.app-main-61:/layout/item_transaction_detailed.xml"
+    },
+    {
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-mergeDebugResources-58:\\layout\\activity_home.xml",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\activity_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-mergeDebugResources-58:\\layout\\activity_edit_profile.xml",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\activity_edit_profile.xml"
     },
     {
         "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-mergeDebugResources-58:\\layout\\activity_financial_report.xml",
@@ -24,24 +80,32 @@
         "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\fragment_forgot_password.xml"
     },
     {
-        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-mergeDebugResources-58:\\layout\\activity_app_info.xml",
-        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\activity_app_info.xml"
+        "merged": "com.example.spendo.app-mergeDebugResources-58:/layout/dialog_transaction_options.xml",
+        "source": "com.example.spendo.app-main-61:/layout/dialog_transaction_options.xml"
     },
     {
-        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-mergeDebugResources-58:\\layout\\dialog_transaction_options.xml",
-        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\dialog_transaction_options.xml"
+        "merged": "com.example.spendo.app-mergeDebugResources-58:/layout/activity_onboarding.xml",
+        "source": "com.example.spendo.app-main-61:/layout/activity_onboarding.xml"
+    },
+    {
+        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-mergeDebugResources-58:\\layout\\activity_app_info.xml",
+        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\activity_app_info.xml"
     },
     {
         "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-mergeDebugResources-58:\\layout\\item_transaction_group.xml",
         "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\item_transaction_group.xml"
     },
     {
-        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-mergeDebugResources-58:\\layout\\activity_auth.xml",
-        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\activity_auth.xml"
+        "merged": "com.example.spendo.app-mergeDebugResources-58:/layout/fragment_signup.xml",
+        "source": "com.example.spendo.app-main-61:/layout/fragment_signup.xml"
     },
     {
         "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-mergeDebugResources-58:\\layout\\activity_main.xml",
         "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "com.example.spendo.app-mergeDebugResources-58:/layout/activity_home.xml",
+        "source": "com.example.spendo.app-main-61:/layout/activity_home.xml"
     },
     {
         "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-mergeDebugResources-58:\\layout\\activity_onboarding.xml",
@@ -52,16 +116,12 @@
         "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\item_transaction_detailed.xml"
     },
     {
-        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-mergeDebugResources-58:\\layout\\fragment_signup.xml",
-        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\fragment_signup.xml"
-    },
-    {
         "merged": "com.example.spendo.app-mergeDebugResources-58:/layout/activity_app_info.xml",
         "source": "com.example.spendo.app-main-61:/layout/activity_app_info.xml"
     },
     {
-        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-mergeDebugResources-58:\\layout\\fragment_login.xml",
-        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\fragment_login.xml"
+        "merged": "com.example.spendo.app-mergeDebugResources-58:/layout/activity_settings.xml",
+        "source": "com.example.spendo.app-main-61:/layout/activity_settings.xml"
     },
     {
         "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-mergeDebugResources-58:\\layout\\activity_export.xml",
@@ -72,8 +132,12 @@
         "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\activity_edit_transaction.xml"
     },
     {
-        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-mergeDebugResources-58:\\layout\\item_category_breakdown.xml",
-        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\item_category_breakdown.xml"
+        "merged": "com.example.spendo.app-mergeDebugResources-58:/layout/activity_auth.xml",
+        "source": "com.example.spendo.app-main-61:/layout/activity_auth.xml"
+    },
+    {
+        "merged": "com.example.spendo.app-mergeDebugResources-58:/layout/activity_add_transaction.xml",
+        "source": "com.example.spendo.app-main-61:/layout/activity_add_transaction.xml"
     },
     {
         "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-mergeDebugResources-58:\\layout\\activity_profile.xml",
@@ -84,8 +148,8 @@
         "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\activity_add_transaction.xml"
     },
     {
-        "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-mergeDebugResources-58:\\layout\\activity_home.xml",
-        "source": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-main-61:\\layout\\activity_home.xml"
+        "merged": "com.example.spendo.app-mergeDebugResources-58:/layout/item_category_breakdown.xml",
+        "source": "com.example.spendo.app-main-61:/layout/item_category_breakdown.xml"
     },
     {
         "merged": "C:\\Users\\buddh\\.gradle\\daemon\\8.13\\com.example.spendo.app-mergeDebugResources-58:\\layout\\dialog_amount_input.xml",

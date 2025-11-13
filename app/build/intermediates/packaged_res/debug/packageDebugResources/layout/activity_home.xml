@@ -338,5 +338,4 @@
         app:maxImageSize="28dp"
         app:useCompatPadding="true" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

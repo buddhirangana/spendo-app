@@ -1,14 +1,12 @@
 package com.example.spendo
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.google.firebase.FirebaseApp
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
 
@@ -18,9 +16,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         // Change Status Bar Color
-        if (Build.VERSION.SDK_INT >= 21) {
-            window.statusBarColor = ContextCompat.getColor(this, R.color.green)
-        }
+        window.statusBarColor = ContextCompat.getColor(this, R.color.green)
 
         // Initialize Firebase
         try {

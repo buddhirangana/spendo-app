@@ -6,7 +6,7 @@
         <item name="colorAccent">@color/primary_green</item>
     </style>
 
-    <style name="Theme.Spendo" parent="Base.Theme.Spendo"></style>
+    <style name="Theme.Spendo" parent="Base.Theme.Spendo" />
     <!-- Base application theme. -->
     <style name="Theme.App.SplashScreen" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/green</item>

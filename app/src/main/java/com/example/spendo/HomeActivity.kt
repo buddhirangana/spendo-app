@@ -62,7 +62,6 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var btnMonth2: MaterialButton
     private lateinit var btnYear: MaterialButton
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)

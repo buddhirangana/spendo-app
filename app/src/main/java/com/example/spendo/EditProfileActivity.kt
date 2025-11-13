@@ -332,7 +332,7 @@ class EditProfileActivity : AppCompatActivity() {
             return
         }
 
-        // --- Validate new password ---
+        // Validate new password
         if (newPassword.length < 6) {
             progressDialog.dismiss()
             etNewPassword.error = "Password must be at least 6 characters"
@@ -344,7 +344,7 @@ class EditProfileActivity : AppCompatActivity() {
             return
         }
 
-        // --- Update password in Firebase ---
+        // Update password in Firebase
         auth.currentUser?.updatePassword(newPassword)?.addOnCompleteListener { task ->
             progressDialog.dismiss() // Always dismiss dialog when operation completes
             if (task.isSuccessful) {

@@ -42,7 +42,7 @@
 
 ## 📸 Screenshots
 
-<img src="screenshots/onboarding.jpg" width="200"> &nbsp; <img src="screenshots/spendo-homepage.jpg" width="200"> &nbsp; <img src="screenshots/add-transactions.jpg" width="200"> &nbsp; <img src="screenshots/budget.jpg" width="200">
+<img src="screenshots/onboarding.jpg" width="200"> &nbsp; <img src="screenshots/spendo-homepage.jpg" width="200"> &nbsp; <img src="screenshots/add-transactions.jpg" width="200"> &nbsp; <img src="screenshots/budget.jpg" width="200"> &nbsp; <img src="screenshots/transactions.jpg" width="200"> &nbsp; <img src="screenshots/profile.jpg" width="200">
 
 ## 🤝 Contributing
 

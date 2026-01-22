@@ -42,9 +42,7 @@
 
 ## 📸 Screenshots
 
-| Home Screen | Add Expense | History |
-| :---: | :---: | :---: |
-| ![Home](https://via.placeholder.com/200x400?text=Home+Screen) | ![Add](https://via.placeholder.com/200x400?text=Add+Expense) | ![History](https://via.placeholder.com/200x400?text=History) |
+<img src="screenshots/onboarding.jpg" width="200"> &nbsp; <img src="screenshots/spendo-homepage.jpg" width="200"> &nbsp; <img src="screenshots/add-transactions.jpg" width="200"> &nbsp; <img src="screenshots/budget.jpg" width="200">
 
 ## 🤝 Contributing
 

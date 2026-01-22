@@ -28,7 +28,7 @@
 
 1.  **Clone the Repo:**
     ```bash
-    git clone [https://github.com/buddhirangana/spendo-app.git](https://github.com/buddhirangana/spendo-app.git)
+    git clone https://github.com/buddhirangana/spendo-app.git
     ```
 2.  **Firebase Configuration:**
     * Go to the [Firebase Console](https://console.firebase.google.com/).
